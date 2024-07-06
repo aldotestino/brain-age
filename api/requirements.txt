@@ -1,0 +1,8 @@
+pandas
+numpy
+shap
+tensorflow
+fastapi
+uvicorn
+pydantic
+openpyxl
