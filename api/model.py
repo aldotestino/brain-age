@@ -60,12 +60,14 @@ class Model:
         }
       value = item['value']
 
-    if value < shap_by_region[feature]['min']:
-      shap_by_region[feature]['min'] = value
-    if value > shap_by_region[feature]['max']:
-      shap_by_region[feature]['max'] = value
+      if value < shap_by_region[feature]['min']:
+        shap_by_region[feature]['min'] = value
+      if value > shap_by_region[feature]['max']:
+        shap_by_region[feature]['max'] = value
       
-    shap_by_region[feature]['regions'][f"{side}.{region}"] = value
+      shap_by_region[feature]['regions'][f"{side}.{region}"] = value
+
+    return shap_by_region
     
 
 
