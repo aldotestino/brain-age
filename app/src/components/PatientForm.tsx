@@ -15,7 +15,7 @@ import { cn, defaultValueFromSchema, startingValues, updateFeatures } from '@/li
 import { Slider } from '@/components/ui/slider';
 import { FeaturesKeys, FormNames, FormSchema, ModelNames, RegionsKeys, SideKeys, Values } from '@/lib/types';
 import { formSchema } from '@/lib/validators';
-import { features, regions, sides } from '@/lib/data';
+import { features, regions, sidesItems } from '@/lib/data';
 import Spinner from './ui/spinner';
 
 function PatientForm({
@@ -90,7 +90,7 @@ function PatientForm({
             </label>
             <div className='space-y-2'>
               <Label>Side</Label>
-              <EasySelect items={sides} value={side} onValueChange={setSide} />
+              <EasySelect items={sidesItems} value={side} onValueChange={setSide} />
             </div>
             <div className='flex flex-col space-y-2'>
               <Label>Region</Label>

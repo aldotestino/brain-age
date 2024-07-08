@@ -5,7 +5,7 @@ export const featuresValues = Object.keys(featuresSchema.shape);
 export const regionsValues = Object.keys(regionsSchema.shape);
 export const sidesValues = Object.keys(formSchema.shape);
 
-export const sides = [
+export const sidesItems = [
   { value: 'lh', label: 'Left' },
   { value: 'rh', label: 'Right' },
 ];
@@ -16,14 +16,6 @@ export const regions = regionsValues.map(value => ({
 }));
 
 export const features: Features = {
-  GM_vol: {
-    label: 'GM Vol',
-    editable: true
-  },
-  average_thickness: {
-    label: 'Average Thickness',
-    editable: true
-  },
   surface_area: {
     label: 'Surface Area',
     editable: false
@@ -36,12 +28,22 @@ export const features: Features = {
     label: 'Intrinsic Cur Index',
     editable: false
   },
+  GM_vol: {
+    label: 'GM Vol',
+    editable: true
+  },
   gaussian_curv: {
     label: 'Gaussian Curv',
     editable: false
+  },
+  average_thickness: {
+    label: 'Average Thickness',
+    editable: true
   },
   thickness_stddev: {
     label: 'Thickness Stddev',
     editable: false
   },
 };
+
+export const featuresItems = Object.entries(features).map(([key, value]) => ({ value: key, label: value.label }));

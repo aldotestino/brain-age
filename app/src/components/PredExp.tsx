@@ -21,8 +21,6 @@ function PredExp({
     );
   }
 
-  console.log(predictionWithExplanation);
-
   return (
     <main className='p-4 grid grid-rows-[auto,1fr] gap-4'>
       <PredictionCard prediction={predictionWithExplanation.prediction} />
@@ -33,7 +31,7 @@ function PredExp({
         </TabsList>
         <TabsContent value="waterfall">Waterfall graph</TabsContent>
         <TabsContent value="glassbrain">
-          <GlassBrain />
+          <GlassBrain values={predictionWithExplanation.brain_sv} />
         </TabsContent>
       </Tabs>
     </main>

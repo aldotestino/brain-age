@@ -14,14 +14,11 @@ function Sidebar({
     <div className="w-80 border-r grid grid-rows-[auto,1fr] overflow-y-hidden">
       <div className="p-4 flex items-center justify-between gap-2 border-b">
         <div className="flex items-center gap-2">
-          <Button size="icon" variant="outline" className="w-8 h-8 p-0">
+          <Button size="icon" variant="ghost" className="w-8 h-8 p-0">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-xl font-semibold">Patient 1</h1>
         </div>
-        <Button size="icon" variant="ghost" className="w-8 h-8 p-0">
-          <Info className="w-4 h-4" />
-        </Button>
       </div>
       <PatientForm onSubmit={onSubmit} isLoading={isLoading} />
     </div>
