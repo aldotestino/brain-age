@@ -1,18 +1,15 @@
+import os
+import uvicorn
 from model import Model
-import pandas as pd
-from utils import cols
+from api import Api
 
 model_path = 'modelBilanciata.h5'
 train_path = 'df_train.xlsx'
 
-model = Model(model_path=model_path, train_path=train_path)
+PORT = int(os.environ.get("PORT", 8080))
 
-test = pd.read_excel('df_test1.xlsx')
-test = test[cols]
+if __name__ == "__main__":
+    model = Model(model_path=model_path, train_path=train_path)
+    app = Api(model=model)
 
-X = test.iloc[0:1, :]
-
-pred = model.predict(X)
-waterfall_sv, _ = model.explain(X, 9)
-print(pred)
-print(waterfall_sv)
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
