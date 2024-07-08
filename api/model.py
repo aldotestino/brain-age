@@ -27,11 +27,12 @@ class Model:
   def explain(self, X, limit):
     sv = self.shap_explainer(X)[:,:,0]
 
+    base_sv = sv.base_values.tolist()[0]
     formatted_sv = self.format_shap_values(sv)
     waterfall_sv = self.shap_values_waterfall_format(formatted_sv, limit)
     brain_sv = self.shap_values_glass_brain_format(formatted_sv)
 
-    return waterfall_sv, brain_sv
+    return waterfall_sv, brain_sv, base_sv
   
 
   def format_shap_values(self, sv):

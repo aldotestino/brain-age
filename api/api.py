@@ -35,11 +35,12 @@ class Api(FastAPI):
     X = data.to_df()
 
     prediction = self.model.predict(X)
-    waterfall_sv, brain_sv = self.model.explain(X, 9)
+    waterfall_sv, brain_sv, base_sv = self.model.explain(X, 9)
 
     return {
       "id": str(uuid.uuid4()),
       "prediction": prediction,
       "waterfall_sv": waterfall_sv,
-      "brain_sv": brain_sv
+      "brain_sv": brain_sv,
+      "base_sv": base_sv
     }
