@@ -142,7 +142,7 @@ function PatientForm({
           </div>
         </ScrollArea>
         <div className="p-4 border-t flex justify-end">
-          <Button type='submit' className='space-x-2'>
+          <Button type='submit' className='space-x-2' disabled={isLoading}>
             {isLoading && <Spinner />}
             <span>Predict</span>
           </Button>

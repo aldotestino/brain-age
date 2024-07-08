@@ -1,6 +1,6 @@
 'use client';
 
-import BrainScene from '@/components/Brain';
+import PredExp from '@/components/PredExp';
 import Sidebar from '@/components/Sidebar';
 import { PredictionWithExplanation, Values } from '@/lib/types';
 import { predictAndExplain } from '@/server/actions';
@@ -14,15 +14,14 @@ export default function Home() {
   async function onSubmit(values: Values) {
     setIsLoading(true);
     const data = await predictAndExplain(values);
-    console.log(data);
     setPredictionWithExplanation(data);
     setIsLoading(false);
   }
 
   return (
-    <div className="h-screen grid grid-cols-[auto,1fr]">
+    <div className="h-screen grid grid-cols-[auto,1fr] overflow-y-hidden">
       <Sidebar onSubmit={onSubmit} isLoading={isLoading} />
-      <BrainScene />
+      <PredExp predictionWithExplanation={predictionWithExplanation} />
     </div>
   );
 }

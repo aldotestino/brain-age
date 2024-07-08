@@ -1,5 +1,6 @@
 'use client';
 
+import colormap from 'colormap';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -11,6 +12,7 @@ import EasySelect from './EasySelect';
 import { Label } from '@/components/ui/label';
 import { FeaturesKeys } from '@/lib/types';
 import { valueToColor } from '@/lib/utils';
+import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 
 function createShapValues() {
   return Object.assign({}, ...sidesValues.flatMap((s) =>
@@ -32,13 +34,13 @@ const shapValuesByFeature = {
   thickness_stddev: createShapValues(),
 };
 
-const Brain = ({ feature }: {feature: FeaturesKeys}) => {
+function Brain({ feature }: {feature: FeaturesKeys}) {
   const obj = useLoader(OBJLoader, '/brain.obj');
 
-  useEffect(() => {
-    obj.rotateX(-Math.PI / 2);
-    obj.rotateZ(Math.PI / 2);
-  }, [obj]);
+  // useEffect(() => {
+  //   obj.rotateX(-Math.PI / 2);
+  //   obj.rotateZ(Math.PI / 2);
+  // }, [obj]);
 
   useEffect(() => {
     obj.children.forEach(child => {
@@ -53,44 +55,61 @@ const Brain = ({ feature }: {feature: FeaturesKeys}) => {
   return <primitive object={obj} scale={0.03} />;
 };
 
-function BrainFallBack() {
+function GlassBrainFallback() {
   return (
-    <div className='grid place-items-center h-full w-full'>
-      <Spinner />
-    </div>
+    <main className='h-full grid place-items-center'>
+      <div className="flex items-center justify-center flex-col text-muted-foreground gap-2">
+        <Spinner className='w-6 h-6'/>
+        <p className='font-semibold text-center'>Loading Glass Brain...</p>
+      </div>
+    </main>
   );
 }
 
-function BrainScene() {
+function GlassBrain() {
 
   const [feature, setFeature] = useState(featuresValues[0]);
 
   return (
-    <div className='h-full w-full grid grid-rows-[auto,1fr] gap-4 p-4'>
-      <div>
-        <div className='space-y-2 w-72'>
-          <Label>Select Feature</Label>
-          <EasySelect
-            items={featuresValues.map(f => ({
-              value: f,
-              label: f
-            }))}
-            value={feature}
-            onValueChange={setFeature} 
-          />
+    <Card className='h-full grid grid-rows-[auto,1fr]'>
+      <CardHeader>
+        <div className='grid grid-rows-2 gap-4 xl:grid-rows-1 xl:grid-cols-[auto,1fr] xl:gap-8'>
+          <div className='w-52'>
+            <EasySelect
+              items={featuresValues.map(f => ({
+                value: f,
+                label: f
+              }))}
+              value={feature}
+              onValueChange={setFeature} 
+            />
+          </div>
+          <div className='flex items-center gap-2 text-muted-foreground font-semibold text-center'>
+            <p>Decrease age</p>
+            <div className='h-10 w-40 lg:w-80 flex'>
+              {colormap({
+                colormap: 'RdBu',
+                nshades: 20,
+                format: 'hex'
+              }).map((color) =>(
+                <div key={color} className='h-full w-2 lg:w-4' style={{ backgroundColor: color }} />
+              ))}
+            </div>
+            <p>Increase age</p>
+          </div>
         </div>
-      </div>
-      <div>
-        <Suspense fallback={<BrainFallBack />}>
+      </CardHeader>
+      <CardContent>
+        <Suspense fallback={<GlassBrainFallback />}>
           <Canvas>
             <ambientLight />
             <Brain feature={feature as FeaturesKeys} />
             <OrbitControls  />
           </Canvas>
         </Suspense>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 
-export default BrainScene;
+export default GlassBrain;
