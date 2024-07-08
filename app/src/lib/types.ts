@@ -7,6 +7,7 @@ export type FeaturesKeys = keyof typeof featuresSchema.shape;
 export type RegionsKeys = keyof typeof regionsSchema.shape;
 export type SideKeys = keyof typeof formSchema.shape;
 export type FormNames = `${SideKeys}.${RegionsKeys}.${FeaturesKeys}`;
+export type FullRegionsKeys = `${SideKeys}.${RegionsKeys}`;
 export type ModelNames = `${FeaturesKeys}_${SideKeys}-${RegionsKeys}`
 
 export type Features = {
@@ -22,4 +23,27 @@ export type Percentages = {
 
 export type Values = {
   [key in ModelNames]: number
+}
+
+export type WaterfallSVItem = {
+  value: number;
+  data: number | null;
+  name: string;
+}
+
+export type BrainSVItem = {
+  regions: {
+    [key in FullRegionsKeys]: number;
+  };
+  min: number,
+  max: number,
+}
+
+export type PredictionWithExplanation = {
+  id: string;
+  prediction: number;
+  waterfall_sv: WaterfallSVItem[];
+  brain_sv: {
+    [key in FeaturesKeys]: BrainSVItem;
+  };
 }

@@ -16,8 +16,15 @@ import { Slider } from '@/components/ui/slider';
 import { FeaturesKeys, FormNames, FormSchema, ModelNames, RegionsKeys, SideKeys, Values } from '@/lib/types';
 import { formSchema } from '@/lib/validators';
 import { features, regions, sides } from '@/lib/data';
+import Spinner from './ui/spinner';
 
-function PatientForm() {
+function PatientForm({
+  onSubmit,
+  isLoading
+}: {
+  onSubmit: (values: Values) => Promise<void>;
+  isLoading: boolean;
+}) {
 
   const [side, setSide] = useState('');
   const [region, setRegion] = useState('');
@@ -48,10 +55,6 @@ function PatientForm() {
     }
   }
 
-  function onSubmit() {
-    console.log(calculatedValues);
-  }
-
   function onPercentageUpdate() {
     const { values, percentages } = updateFeatures({
       side: side as SideKeys,
@@ -71,9 +74,13 @@ function PatientForm() {
     });
   }
 
+  function handleOnSubmit() {
+    onSubmit(calculatedValues);
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-rows-[auto,1fr,auto] overflow-y-hidden">
+      <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[auto,1fr,auto] overflow-y-hidden">
         <div>
           <div className='p-4 grid gap-4'>
             <input type="file" id="actual-btn" hidden onChange={onFileUpload}/>
@@ -135,7 +142,10 @@ function PatientForm() {
           </div>
         </ScrollArea>
         <div className="p-4 border-t flex justify-end">
-          <Button type='submit'>Predict</Button>
+          <Button type='submit' className='space-x-2'>
+            {isLoading && <Spinner />}
+            <span>Predict</span>
+          </Button>
         </div>
       </form>
     </Form>

@@ -1,8 +1,15 @@
 import { ArrowLeft, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PatientForm from './PatientForm';
+import { Values } from '@/lib/types';
 
-function Sidebar() {
+function Sidebar({
+  onSubmit,
+  isLoading
+}: {
+  onSubmit: (values: Values) => Promise<void>;
+  isLoading: boolean;
+}) {
   return (
     <div className="w-80 border-r grid grid-rows-[auto,1fr] overflow-y-hidden">
       <div className="p-4 flex items-center justify-between gap-2 border-b">
@@ -16,7 +23,7 @@ function Sidebar() {
           <Info className="w-4 h-4" />
         </Button>
       </div>
-      <PatientForm />
+      <PatientForm onSubmit={onSubmit} isLoading={isLoading} />
     </div>
   );
 }
