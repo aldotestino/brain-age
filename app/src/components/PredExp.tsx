@@ -23,7 +23,7 @@ function PredExp({
   }
 
   return (
-    <main className='p-4 grid grid-rows-[auto,1fr] gap-4'>
+    <main className='p-4 grid grid-rows-[auto,1fr] gap-4 overflow-y-scroll'>
       <PredictionCard prediction={predictionWithExplanation.prediction} />
       <Tabs defaultValue="waterfall" className='grid grid-rows-[auto,1fr]'>
         <TabsList className='w-fit'>

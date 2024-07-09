@@ -99,10 +99,9 @@ function PatientForm({
           </div>
           <Separator />
         </div>
-        <ScrollArea>
-          <div className='p-4 grid gap-4'>
-            <p className='text-lg font-semibold text-muted-foreground'>Features</p>
-            {(side && region) && 
+        <div className='p-4 grid gap-4 overflow-scroll'>
+          <p className='text-lg font-semibold text-muted-foreground'>Features</p>
+          {(side && region) && 
             Object.keys(formSchema.shape[side as SideKeys].shape[region as RegionsKeys].shape)
               .map(f => ({ formName: `${side}.${region}.${f}`as FormNames, modelName: `${f}_${side}-${region}` as ModelNames, name: f as FeaturesKeys }))
               .map(f =>
@@ -139,8 +138,7 @@ function PatientForm({
                   )}
                 />
               )}
-          </div>
-        </ScrollArea>
+        </div>
         <div className="p-4 border-t flex justify-end">
           <Button type='submit' className='space-x-2' disabled={isLoading}>
             {isLoading && <Spinner />}
