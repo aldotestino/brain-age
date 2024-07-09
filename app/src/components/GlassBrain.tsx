@@ -27,8 +27,7 @@ function Brain({ values }: {values: BrainSVItem}) {
     obj.children.forEach(child => {
       const childName = child.name.replace('pial.DK.', '');
       const shapValue = values.regions[childName as FullRegionsKeys];
-      if(child instanceof THREE.Mesh && shapValue) {
-        console.log(shapValue, childName);
+      if(child instanceof THREE.Mesh && shapValue !== undefined) {
         child.material = new THREE.MeshBasicMaterial({ color: valueToColor(shapValue, values.min, values.max) });
       }
     });
