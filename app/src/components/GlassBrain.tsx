@@ -1,6 +1,5 @@
 'use client';
 
-import colormap from 'colormap';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -28,7 +27,7 @@ function Brain({ values }: {values: BrainSVItem}) {
       const childName = child.name.replace('pial.DK.', '');
       const shapValue = values.regions[childName as FullRegionsKeys];
       if(child instanceof THREE.Mesh && shapValue !== undefined) {
-        child.material = new THREE.MeshBasicMaterial({ color: valueToColor(shapValue, values.min, values.max) });
+        child.material = new THREE.MeshStandardMaterial({ color: valueToColor(shapValue, values.min, values.max) });
       }
     });
   }, [values, obj]);
@@ -72,7 +71,9 @@ function GlassBrain({
       <CardContent>
         <Suspense fallback={<GlassBrainFallback />}>
           <Canvas>
-            <ambientLight />
+            <ambientLight intensity={Math.PI / 2} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+            <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
             <Brain values={values[feature as FeaturesKeys]}  />
             <OrbitControls  />
           </Canvas>
