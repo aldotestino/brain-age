@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, buttonVariants } from './ui/button';
-import { ScrollArea } from './ui/scroll-area';
 import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import { useForm } from 'react-hook-form';

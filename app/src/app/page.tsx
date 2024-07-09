@@ -4,7 +4,6 @@ import PredExp from '@/components/PredExp';
 import Sidebar from '@/components/Sidebar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { PredictionWithExplanation, Values } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { predictAndExplain } from '@/server/actions';
