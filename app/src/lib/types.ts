@@ -29,6 +29,7 @@ export type WaterfallSVItem = {
   value: number;
   data: number | null;
   name: string;
+  range: [number, number];
 }
 
 export type BrainSVItem = {

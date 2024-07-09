@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen grid grid-cols-[auto,1fr] overflow-y-hidden">
+    <div className="h-screen grid grid-cols-[auto,1fr]">
       <Sidebar onSubmit={onSubmit} isLoading={isLoading} />
       <PredExp predictionWithExplanation={predictionWithExplanation} />
     </div>

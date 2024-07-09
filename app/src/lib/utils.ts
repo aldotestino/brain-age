@@ -2,8 +2,8 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import colormap from 'colormap';
-import { featuresValues, regionsValues, sidesValues } from './data';
-import { FormNames, FormSchema, ModelNames, Percentages, RegionsKeys, SideKeys, Values } from './types';
+import { featuresValues, GLASS_BRAIN_SHADES, regionsValues, sidesValues } from './data';
+import { FormNames, ModelNames, Percentages, RegionsKeys, SideKeys, Values } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -113,7 +113,7 @@ export function mapRange(value: number, inMin: number, inMax: number, outMin: nu
 export function valueToColor(value: number, min: number, max: number) {
   const colors = colormap({
     colormap: 'RdBu',
-    nshades: 100,
+    nshades: GLASS_BRAIN_SHADES,
     format: 'hex'
   });
 
