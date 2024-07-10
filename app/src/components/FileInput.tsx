@@ -66,8 +66,15 @@ function FileInput({
         <section {...getRootProps()} className={cn('h-40 rounded-md border-2 border-dashed grid place-items-center text-muted-foreground transition-colors', isDragAccept && 'border-primary')}>
           <input {...getInputProps()} />
           <div className='space-y-2 flex flex-col items-center'>
-            <Upload className='w-8 h-8' />
-            <p className='max-w-48 text-center'>Drag &apos;n&apos; Drop the json data file or click here</p>
+            <Upload className={cn('w-8 h-8', isDragAccept && 'animate-bounce')} />
+            {!isDragAccept ? 
+              <p className='max-w-48 text-center'>
+                Drag &apos;n&apos; Drop the json data file or click here
+              </p> : 
+              <p className='max-w-48 text-center'>
+                Release to upload
+              </p>
+            }
           </div>
         </section>
       )}
