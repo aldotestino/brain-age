@@ -1,6 +1,6 @@
 'use client';
 
-import { Patient } from '@/lib/types';
+import { Patient } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 
 

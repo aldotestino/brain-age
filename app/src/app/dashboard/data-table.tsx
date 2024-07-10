@@ -59,9 +59,9 @@ export function DataTable<TData, TValue>({
   useEffect(() => {
     if (debouncedQuery !== currentQuery) {
       if(debouncedQuery === '') {
-        router.push('/models');
+        router.push('/dashboard');
       } else {
-        router.push(`/models?q=${debouncedQuery}`);
+        router.push(`/dashboard?q=${debouncedQuery}`);
       }
     }
   }, [debouncedQuery, currentQuery, router]);
@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className='space-y-4'>
       <div className='flex flex-col sm:flex-row items-center gap-2 sm:justify-between'>
-        <div className="flex flex-col items-start sm:flex-row sm:items-center gap-2 w-full">
+        <div className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
           <div className='flex items-center relative w-full sm:max-w-72'>
             <Search className="absolute left-2 w-4 h-4 text-muted-foreground" />
             <Input
@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <p>{total} patients</p>
+          <p className='text-large font-semibold text-muted-foreground'>{total} patients</p>
         </div>
         <Button className='w-full sm:w-fit'>Add patient</Button>
       </div>
@@ -127,7 +127,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className='flex justify-center sm:justify-end'>
+      {total > 0 && <div className='flex justify-center sm:justify-end'>
         <Paginator 
           pages={pages} 
           currentPage={currentPage}
@@ -135,7 +135,7 @@ export function DataTable<TData, TValue>({
           nextPage={nextPage} 
           prevPage={prevPage} 
         />
-      </div>
+      </div>}
     </div>
   );
 }
