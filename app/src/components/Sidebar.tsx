@@ -1,6 +1,6 @@
 import { ArrowLeft, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import PatientForm from './PatientForm';
+import FeaturesForm from './FeaturesForm';
 import { Values } from '@/lib/types';
 
 function Sidebar({
@@ -20,7 +20,7 @@ function Sidebar({
           <h1 className="text-xl font-semibold">Patient 1</h1>
         </div>
       </div>
-      <PatientForm onSubmit={onSubmit} isLoading={isLoading} />
+      <FeaturesForm onSubmit={onSubmit} isLoading={isLoading} />
     </div>
   );
 }

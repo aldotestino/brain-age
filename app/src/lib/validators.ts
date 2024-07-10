@@ -47,7 +47,13 @@ export const regionsSchema = z.object({
   insula: featuresSchema
 });
 
-export const formSchema = z.object({
+export const percentagesSchema = z.object({
   lh: regionsSchema,
   rh: regionsSchema,
+});
+
+export const patientSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string().email(),
 });

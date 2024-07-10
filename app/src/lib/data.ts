@@ -1,11 +1,11 @@
 import { Bar } from 'react-chartjs-2';
-import { Features, Patient } from './types';
-import { featuresSchema, formSchema, regionsSchema } from './validators';
+import { Features } from './types';
+import { featuresSchema, percentagesSchema, regionsSchema } from './validators';
 import { Color, defaults } from 'chart.js';
 
 export const featuresValues = Object.keys(featuresSchema.shape);
 export const regionsValues = Object.keys(regionsSchema.shape);
-export const sidesValues = Object.keys(formSchema.shape);
+export const sidesValues = Object.keys(percentagesSchema.shape);
 
 export const sidesItems = [
   { value: 'lh', label: 'Left' },

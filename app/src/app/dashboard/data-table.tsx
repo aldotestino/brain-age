@@ -22,6 +22,7 @@ import { useDebounce } from '@/lib/hooks';
 import { useRouter } from 'next/navigation';
 import Paginator from './paginator';
 import { Button } from '@/components/ui/button';
+import AddPatientDialog from '@/components/AddPatientDialog';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -81,7 +82,7 @@ export function DataTable<TData, TValue>({
           </div>
           <p className='text-large font-semibold text-muted-foreground'>{total} patients</p>
         </div>
-        <Button className='w-full sm:w-fit'>Add patient</Button>
+        <AddPatientDialog />
       </div>
       <div className="rounded-md border">
         <Table>

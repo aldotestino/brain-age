@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { featuresSchema, formSchema, regionsSchema } from './validators';
+import { featuresSchema, patientSchema, percentagesSchema, regionsSchema } from './validators';
 
-export type FormSchema = z.infer<typeof formSchema>;
+export type PercentagesSchema = z.infer<typeof percentagesSchema>;
+export type PatientSchema = z.infer<typeof patientSchema>;
 
 export type FeaturesKeys = keyof typeof featuresSchema.shape;
 export type RegionsKeys = keyof typeof regionsSchema.shape;
-export type SideKeys = keyof typeof formSchema.shape;
+export type SideKeys = keyof typeof percentagesSchema.shape;
 export type FormNames = `${SideKeys}.${RegionsKeys}.${FeaturesKeys}`;
 export type FullRegionsKeys = `${SideKeys}.${RegionsKeys}`;
 export type ModelNames = `${FeaturesKeys}_${SideKeys}-${RegionsKeys}`
