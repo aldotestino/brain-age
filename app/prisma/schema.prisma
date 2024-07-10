@@ -18,6 +18,7 @@ model Patient {
   firstName String
   lastName  String
   email     String   @unique
+  data      Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

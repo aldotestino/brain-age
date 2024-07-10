@@ -30,6 +30,8 @@ export async function addPatient(values: PatientSchema) {
       if (e.code === 'P2002') {
         throw new Error('Email already exists');
       }
+    } else {
+      throw e;
     }
   }
 }
