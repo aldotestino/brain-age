@@ -17,7 +17,7 @@ model Patient {
   id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String
+  email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

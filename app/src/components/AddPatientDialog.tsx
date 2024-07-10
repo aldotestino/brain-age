@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { PatientSchema } from '@/lib/types';
+import { Prisma } from '@prisma/client';
 
 function AddPatientDialog() {
 
@@ -17,13 +18,13 @@ function AddPatientDialog() {
   async function onSubmit(values: PatientSchema) {
     try {
       await addPatient(values);
-    }catch (e: any) {
+    } catch (e: any) {
       toast({
-        title: 'Errore',
-        description: 'Si è verificato un errore, riprova più tardi.',
+        title: 'Error',
+        description: e.message,
         variant: 'destructive'
       });
-    }finally {
+    } finally {
       setOpen(false);
     }
   }

@@ -6,7 +6,6 @@ import { Control, useForm } from 'react-hook-form';
 import { PatientSchema } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
-import { Patient } from '@prisma/client';
 import { patientSchema } from '@/lib/validators';
 
 function Field({
