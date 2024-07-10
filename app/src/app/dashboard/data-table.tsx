@@ -128,7 +128,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {total > 0 && <div className='flex justify-center sm:justify-end'>
+      {pages > 1 && <div className='flex justify-center sm:justify-end'>
         <Paginator 
           pages={pages} 
           currentPage={currentPage}

@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Patient {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
   email     String
