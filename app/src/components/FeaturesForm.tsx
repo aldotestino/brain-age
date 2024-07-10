@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Upload } from 'lucide-react';
 import { cn, defaultValueFromSchema, startingValues, updateFeatures } from '@/lib/utils';
 import { Slider } from '@/components/ui/slider';
-import { FeaturesKeys, FormNames, PercentagesSchema, ModelNames, RegionsKeys, SideKeys, Values } from '@/lib/types';
+import { FeaturesKeys, PercentagesNames, PercentagesSchema, ModelNames, RegionsKeys, SideKeys, Values } from '@/lib/types';
 import { percentagesSchema } from '@/lib/validators';
 import { features, regions, sidesItems } from '@/lib/data';
 import Spinner from './ui/spinner';
@@ -58,8 +58,8 @@ function FeaturesForm({
     const { values, percentages } = updateFeatures({
       side: side as SideKeys,
       region: region as RegionsKeys,
-      feature1Percentage: form.getValues(`${side}.${region}.GM_vol` as FormNames),
-      feature2Percentage: form.getValues(`${side}.${region}.average_thickness` as FormNames),
+      feature1Percentage: form.getValues(`${side}.${region}.GM_vol` as PercentagesNames),
+      feature2Percentage: form.getValues(`${side}.${region}.average_thickness` as PercentagesNames),
       baseValues
     });
 
@@ -69,7 +69,7 @@ function FeaturesForm({
     }));
 
     Object.entries(percentages).forEach(([relatedFeature, relatedPercentage]) => {
-      form.setValue(relatedFeature as FormNames, relatedPercentage);
+      form.setValue(relatedFeature as PercentagesNames, relatedPercentage);
     });
   }
 
@@ -102,7 +102,7 @@ function FeaturesForm({
           <p className='text-lg font-semibold text-muted-foreground'>Features</p>
           {(side && region) && 
             Object.keys(percentagesSchema.shape[side as SideKeys].shape[region as RegionsKeys].shape)
-              .map(f => ({ formName: `${side}.${region}.${f}`as FormNames, modelName: `${f}_${side}-${region}` as ModelNames, name: f as FeaturesKeys }))
+              .map(f => ({ formName: `${side}.${region}.${f}`as PercentagesNames, modelName: `${f}_${side}-${region}` as ModelNames, name: f as FeaturesKeys }))
               .map(f =>
                 <FormField
                   key={f.formName}

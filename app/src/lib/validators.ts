@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ModelNames } from './types';
 
 export const featuresSchema = z.object({
   surface_area: z.number(),
@@ -52,8 +53,24 @@ export const percentagesSchema = z.object({
   rh: regionsSchema,
 });
 
+export const featuresValues = Object.keys(featuresSchema.shape);
+export const regionsValues = Object.keys(regionsSchema.shape);
+export const sidesValues = Object.keys(percentagesSchema.shape);
+
+export const modelFeatures = sidesValues.flatMap((s) =>
+  regionsValues.flatMap((r) =>
+    featuresValues.map((f) => `${f}_${s}-${r}`)
+  )
+) as ModelNames[];
+
+const dataObject = modelFeatures.reduce((acc, key) => {
+  acc[key] = z.number();
+  return acc;
+}, {} as Record<ModelNames, z.ZodNumber>);
+
 export const patientSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
   email: z.string().email(),
+  data: z.object(dataObject)
 });

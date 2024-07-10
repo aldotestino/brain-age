@@ -2,18 +2,15 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import colormap from 'colormap';
-import { featuresValues, GLASS_BRAIN_SHADES, regionsValues, sidesValues } from './data';
-import { FormNames, ModelNames, Percentages, RegionsKeys, SideKeys, Values } from './types';
+import { GLASS_BRAIN_SHADES } from './data';
+import { PercentagesNames, ModelNames, Percentages, RegionsKeys, SideKeys, Values } from './types';
+import { modelFeatures } from './validators';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const startingValues = sidesValues.flatMap((s) =>
-  regionsValues.flatMap((r) =>
-    featuresValues.map((f) => `${f}_${s}-${r}` as keyof Values)
-  )
-).reduce((obj: Partial<Values>, key: keyof Values) => {
+export const startingValues = modelFeatures.reduce((obj: Partial<Values>, key: keyof Values) => {
   obj[key] = 0;
   return obj;
 }, {}) as Values;
@@ -91,7 +88,7 @@ export function updateFeatures({
   values[`average_thickness_${side}-${region}` as ModelNames] = baseFeature2 + baseFeature2 / 100 * feature2Percentage;
 
   for (const [relatedFeature, factor] of Object.entries(relations)) {
-    const relatedFeatureFormName = `${side}.${region}.${relatedFeature}` as FormNames;
+    const relatedFeatureFormName = `${side}.${region}.${relatedFeature}` as PercentagesNames;
     const relatedFeatureModelName = `${relatedFeature}_${side}-${region}` as ModelNames;
     const relatedFeatureValue = baseValues[relatedFeatureModelName];
 

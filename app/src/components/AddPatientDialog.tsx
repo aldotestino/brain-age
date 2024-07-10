@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { PatientSchema } from '@/lib/types';
-import { Prisma } from '@prisma/client';
 
 function AddPatientDialog() {
 

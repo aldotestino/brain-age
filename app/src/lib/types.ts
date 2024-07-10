@@ -7,7 +7,7 @@ export type PatientSchema = z.infer<typeof patientSchema>;
 export type FeaturesKeys = keyof typeof featuresSchema.shape;
 export type RegionsKeys = keyof typeof regionsSchema.shape;
 export type SideKeys = keyof typeof percentagesSchema.shape;
-export type FormNames = `${SideKeys}.${RegionsKeys}.${FeaturesKeys}`;
+export type PercentagesNames = `${SideKeys}.${RegionsKeys}.${FeaturesKeys}`;
 export type FullRegionsKeys = `${SideKeys}.${RegionsKeys}`;
 export type ModelNames = `${FeaturesKeys}_${SideKeys}-${RegionsKeys}`
 
@@ -19,7 +19,7 @@ export type Features = {
 }
 
 export type Percentages = {
-  [key in FormNames]: number
+  [key in PercentagesNames]: number
 }
 
 export type Values = {
