@@ -48,3 +48,10 @@ export type PredictionWithExplanation = {
     [key in FeaturesKeys]: BrainSVItem;
   };
 }
+
+export type Patient = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

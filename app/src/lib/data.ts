@@ -1,5 +1,5 @@
 import { Bar } from 'react-chartjs-2';
-import { Features } from './types';
+import { Features, Patient } from './types';
 import { featuresSchema, formSchema, regionsSchema } from './validators';
 import { Color, defaults } from 'chart.js';
 
