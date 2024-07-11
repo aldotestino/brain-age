@@ -7,7 +7,7 @@ export type Regions = typeof regions[number];
 export type Features = typeof features[number];
 
 export type ModelFeatures = `${Features}_${Sides}-${Regions}`;
-export type GlassBrainRegions = `${Sides}.pial.DK.${Regions}`;
+export type GlassBrainRegions = `${Sides}.${Regions}`;
 
 export type DataSchema = z.infer<typeof dataSchema>;
 export type PatientSchema = z.infer<typeof patientSchema>;

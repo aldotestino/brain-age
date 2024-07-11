@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/db';
 import { Prisma } from '@prisma/client';
+import { notFound } from 'next/navigation';
 
 export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: number, n?: number }) {
 
@@ -40,4 +41,59 @@ export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: n
     nextPage,
     prevPage,
   };
+}
+
+export async function getPatient(id: string) {
+
+  const parsedId = parseInt(id, 10);
+
+  const patient = await prisma.patient.findUnique({
+    where: { id: parsedId },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      data: true,
+      predictions: {
+        select: {
+          id: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      }
+    }
+  });
+
+  if (!patient) {
+    notFound();
+  }
+
+  return patient;
+}
+
+export async function getPrediction(id: string) {
+
+  const parsedId = parseInt(id, 10);
+
+  const prediction = await prisma.prediction.findUnique({
+    where: { id: parsedId },
+    select: {
+      id: true,
+      createdAt: true,
+      calculatedData: true,
+      percentages: true,
+      prediction: true,
+      brainSV: true,
+      waterfallSV: true,
+    }
+  });
+
+  if (!prediction) {
+    return notFound();
+  }
+
+  return prediction;
 }

@@ -14,11 +14,25 @@ datasource db {
 }
 
 model Patient {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String   @unique
-  data      Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int          @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String       @unique
+  data        Json
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  predictions Prediction[]
+}
+
+model Prediction {
+  id             Int      @id @default(autoincrement())
+  patientId      Int
+  patient        Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  prediction     Float
+  percentages    Json
+  calculatedData Json
+  waterfallSV    Json
+  brainSV        Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

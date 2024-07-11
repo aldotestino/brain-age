@@ -7,7 +7,7 @@ import { DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
 import { cn, dataZero, isFeatureEditable, updateFeatures } from '@/lib/utils';
 import { dataSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import EasyComboBox from './EasyComboBox';
 import EasySelect from './EasySelect';
@@ -15,25 +15,40 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import Spinner from './ui/spinner';
+import { predictAndExplain } from '@/server/actions';
 
 function FeaturesForm({
-  onSubmit,
-  isLoading
+  patientId,
+  baseData,
+  basePercentages,
+  baseCalculatedData,
 }: {
-  onSubmit: (values: DataSchema) => Promise<void>;
-  isLoading: boolean;
+  patientId: number;
+  baseData: DataSchema;
+  basePercentages: DataSchema | null;
+  baseCalculatedData: DataSchema | null;
 }) {
 
   const [side, setSide] = useState('');
   const [region, setRegion] = useState('');
 
-  const [baseValues] = useState<DataSchema>(dataZero);
-  const [calculatedValues, setCalculatedValues] = useState<DataSchema>(dataZero);
+  const [baseValues] = useState<DataSchema>(baseData);
+  const [calculatedData, setCalculatedData] = useState<DataSchema>(baseCalculatedData || baseData);
 
   const form = useForm<DataSchema>({
-    defaultValues: dataZero,
+    defaultValues: basePercentages || dataZero,
     resolver: zodResolver(dataSchema),
   });
+
+  useEffect(() => {
+    if(baseCalculatedData) {
+      setCalculatedData(baseCalculatedData);
+    }
+
+    if(basePercentages) {
+      form.reset(basePercentages);
+    }
+  }, [baseCalculatedData, basePercentages, form]);
 
   function onPercentageUpdate() {
     const { values, percentages } = updateFeatures({
@@ -44,7 +59,7 @@ function FeaturesForm({
       baseValues
     });
 
-    setCalculatedValues(p => ({
+    setCalculatedData(p => ({
       ...p,
       ...values
     }));
@@ -54,8 +69,12 @@ function FeaturesForm({
     });
   }
 
-  function handleOnSubmit() {
-    onSubmit(calculatedValues);
+  async function handleOnSubmit(percentages: DataSchema) {
+    await predictAndExplain({
+      patientId,
+      percentages,
+      calculatedData
+    });
   }
 
   return (
@@ -88,7 +107,7 @@ function FeaturesForm({
                       <FormLabel>
                         {label}
                       </FormLabel>
-                      <p className='text-lg font-semibold text-muted-foreground'>{calculatedValues[`${feature}_${side}-${region}` as ModelFeatures].toFixed(2)}</p>
+                      <p className='text-lg font-semibold text-muted-foreground'>{calculatedData[`${feature}_${side}-${region}` as ModelFeatures].toFixed(2)}</p>
                     </div>
                     <FormControl>
                       <div className='grid grid-cols-[1fr,auto]'>
@@ -113,8 +132,8 @@ function FeaturesForm({
             )}
         </div>
         <div className="p-4 border-t flex justify-end">
-          <Button type='submit' className='space-x-2' disabled={isLoading}>
-            {isLoading && <Spinner />}
+          <Button type='submit' className='space-x-2' disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && <Spinner />}
             <span>Predict</span>
           </Button>
         </div>

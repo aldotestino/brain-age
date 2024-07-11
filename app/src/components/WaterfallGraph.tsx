@@ -1,3 +1,5 @@
+'use client';
+
 import { PredictionWithExplanation } from '@/lib/types';
 import { Card, CardContent } from './ui/card';
 import { Bar } from 'react-chartjs-2';

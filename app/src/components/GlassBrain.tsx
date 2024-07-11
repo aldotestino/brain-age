@@ -24,7 +24,8 @@ function Brain({ values }: {values: BrainSVItem}) {
 
   useEffect(() => {
     obj.children.forEach(child => {
-      const shapValue = values.regions[child.name as GlassBrainRegions];
+      const childName = child.name.replace('pial.DK.', '');
+      const shapValue = values.regions[childName as GlassBrainRegions];
       if(child instanceof THREE.Mesh && shapValue !== undefined) {
         child.material = new THREE.MeshStandardMaterial({ color: valueToColor(shapValue, values.min, values.max) });
       }

@@ -4,11 +4,15 @@ import FeaturesForm from './FeaturesForm';
 import { DataSchema } from '@/lib/types';
 
 function Sidebar({
-  onSubmit,
-  isLoading
+  patientId,
+  baseData,
+  basePercentages,
+  baseCalculatedData,
 }: {
-  onSubmit: (values: DataSchema) => Promise<void>;
-  isLoading: boolean;
+  patientId: number;
+  baseData: DataSchema;
+  basePercentages: DataSchema | null;
+  baseCalculatedData: DataSchema | null;
 }) {
   return (
     <div className="w-80 border-r grid grid-rows-[auto,1fr] overflow-y-hidden">
@@ -20,7 +24,12 @@ function Sidebar({
           <h1 className="text-xl font-semibold">Patient 1</h1>
         </div>
       </div>
-      <FeaturesForm onSubmit={onSubmit} isLoading={isLoading} />
+      <FeaturesForm 
+        patientId={patientId}
+        baseData={baseData}
+        basePercentages={basePercentages}
+        baseCalculatedData={baseCalculatedData}
+      />
     </div>
   );
 }
