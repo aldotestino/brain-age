@@ -3,6 +3,7 @@
 import { Patient } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
+import PatientActions from './actions';
 
 export const columns: ColumnDef<Patient>[] = [
   {
@@ -28,5 +29,9 @@ export const columns: ColumnDef<Patient>[] = [
   }, {
     accessorKey: 'email',
     header: 'Email',
-  }
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <PatientActions patient={row.original} />,
+  },
 ];

@@ -37,19 +37,18 @@ function FileInput({
     return (
       <div className='flex items-center justify-between gap-2 p-4 border-2 border-dashed rounded-md w-full'>
         <div className='flex items-center gap-2 w-full'>
-          <FileJson2 className='w-8 h-8' />
-          <span className='text-lg'>{file.name}</span>
+          <FileJson2 className='w-6 h-6' />
+          <span className='text-sm'>{file.name}</span>
         </div>
         <Button 
-          variant='destructive' 
+          variant='ghost' 
           size="sm"
-          className='space-x-2'
+          className='space-x-2 text-destructive hover:text-destructive'
           onClick={() => {
             setFile(null);
             onRemoveFile();
           }}>
           <Trash2 className='w-4 h-4' />
-          <span>Remove</span>
         </Button>
       </div>
     );

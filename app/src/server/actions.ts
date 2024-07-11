@@ -78,3 +78,10 @@ export async function deletePrediction(predictionId: number) {
   redirect(`/patient/${patientId}`);
 }
 
+export async function deletePatient(patientId: number) {
+  await prisma.patient.delete({
+    where: { id: patientId }
+  });
+
+  revalidatePath('/dashboard');
+}
