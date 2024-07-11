@@ -39,7 +39,7 @@ export function EmptyPredExp() {
     <main className='p-4 grid place-items-center'>
       <div className="flex items-center justify-center flex-col text-muted-foreground gap-2">
         <Inbox size={50} />
-        <p className='font-semibold text-center'>Upload patient data to get started...</p>
+        <p className='font-semibold text-center'>Select a prediction or create a new one</p>
       </div>
     </main>
   );

@@ -18,12 +18,12 @@ export const sidesItems = [
 
 export const regionsItems = regions.map(value => ({
   value,
-  label: value.charAt(0).toUpperCase() + value.slice(1) // Capitalize first letter
+  label: value.charAt(0).toUpperCase() + value.slice(1)
 }));
 
 export const featuresItems = features.map(value => ({
   value,
-  label: value.replace(/_/g, ' ') // Replace underscore with space
+  label: value.split('_').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }));
 
 export const EDITABLE_FEATURE_1 = 'GM_vol' as const;

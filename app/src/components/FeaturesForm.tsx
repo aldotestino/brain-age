@@ -84,7 +84,7 @@ function FeaturesForm({
           <div className='p-4 grid gap-4'>
             <div className='space-y-2'>
               <Label>Side</Label>
-              <EasySelect items={sidesItems} value={side} onValueChange={setSide} />
+              <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a side' />
             </div>
             <div className='flex flex-col space-y-2'>
               <Label>Region</Label>

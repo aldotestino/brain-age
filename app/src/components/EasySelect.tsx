@@ -2,13 +2,14 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-function EasySelect({ items, ...props }: React.ComponentProps<typeof Select> & {
+function EasySelect({ items, placeholder, ...props }: React.ComponentProps<typeof Select> & {
   items: { value: string; label: string }[];
+  placeholder?: string;
 }) {
   return (
     <Select {...props}>
       <SelectTrigger>
-        <SelectValue placeholder="Select a side" />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {items.map((item) => (
