@@ -1,6 +1,6 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
-// import UpdatePatientDialog from '@/components/update-patient-dialog';
+import UpdatePatient from '@/components/UpdatePatient';
 import DeletePatient from '@/components/DeletePatient';
 import { Button } from '@/components/ui/button';
 import { Patient } from '@prisma/client';
@@ -23,7 +23,7 @@ function PatientActions({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        {/* <UpdatePatientDialog patientId={id} defaultValues={defaultValues} /> */}
+        <UpdatePatient patientId={id} defaultValues={defaultValues} />
         <DeletePatient patientId={id} />
       </DropdownMenuContent>
     </DropdownMenu>

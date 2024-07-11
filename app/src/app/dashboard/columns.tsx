@@ -3,7 +3,7 @@
 import { Patient } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
-import PatientActions from './actions';
+import PatientActions from './patient-actions';
 
 export const columns: ColumnDef<Patient>[] = [
   {

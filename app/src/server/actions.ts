@@ -1,7 +1,7 @@
 'use server';
 
 import axios from 'axios';
-import { DataSchema, PatientSchema, PredictionWithExplanation } from '@/lib/types';
+import { DataSchema, UpdatePatientSchema, AddPatientSchema, PredictionWithExplanation } from '@/lib/types';
 import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -44,7 +44,7 @@ export async function predictAndExplain({
   redirect(`/patient/${patientId}?predId=${id}`);
 }
 
-export async function addPatient(values: PatientSchema) {
+export async function addPatient(values: AddPatientSchema) {
   try {
     const { id } = await prisma.patient.create({
       data: values,
@@ -81,6 +81,21 @@ export async function deletePrediction(predictionId: number) {
 export async function deletePatient(patientId: number) {
   await prisma.patient.delete({
     where: { id: patientId }
+  });
+
+  revalidatePath('/dashboard');
+}
+
+export async function updatePatient({
+  patientId,
+  values
+}: {
+  patientId: number;
+  values: UpdatePatientSchema;
+}) {
+  await prisma.patient.update({
+    where: { id: patientId },
+    data: values
   });
 
   revalidatePath('/dashboard');

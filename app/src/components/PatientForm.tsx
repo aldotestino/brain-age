@@ -5,11 +5,12 @@ import { Input } from '@/components/ui/input';
 import { DialogFooter } from '@/components/ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Control, useForm } from 'react-hook-form';
-import { PatientSchema } from '@/lib/types';
+import { AddPatientSchema, UpdatePatientSchema } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
-import { patientSchema } from '@/lib/validators';
+import { addPatientSchema, updatePatientSchema } from '@/lib/validators';
 import FileInput from './FileInput';
+import { addPatient, updatePatient } from '@/server/actions';
 
 function Field({
   name,
@@ -17,10 +18,10 @@ function Field({
   placeholder,
   formControl
 }: {
-  name: keyof Pick<PatientSchema, 'firstName' | 'lastName' | 'email'>,
+  name: string,
   label: string,
   placeholder?: string,
-  formControl: Control<PatientSchema>
+  formControl: Control<any>
 }) {
   return (
     <FormField
@@ -39,23 +40,19 @@ function Field({
   );
 }
 
-function PatientForm({
-  submitButtonLabel = 'Continue',
-  defaultValues,
-  onSubmit
+function AddPatientForm({
+  closeDialog,
 }: {
-  submitButtonLabel?: string;
-  defaultValues?: PatientSchema;
-  onSubmit: (values: PatientSchema) => void;
+  closeDialog: () => void;
 }) {
 
-  const form = useForm<PatientSchema>({
-    resolver: zodResolver(patientSchema),
-    defaultValues: defaultValues || {
+  const form = useForm<AddPatientSchema>({
+    defaultValues: {
       firstName: '',
       lastName: '',
       email: ''
-    }
+    },
+    resolver: zodResolver(addPatientSchema)
   });
 
   function onRemoveFile() {
@@ -67,6 +64,18 @@ function PatientForm({
       type: 'manual',
       message: 'Invalid JSON file'
     });
+  }
+
+  async function onSubmit(values: AddPatientSchema) {
+    try {
+      await addPatient(values);
+      closeDialog();
+    }catch(err: any) {
+      form.setError('email', {
+        type: 'manual',
+        message: err.message
+      });
+    }
   }
 
   return (
@@ -93,7 +102,7 @@ function PatientForm({
         <DialogFooter>
           <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting && <Spinner className="mr-2" />}
-            {submitButtonLabel}
+            <span>Continue</span>
           </Button>
         </DialogFooter>
       </form>
@@ -101,4 +110,53 @@ function PatientForm({
   );
 }
 
-export default PatientForm;
+function UpdatePatientForm({
+  patientId,
+  defaultValues,
+  closeDialog,
+}: {
+  patientId: number;
+  defaultValues: UpdatePatientSchema;
+  closeDialog: () => void;
+}) {
+
+  const form = useForm<UpdatePatientSchema>({
+    defaultValues,
+    resolver: zodResolver(updatePatientSchema)
+  });
+
+  async function onSubmit(values: UpdatePatientSchema) {
+    try {
+      await updatePatient({ patientId, values });
+      closeDialog();
+    }catch(err: any) {
+      form.setError('email', {
+        type: 'manual',
+        message: err.message
+      });
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className='flex gap-4'>
+          <Field name="firstName" label="First name" formControl={form.control} />
+          <Field name="lastName" label="Last name" formControl={form.control} />
+        </div>
+        <Field name="email" label="Email" formControl={form.control} />
+        <DialogFooter>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && <Spinner className="mr-2" />}
+            <span>Continue</span>
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
+  );
+}
+
+export {
+  AddPatientForm,
+  UpdatePatientForm
+};

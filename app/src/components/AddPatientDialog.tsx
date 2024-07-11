@@ -2,31 +2,13 @@
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import PatientForm from './PatientForm';
-import { addPatient } from '@/server/actions';
+import { AddPatientForm } from './PatientForm';
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
-import { PatientSchema } from '@/lib/types';
 
 function AddPatientDialog() {
 
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
-
-  async function onSubmit(values: PatientSchema) {
-    try {
-      await addPatient(values);
-    } catch (e: any) {
-      toast({
-        title: 'Error',
-        description: e.message,
-        variant: 'destructive'
-      });
-    } finally {
-      setOpen(false);
-    }
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -43,7 +25,7 @@ function AddPatientDialog() {
             Add a new patient.
           </DialogDescription>
         </DialogHeader>
-        <PatientForm onSubmit={onSubmit} />
+        <AddPatientForm closeDialog={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );

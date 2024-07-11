@@ -9,9 +9,12 @@ const dataObject = modelFeatures.reduce((acc, key) => {
 
 export const dataSchema = z.object(dataObject);
 
-export const patientSchema = z.object({
+export const updatePatientSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   email: z.string().email(),
+});
+
+export const addPatientSchema = updatePatientSchema.extend({
   data: z.object(dataObject)
 });

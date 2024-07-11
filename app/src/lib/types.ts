@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { patientSchema, dataSchema } from './validators';
+import { updatePatientSchema, addPatientSchema, dataSchema } from './validators';
 import { features, regions, sides } from './data';
 
 export type Sides = typeof sides[number];
@@ -10,7 +10,8 @@ export type ModelFeatures = `${Features}_${Sides}-${Regions}`;
 export type GlassBrainRegions = `${Sides}.${Regions}`;
 
 export type DataSchema = z.infer<typeof dataSchema>;
-export type PatientSchema = z.infer<typeof patientSchema>;
+export type UpdatePatientSchema = z.infer<typeof updatePatientSchema>;
+export type AddPatientSchema = z.infer<typeof addPatientSchema>;
 
 export type WaterfallSVItem = {
   value: number;

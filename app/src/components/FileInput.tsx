@@ -62,7 +62,7 @@ function FileInput({
         'application/json': ['.json']
       }}>
       {({ getRootProps, getInputProps, isDragAccept }) => (
-        <section {...getRootProps()} className={cn('h-40 rounded-md border-2 border-dashed grid place-items-center text-muted-foreground transition-colors', isDragAccept && 'border-primary')}>
+        <section {...getRootProps()} className={cn('h-40 rounded-md border-2 border-dashed grid place-items-center text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2', isDragAccept && 'border-primary')}>
           <input {...getInputProps()} />
           <div className='space-y-2 flex flex-col items-center'>
             <Upload className={cn('w-8 h-8', isDragAccept && 'animate-bounce')} />
