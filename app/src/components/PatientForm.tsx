@@ -81,24 +81,26 @@ function AddPatientForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className='flex gap-4'>
-          <Field name="firstName" label="First name" formControl={form.control} />
-          <Field name="lastName" label="Last name" formControl={form.control} />
+        <div className='py-4 space-y-4'>
+          <div className='flex gap-4'>
+            <Field name="firstName" label="First name" formControl={form.control} />
+            <Field name="lastName" label="Last name" formControl={form.control} />
+          </div>
+          <Field name="email" label="Email" formControl={form.control} />
+          <FormField
+            control={form.control}
+            name="data"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Data</FormLabel>
+                <FormControl>
+                  <FileInput onChange={field.onChange} onRemoveFile={onRemoveFile} onError={onError} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-        <Field name="email" label="Email" formControl={form.control} />
-        <FormField
-          control={form.control}
-          name="data"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Data</FormLabel>
-              <FormControl>
-                <FileInput onChange={field.onChange} onRemoveFile={onRemoveFile} onError={onError} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <DialogFooter>
           <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting && <Spinner className="mr-2" />}
@@ -140,11 +142,13 @@ function UpdatePatientForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className='flex gap-4'>
-          <Field name="firstName" label="First name" formControl={form.control} />
-          <Field name="lastName" label="Last name" formControl={form.control} />
+        <div className='space-y-4 py-4'>
+          <div className='flex gap-4'>
+            <Field name="firstName" label="First name" formControl={form.control} />
+            <Field name="lastName" label="Last name" formControl={form.control} />
+          </div>
+          <Field name="email" label="Email" formControl={form.control} />
         </div>
-        <Field name="email" label="Email" formControl={form.control} />
         <DialogFooter>
           <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting && <Spinner className="mr-2" />}

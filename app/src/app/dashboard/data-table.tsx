@@ -1,28 +1,14 @@
 'use client';
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable, } from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDebounce } from '@/lib/hooks';
 import { useRouter } from 'next/navigation';
 import Paginator from './paginator';
-import { Button } from '@/components/ui/button';
-import AddPatientDialog from '@/components/AddPatientDialog';
+import AddPatient from '@/components/AddPatient';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -82,7 +68,7 @@ export function DataTable<TData, TValue>({
           </div>
           <p className='text-large font-semibold text-muted-foreground'>{total} patients</p>
         </div>
-        <AddPatientDialog />
+        <AddPatient />
       </div>
       <div className="rounded-md border">
         <Table>

@@ -1,24 +1,6 @@
-import { Patient } from '@/lib/types';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 import { getPatients } from '@/server/queries';
-
-export const patients: Patient[] = [{
-  id: 1,
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@gmail.com'
-}, {
-  id: 2,
-  firstName: 'Jane',
-  lastName: 'Doe',
-  email: 'jane.doe@gmail.com'
-}, {
-  id: 3,
-  firstName: 'Sam',
-  lastName: 'Smith',
-  email: 'sam.smith@gmail.com'
-}];
 
 async function DashboardPage({ 
   searchParams 

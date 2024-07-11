@@ -21,8 +21,8 @@ function UpdatePatient({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <DropdownMenuItem onSelect={e => e.preventDefault()}>
-          <SquarePen className="mr-2 h-4 w-4" />
+        <DropdownMenuItem onSelect={e => e.preventDefault()} className='space-x-2'>
+          <SquarePen className="h-4 w-4" />
           <span>Update</span>
         </DropdownMenuItem>
       </DialogTrigger>
@@ -30,7 +30,7 @@ function UpdatePatient({
         <DialogHeader>
           <DialogTitle>Update patient</DialogTitle>
           <DialogDescription>
-            You are updating patient {patientId}.
+            You are updating patient with id {patientId}.
           </DialogDescription>
         </DialogHeader>
         <UpdatePatientForm closeDialog={() => setOpen(false)} defaultValues={defaultValues} patientId={patientId} />

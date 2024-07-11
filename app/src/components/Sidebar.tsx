@@ -24,7 +24,7 @@ function Sidebar({
   return (
     <div className="w-80 border-r grid grid-rows-[auto,1fr] overflow-y-hidden">
       <div className="p-4 flex items-center justify-between gap-2 border-b">
-        <div className="grid grid-cols-[auto,1fr] items-center gap-2">
+        <div className="grid grid-cols-[auto,1fr] gap-2">
           <Link href="/dashboard" className={buttonVariants({ size:'icon', variant:'ghost', className:'w-8 h-8 p-0' })}>
             <ArrowLeft className="w-4 h-4" />
           </Link>

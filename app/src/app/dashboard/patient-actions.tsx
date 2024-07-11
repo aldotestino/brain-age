@@ -1,9 +1,12 @@
+'use client';
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import UpdatePatient from '@/components/UpdatePatient';
 import DeletePatient from '@/components/DeletePatient';
 import { Button } from '@/components/ui/button';
 import { Patient } from '@prisma/client';
+import { useState } from 'react';
 
 function PatientActions({
   patient
@@ -12,9 +15,11 @@ function PatientActions({
 }) {
 
   const { id, ...defaultValues } = patient;
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
+
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={showDropdownMenu} onOpenChange={setShowDropdownMenu}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open the menu</span>

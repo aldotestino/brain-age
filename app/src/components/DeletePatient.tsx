@@ -1,7 +1,7 @@
 'use client';
 
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
@@ -42,11 +42,11 @@ function DeletePatientAlert({
           <span>Delete</span>
         </DropdownMenuItem>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className='gap-8'>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the patient {patientId} and remove his data from the server.
+            This action cannot be undone. This will permanently delete the patient with id {patientId} and remove his data from the server.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

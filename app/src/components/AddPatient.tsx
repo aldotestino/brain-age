@@ -6,7 +6,7 @@ import { AddPatientForm } from './PatientForm';
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 
-function AddPatientDialog() {
+function AddPatient() {
 
   const [open, setOpen] = useState(false);
 
@@ -31,4 +31,4 @@ function AddPatientDialog() {
   );
 }
 
-export default AddPatientDialog;
+export default AddPatient;
