@@ -1,30 +1,16 @@
 import { z } from 'zod';
-import { featuresSchema, patientSchema, percentagesSchema, regionsSchema } from './validators';
+import { patientSchema, dataSchema } from './validators';
+import { features, regions, sides } from './data';
 
-export type PercentagesSchema = z.infer<typeof percentagesSchema>;
+export type Sides = typeof sides[number];
+export type Regions = typeof regions[number];
+export type Features = typeof features[number];
+
+export type ModelFeatures = `${Features}_${Sides}-${Regions}`;
+export type GlassBrainRegions = `${Sides}.pial.DK.${Regions}`;
+
+export type DataSchema = z.infer<typeof dataSchema>;
 export type PatientSchema = z.infer<typeof patientSchema>;
-
-export type FeaturesKeys = keyof typeof featuresSchema.shape;
-export type RegionsKeys = keyof typeof regionsSchema.shape;
-export type SideKeys = keyof typeof percentagesSchema.shape;
-export type PercentagesNames = `${SideKeys}.${RegionsKeys}.${FeaturesKeys}`;
-export type FullRegionsKeys = `${SideKeys}.${RegionsKeys}`;
-export type ModelNames = `${FeaturesKeys}_${SideKeys}-${RegionsKeys}`
-
-export type Features = {
-  [key in FeaturesKeys]: {
-    label: string
-    editable: boolean
-  }
-}
-
-export type Percentages = {
-  [key in PercentagesNames]: number
-}
-
-export type Values = {
-  [key in ModelNames]: number
-}
 
 export type WaterfallSVItem = {
   value: number;
@@ -35,7 +21,7 @@ export type WaterfallSVItem = {
 
 export type BrainSVItem = {
   regions: {
-    [key in FullRegionsKeys]: number;
+    [key in GlassBrainRegions]: number;
   };
   min: number,
   max: number,
@@ -46,7 +32,7 @@ export type PredictionWithExplanation = {
   prediction: number;
   waterfall_sv: WaterfallSVItem[];
   brain_sv: {
-    [key in FeaturesKeys]: BrainSVItem;
+    [key in Features]: BrainSVItem;
   };
 }
 

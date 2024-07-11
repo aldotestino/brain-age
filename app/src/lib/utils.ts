@@ -1,45 +1,21 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { z } from 'zod';
 import colormap from 'colormap';
-import { GLASS_BRAIN_SHADES } from './data';
-import { PercentagesNames, ModelNames, Percentages, RegionsKeys, SideKeys, Values } from './types';
-import { modelFeatures } from './validators';
+import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures } from './data';
+import { DataSchema, ModelFeatures, Regions, Sides } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const startingValues = modelFeatures.reduce((obj: Partial<Values>, key: keyof Values) => {
-  obj[key] = 0;
-  return obj;
-}, {}) as Values;
+export const dataZero = modelFeatures.reduce((acc, key) => {
+  acc[key as ModelFeatures] = 0;
+  return acc;
+}, {} as Record<ModelFeatures, number>);
 
-
-export function defaultValueFromSchema(schema: any): any {
-  if (schema instanceof z.ZodObject) {
-    const shape = schema._def.shape();
-    return Object.keys(shape).reduce((acc, key) => {
-      acc[key] = defaultValueFromSchema(shape[key]);
-      return acc;
-    }, {} as any);
-  } else if (schema instanceof z.ZodArray) {
-    return [];
-  } else if (schema instanceof z.ZodOptional) {
-    return defaultValueFromSchema(schema._def.innerType);
-  } else if (schema instanceof z.ZodNullable) {
-    return defaultValueFromSchema(schema._def.innerType);
-  } else if (schema instanceof z.ZodUnion) {
-    return defaultValueFromSchema(schema._def.options[0]);
-  } else if (schema instanceof z.ZodIntersection) {
-    return {
-      ...defaultValueFromSchema(schema._def.left),
-      ...defaultValueFromSchema(schema._def.right),
-    };
-  } else {
-    return 0;
-  }
-};
+export function isFeatureEditable(feature: string) {
+  return feature === EDITABLE_FEATURE_1 || feature === EDITABLE_FEATURE_2;
+}
 
 export function updateFeatures({
   side,
@@ -48,56 +24,58 @@ export function updateFeatures({
   feature2Percentage,
   baseValues,
 }: {
-  side: SideKeys,
-  region: RegionsKeys,
+  side: Sides,
+  region: Regions,
   feature1Percentage: number,
   feature2Percentage: number,
-  baseValues: Values
+  baseValues: DataSchema
 }) {
 
   const relations = {
     surface_area: {
-      GM_vol: 2,
-      average_thickness: 1.5,
+      [EDITABLE_FEATURE_1]: 2,
+      [EDITABLE_FEATURE_2]: 1.5,
     },
     mean_curv: {
-      GM_vol: 0.2,
-      average_thickness: -0.6,
+      [EDITABLE_FEATURE_1]: 0.2,
+      [EDITABLE_FEATURE_2]: -0.6,
     },
     intrinsic_cur_index: {
-      GM_vol: -1.2,
-      average_thickness: 0.7,
+      [EDITABLE_FEATURE_1]: -1.2,
+      [EDITABLE_FEATURE_2]: 0.7,
     },
     gaussian_curv: {
-      GM_vol: 0.8,
-      average_thickness: 1.4,
+      [EDITABLE_FEATURE_1]: 0.8,
+      [EDITABLE_FEATURE_2]: 1.4,
     },
     thickness_stddev: {
-      GM_vol: -0.5,
-      average_thickness: 0.3,
+      [EDITABLE_FEATURE_1]: -0.5,
+      [EDITABLE_FEATURE_2]: 0.3,
     },
   };
 
-  const values: Partial<Values> = {};
-  const percentages: Partial<Percentages> = {};
+  const values: Partial<DataSchema> = {};
+  const percentages: Partial<DataSchema> = {};
 
-  const baseFeature1 = baseValues[`GM_vol_${side}-${region}` as ModelNames];
-  const baseFeature2 = baseValues[`average_thickness_${side}-${region}` as ModelNames];
+  const FULL_EDITABLE_FEATURE_1 = `${EDITABLE_FEATURE_1}_${side}-${region}` as ModelFeatures;
+  const FULL_EDITABLE_FEATURE_2 = `${EDITABLE_FEATURE_2}_${side}-${region}` as ModelFeatures;
 
-  values[`GM_vol_${side}-${region}` as ModelNames] = baseFeature1 + baseFeature1 / 100 * feature1Percentage;
-  values[`average_thickness_${side}-${region}` as ModelNames] = baseFeature2 + baseFeature2 / 100 * feature2Percentage;
+  const baseFeature1 = baseValues[FULL_EDITABLE_FEATURE_1];
+  const baseFeature2 = baseValues[FULL_EDITABLE_FEATURE_2];
+
+  values[FULL_EDITABLE_FEATURE_1] = baseFeature1 + baseFeature1 / 100 * feature1Percentage;
+  values[FULL_EDITABLE_FEATURE_2] = baseFeature2 + baseFeature2 / 100 * feature2Percentage;
 
   for (const [relatedFeature, factor] of Object.entries(relations)) {
-    const relatedFeatureFormName = `${side}.${region}.${relatedFeature}` as PercentagesNames;
-    const relatedFeatureModelName = `${relatedFeature}_${side}-${region}` as ModelNames;
-    const relatedFeatureValue = baseValues[relatedFeatureModelName];
+    const relatedFeatureName = `${relatedFeature}_${side}-${region}` as ModelFeatures;
+    const relatedFeatureValue = baseValues[relatedFeatureName];
 
     const totalPercentage = factor.GM_vol * feature1Percentage + factor.average_thickness * feature2Percentage;
 
     const updatedValue = relatedFeatureValue + relatedFeatureValue / 100 * totalPercentage;
 
-    values[relatedFeatureModelName] = updatedValue;
-    percentages[relatedFeatureFormName] = totalPercentage;
+    values[relatedFeatureName] = updatedValue;
+    percentages[relatedFeatureName] = totalPercentage;
   }
 
   return { values, percentages };

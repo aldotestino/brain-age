@@ -4,7 +4,7 @@ import PredExp from '@/components/PredExp';
 import Sidebar from '@/components/Sidebar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { PredictionWithExplanation, Values } from '@/lib/types';
+import { PredictionWithExplanation, DataSchema } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { predictAndExplain } from '@/server/actions';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ export default function Home() {
   }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  async function onSubmit(values: Values) {
+  async function onSubmit(values: DataSchema) {
     setIsLoading(true);
     const data = await predictAndExplain(values);
     setSelected(data.id);

@@ -1,50 +1,35 @@
 import { Bar } from 'react-chartjs-2';
-import { Features } from './types';
-import { regionsValues } from './validators';
 import { Color, defaults } from 'chart.js';
+
+export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM_vol', 'gaussian_curv', 'average_thickness', 'thickness_stddev'] as const;
+export const regions = ['bankssts', 'caudalanteriorcingulate', 'caudalmiddlefrontal', 'cuneus', 'entorhinal', 'fusiform', 'inferiorparietal', 'inferiortemporal', 'isthmuscingulate', 'lateraloccipital', 'lateralorbitofrontal', 'lingual', 'medialorbitofrontal', 'middletemporal', 'parahippocampal', 'paracentral', 'parsopercularis', 'parsorbitalis', 'parstriangularis', 'pericalcarine', 'postcentral', 'posteriorcingulate', 'precentral', 'precuneus', 'rostralanteriorcingulate', 'rostralmiddlefrontal', 'superiorfrontal', 'superiorparietal', 'superiortemporal', 'supramarginal', 'frontalpole', 'temporalpole', 'transversetemporal', 'insula'] as const;
+export const sides = ['lh', 'rh'] as const;
+
+export const modelFeatures = sides.flatMap((s) =>
+  regions.flatMap((r) =>
+    features.map((f) => `${f}_${s}-${r}`)
+  )
+);
 
 export const sidesItems = [
   { value: 'lh', label: 'Left' },
   { value: 'rh', label: 'Right' },
 ];
 
-export const regions = regionsValues.map(value => ({
+export const regionsItems = regions.map(value => ({
   value,
   label: value.charAt(0).toUpperCase() + value.slice(1) // Capitalize first letter
 }));
 
-export const features: Features = {
-  surface_area: {
-    label: 'Surface Area',
-    editable: false
-  },
-  mean_curv: {
-    label: 'Mean Curv',
-    editable: false
-  },
-  intrinsic_cur_index: {
-    label: 'Intrinsic Cur Index',
-    editable: false
-  },
-  GM_vol: {
-    label: 'GM Vol',
-    editable: true
-  },
-  gaussian_curv: {
-    label: 'Gaussian Curv',
-    editable: false
-  },
-  average_thickness: {
-    label: 'Average Thickness',
-    editable: true
-  },
-  thickness_stddev: {
-    label: 'Thickness Stddev',
-    editable: false
-  },
-};
+export const featuresItems = features.map(value => ({
+  value,
+  label: value.replace(/_/g, ' ') // Replace underscore with space
+}));
 
-export const featuresItems = Object.entries(features).map(([key, value]) => ({ value: key, label: value.label }));
+export const EDITABLE_FEATURE_1 = 'GM_vol' as const;
+export const EDITABLE_FEATURE_2 = 'average_thickness' as const;
+
+export const editableFeatures = [EDITABLE_FEATURE_1, EDITABLE_FEATURE_2] as const;
 
 export const graphColors = {
   stroke: {

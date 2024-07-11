@@ -1,13 +1,13 @@
-import { ArrowLeft, Info } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FeaturesForm from './FeaturesForm';
-import { Values } from '@/lib/types';
+import { DataSchema } from '@/lib/types';
 
 function Sidebar({
   onSubmit,
   isLoading
 }: {
-  onSubmit: (values: Values) => Promise<void>;
+  onSubmit: (values: DataSchema) => Promise<void>;
   isLoading: boolean;
 }) {
   return (

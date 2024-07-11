@@ -6,9 +6,9 @@ import { OrbitControls } from '@react-three/drei';
 import { Suspense, useEffect, useState } from 'react';
 import Spinner from './ui/spinner';
 import * as THREE from 'three';
-import { featuresItems, featuresValues } from '@/lib/data';
+import { features, featuresItems } from '@/lib/data';
 import EasySelect from './EasySelect';
-import { BrainSVItem, FeaturesKeys, FullRegionsKeys, PredictionWithExplanation } from '@/lib/types';
+import { BrainSVItem, Features, GlassBrainRegions, PredictionWithExplanation } from '@/lib/types';
 import { valueToColor } from '@/lib/utils';
 import { Card, CardContent, CardHeader } from './ui/card';
 import GlassBrainLegend from './GlassBrainLegend';
@@ -24,8 +24,7 @@ function Brain({ values }: {values: BrainSVItem}) {
 
   useEffect(() => {
     obj.children.forEach(child => {
-      const childName = child.name.replace('pial.DK.', '');
-      const shapValue = values.regions[childName as FullRegionsKeys];
+      const shapValue = values.regions[child.name as GlassBrainRegions];
       if(child instanceof THREE.Mesh && shapValue !== undefined) {
         child.material = new THREE.MeshStandardMaterial({ color: valueToColor(shapValue, values.min, values.max) });
       }
@@ -52,7 +51,7 @@ function GlassBrain({
   values: PredictionWithExplanation['brain_sv'];
 }) {
 
-  const [feature, setFeature] = useState(featuresValues[0]);
+  const [feature, setFeature] = useState<string>(features[0]);
   
   return (
     <Card className='h-full grid grid-rows-[auto,1fr]'>
@@ -74,7 +73,7 @@ function GlassBrain({
             <ambientLight intensity={Math.PI / 2} />
             <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
             <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-            <Brain values={values[feature as FeaturesKeys]}  />
+            <Brain values={values[feature as Features]}  />
             <OrbitControls  />
           </Canvas>
         </Suspense>
