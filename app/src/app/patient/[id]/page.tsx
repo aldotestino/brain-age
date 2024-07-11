@@ -18,14 +18,15 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
         firstName={patient.firstName}
         lastName={patient.lastName}
         patientId={patient.id}
-        baseData={patient.data as DataSchema} 
-        basePercentages={prediction?.percentages as DataSchema || null} 
-        baseCalculatedData={prediction?.calculatedData as DataSchema || null} 
+        baseData={patient.data} 
+        basePercentages={prediction?.percentages || null} 
+        baseCalculatedData={prediction?.calculatedData || null} 
       />
       <PredictionsList predictions={patient.predictions} />
       {prediction ?
-        <PredExp 
+        <PredExp
           id={prediction.id}
+          parametersChanged={prediction.parametersChanged}
           prediction={prediction.prediction} 
           brainSV={prediction.brainSV as PredictionWithExplanation['brain_sv']}
           waterfallSV={prediction.waterfallSV as PredictionWithExplanation['waterfall_sv']} 

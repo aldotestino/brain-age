@@ -3,7 +3,7 @@ import { PredictionWithExplanation } from '@/lib/types';
 
 function PredictionCard({ prediction }: Pick<PredictionWithExplanation, 'prediction'>) {
   return (
-    <Card className='w-fit'>
+    <Card className='flex-1'>
       <CardHeader>
         <CardTitle>Prediction</CardTitle>
         <CardDescription>This is the brain age predicted for the patient</CardDescription>

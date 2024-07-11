@@ -1,6 +1,8 @@
 'use server';
 
+import { modelFeatures } from '@/lib/data';
 import prisma from '@/lib/db';
+import { DataSchema, ModelFeatures, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { notFound } from 'next/navigation';
@@ -76,6 +78,7 @@ export async function getPatient(id: string) {
 
   return {
     ...patient,
+    data: patient.data as DataSchema,
     predictions: patient.predictions.map(p => ({
       id: p.id,
       label: formatDistanceToNow(p.createdAt, { addSuffix: true }),
@@ -105,5 +108,19 @@ export async function getPrediction(id: string) {
     return notFound();
   }
 
-  return prediction;
+  const parametersChanged = Object.entries(prediction.percentages as DataSchema).reduce((arr, [key, value]) => {
+    if (value !== 0) {
+      arr.push(key);
+    }
+    return arr;
+  }, [] as string[]);
+
+  return {
+    ...prediction,
+    calculatedData: prediction.calculatedData as DataSchema,
+    percentages: prediction.percentages as DataSchema,
+    brainSV: prediction.brainSV as PredictionWithExplanation['brain_sv'],
+    waterfallSV: prediction.waterfallSV as PredictionWithExplanation['waterfall_sv'],
+    parametersChanged
+  };
 }

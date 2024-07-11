@@ -4,15 +4,17 @@ import GlassBrain from './GlassBrain';
 import PredictionCard from './PredictionCard';
 import WaterfallGraph from './WaterfallGraph';
 import { Inbox } from 'lucide-react';
-import DeletePrediction from './DeletePrediction';
+import InfoCard from './InfoCard';
 
 function PredExp({
   id,
+  parametersChanged,
   prediction,
   waterfallSV,
   brainSV
 }: {
   id: number;
+  parametersChanged: string[];
   prediction: PredictionWithExplanation['prediction'];
   waterfallSV: PredictionWithExplanation['waterfall_sv'];
   brainSV: PredictionWithExplanation['brain_sv'];
@@ -20,9 +22,10 @@ function PredExp({
 
   return (
     <main className='p-4 grid grid-rows-[auto,1fr] gap-4 overflow-y-scroll'>
-      <div>
+      <div className='flex gap-4'>
+        <InfoCard parametersChanged={parametersChanged} predictionId={id} />
         <PredictionCard prediction={prediction} />
-        <DeletePrediction predictionId={id} />
+        {/* <DeletePrediction predictionId={id} /> */}
       </div>
       <Tabs defaultValue="waterfall" className='grid grid-rows-[auto,1fr]'>
         <TabsList className='w-fit'>

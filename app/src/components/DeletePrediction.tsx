@@ -26,7 +26,7 @@ function DeletePrediction({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="link" className='text-destructive space-x-2'>
+        <Button variant="link" className='text-destructive space-x-2 p-0'>
           <Trash2 className="w-4 h-4" />
           <span>Delete</span>
         </Button>

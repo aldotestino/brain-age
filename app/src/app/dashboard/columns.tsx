@@ -1,10 +1,8 @@
 'use client';
 
-import { buttonVariants } from '@/components/ui/button';
 import { Patient } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
-
 
 export const columns: ColumnDef<Patient>[] = [
   {
@@ -14,7 +12,7 @@ export const columns: ColumnDef<Patient>[] = [
       const patient = row.original;
 
       return (
-        <Link href={`/patient/${patient.id}`} className={buttonVariants({ variant: 'link' })}>
+        <Link href={`/patient/${patient.id}`} className='hover:underline'>
           {patient.id}
         </Link>
       );
