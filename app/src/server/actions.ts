@@ -6,6 +6,7 @@ import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
+import exp from 'constants';
 
 const MODEL_API_URL = 'http://localhost:8080/predict_and_explain';
 
@@ -65,3 +66,16 @@ export async function addPatient(values: PatientSchema) {
     }
   }
 }
+
+export async function deletePrediction(predictionId: number) {
+  const { patientId } = await prisma.prediction.delete({
+    where: { id: predictionId },
+    select: {
+      patientId: true
+    }
+  });
+
+  revalidatePath(`/patient/${patientId}`);
+  redirect(`/patient/${patientId}`);
+}
+
