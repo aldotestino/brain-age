@@ -14,6 +14,9 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
   return (
     <div className="h-screen grid grid-cols-[auto,auto,1fr]">
       <Sidebar
+        email={patient.email}
+        firstName={patient.firstName}
+        lastName={patient.lastName}
         patientId={patient.id}
         baseData={patient.data as DataSchema} 
         basePercentages={prediction?.percentages as DataSchema || null} 

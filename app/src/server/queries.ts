@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/db';
 import { Prisma } from '@prisma/client';
+import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { notFound } from 'next/navigation';
 
 export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: number, n?: number }) {
@@ -71,7 +72,16 @@ export async function getPatient(id: string) {
     notFound();
   }
 
-  return patient;
+  const now = new Date();
+
+  return {
+    ...patient,
+    predictions: patient.predictions.map(p => ({
+      id: p.id,
+      label: formatDistanceToNow(p.createdAt, { addSuffix: true }),
+      isNew: Math.abs(differenceInMinutes(p.createdAt, now)) < 5
+    }))
+  };
 }
 
 export async function getPrediction(id: string) {

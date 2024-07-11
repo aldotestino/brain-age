@@ -13,7 +13,7 @@ function createUrl(patientId: string, predId: number) {
 function PredictionsList({
   predictions
 }: {
-  predictions: {id: number, createdAt: Date}[]
+  predictions: {id: number, label: string, isNew: boolean}[]
 }) {
 
   const sp = useSearchParams();
@@ -27,10 +27,10 @@ function PredictionsList({
       <div className='p-2 overflow-scroll space-y-1'>
         {predictions.map((p, i) => (
           <Link key={p.id} href={createUrl(id, p.id)} className={buttonVariants({ variant: 'link', className: cn('w-full justify-between space-x-2 px-3 py-2 rounded-md', sp.get('predId') === p.id.toString() ? 'bg-muted hover:no-underline' : 'hover:bg-transparent') })}>
-            <span className='min-w-0 truncate'>
-              {p.id}
+            <span className='min-w-0 truncate normal-case'>
+              {p.label}
             </span>
-            {i === 0 && <Badge>New</Badge>}
+            {p.isNew && <Badge>New</Badge>}
           </Link>
         ))}
       </div>

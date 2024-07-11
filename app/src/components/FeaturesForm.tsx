@@ -94,9 +94,13 @@ function FeaturesForm({
           <Separator />
         </div>
         <div className='p-4 grid gap-4 overflow-scroll'>
-          <p className='text-lg font-semibold text-muted-foreground'>Features</p>
+          {!side ? 
+            <p className='text-muted-foreground'>Select a side</p> : 
+            !region ? 
+              <p className='text-muted-foreground'>Select a region</p> : 
+              <p className='text-lg font-semibold text-muted-foreground'>Features</p>}
           {(side && region) && 
-            featuresItems.map(({ value: feature, label }) =>
+            featuresItems.map(({ value: feature, label }) => (
               <FormField
                 key={`${feature}_${side}-${region}`}
                 control={form.control}
@@ -129,7 +133,7 @@ function FeaturesForm({
                   </FormItem>
                 )}
               />
-            )}
+            ))}
         </div>
         <div className="p-4 border-t flex justify-end">
           <Button type='submit' className='space-x-2' disabled={form.formState.isSubmitting}>
