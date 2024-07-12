@@ -1,6 +1,3 @@
-'use server';
-
-import { modelFeatures } from '@/lib/data';
 import prisma from '@/lib/db';
 import { DataSchema, ModelFeatures, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
@@ -10,12 +7,18 @@ import { notFound } from 'next/navigation';
 export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: number, n?: number }) {
 
   let query: Prisma.PatientWhereInput;
-  // check if q ha a space it might be for first name and last name
-  const [fn, ln] = q.split(' ');
+  const [left, right] = q.split(' ');
 
-  if (fn && ln) {
+  if (left && right) {
     query = {
-      AND: [{ firstName: { contains: fn, mode: 'insensitive' } }, { lastName: { contains: ln, mode: 'insensitive' } }]
+      OR: [
+        {
+          AND: [{ firstName: { contains: left, mode: 'insensitive' } }, { lastName: { contains: right, mode: 'insensitive' } }],
+        },
+        {
+          AND: [{ firstName: { contains: right, mode: 'insensitive' } }, { lastName: { contains: left, mode: 'insensitive' } }]
+        }
+      ]
     };
   } else {
     query = {
