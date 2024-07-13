@@ -1,30 +1,16 @@
 import prisma from '@/lib/db';
-import { DataSchema, ModelFeatures, PredictionWithExplanation } from '@/lib/types';
+import { DataSchema, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { notFound } from 'next/navigation';
 
 export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: number, n?: number }) {
 
-  let query: Prisma.PatientWhereInput;
-  const [left, right] = q.split(' ');
-
-  if (left && right) {
-    query = {
-      OR: [
-        {
-          AND: [{ firstName: { contains: left, mode: 'insensitive' } }, { lastName: { contains: right, mode: 'insensitive' } }],
-        },
-        {
-          AND: [{ firstName: { contains: right, mode: 'insensitive' } }, { lastName: { contains: left, mode: 'insensitive' } }]
-        }
-      ]
-    };
-  } else {
-    query = {
-      OR: [{ firstName: { contains: q, mode: 'insensitive' } }, { lastName: { contains: q, mode: 'insensitive' } }, { email: { contains: q, mode: 'insensitive' } }]
-    };
-  }
+  const query = {
+    AND: q.split(' ').map(part => ({
+      OR: [{ firstName: { contains: part, mode: 'insensitive' } }, { lastName: { contains: part, mode: 'insensitive' } }, { email: { contains: part, mode: 'insensitive' } }]
+    }))
+  } satisfies Prisma.PatientWhereInput;
 
   const total = await prisma.patient.count({
     where: query
