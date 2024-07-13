@@ -5,6 +5,10 @@ export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM
 export const regions = ['bankssts', 'caudalanteriorcingulate', 'caudalmiddlefrontal', 'cuneus', 'entorhinal', 'fusiform', 'inferiorparietal', 'inferiortemporal', 'isthmuscingulate', 'lateraloccipital', 'lateralorbitofrontal', 'lingual', 'medialorbitofrontal', 'middletemporal', 'parahippocampal', 'paracentral', 'parsopercularis', 'parsorbitalis', 'parstriangularis', 'pericalcarine', 'postcentral', 'posteriorcingulate', 'precentral', 'precuneus', 'rostralanteriorcingulate', 'rostralmiddlefrontal', 'superiorfrontal', 'superiorparietal', 'superiortemporal', 'supramarginal', 'frontalpole', 'temporalpole', 'transversetemporal', 'insula'] as const;
 export const sides = ['lh', 'rh'] as const;
 
+export const glassBrainRegions = sides.flatMap((s) =>
+  regions.map((r) => `${s}.${r}`)
+);
+
 export const modelFeatures = sides.flatMap((s) =>
   regions.flatMap((r) =>
     features.map((f) => `${f}_${s}-${r}`)
@@ -114,7 +118,7 @@ export const barOptions = {
           const values = ctx.dataset.data?.[ctx.dataIndex];
           if (values && typeof (values) === 'object' && values.length === 2) {
             const num = values[1] - values[0];
-            return `${num > 0 ? '+' : '-'}${(Math.abs(num)).toFixed(2)}`;
+            return `${num > 0 ? '+' : num < 0 ? '-' : ''}${(Math.abs(num)).toFixed(2)}`;
           }
         }
       }

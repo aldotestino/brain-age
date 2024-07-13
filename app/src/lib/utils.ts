@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
 import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures } from './data';
-import { DataSchema, ModelFeatures, Regions, Sides } from './types';
+import { DataSchema, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -94,4 +94,8 @@ export function valueToColor(value: number, min: number, max: number) {
 
   const colorIndex = Math.round(mapRange(value, min, max, 0, colors.length - 1));
   return colors[colorIndex];
+}
+
+export function getGlassBrainRegion(modelChildName: string) {
+  return modelChildName.replace('pial.DK.', '') as GlassBrainRegions;
 }
