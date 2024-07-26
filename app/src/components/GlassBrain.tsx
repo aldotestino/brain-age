@@ -1,22 +1,21 @@
 'use client';
 
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { Canvas, GroupProps, useLoader } from '@react-three/fiber';
-import { Html, OrbitControls } from '@react-three/drei';
-import { ComponentProps, forwardRef, LegacyRef, Suspense, useCallback, useImperativeHandle, useRef, useState } from 'react';
-import Spinner from './ui/spinner';
-import * as THREE from 'three';
-import { features, featuresItems, glassBrainRegions, sidesItems } from '@/lib/data';
-import EasySelect from './EasySelect';
+import { features, featuresItems, sidesItems } from '@/lib/data';
 import { BrainSVItem, Features, GlassBrainRegions, PredictionWithExplanation, Sides } from '@/lib/types';
 import { cn, getGlassBrainRegion, valueToColor } from '@/lib/utils';
-import { Card, CardContent, CardHeader } from './ui/card';
-import GlassBrainLegend from './GlassBrainLegend';
-import { Selection, Select, EffectComposer, Outline } from '@react-three/postprocessing';
-import { folder, useControls } from 'leva';
+import { CameraControls, Html } from '@react-three/drei';
 import { HtmlProps } from '@react-three/drei/web/Html';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { EffectComposer, Outline, Select, Selection } from '@react-three/postprocessing';
+import { Suspense, useCallback, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import CameraButtons from './CameraButtons';
+import EasySelect from './EasySelect';
+import GlassBrainLegend from './GlassBrainLegend';
+import { Card, CardContent, CardHeader } from './ui/card';
 import { Label } from './ui/label';
-import { Button } from './ui/button';
+import Spinner from './ui/spinner';
 
 function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
   regionName: GlassBrainRegions;
@@ -39,16 +38,6 @@ function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
 
 function Brain({ values, side }: {values: BrainSVItem, side: Sides | 'all'}) {
   const { children } = useLoader(OBJLoader, '/brain.obj');
-
-  // const config = useControls({
-  //   regions: folder(
-  //     glassBrainRegions.reduce((acc, region) => {
-  //       acc[region as GlassBrainRegions] = { value: false };
-  //       return acc;
-  //     }, {} as Record<GlassBrainRegions, { value: boolean }>), 
-  //     { collapsed: true })
-  // });
-
   const [hoveredPart, setHoveredPart] = useState<string | null>(null);
 
   const getMaterial = useCallback((childName: string) => {
@@ -64,8 +53,6 @@ function Brain({ values, side }: {values: BrainSVItem, side: Sides | 'all'}) {
   return (
     <group 
       scale={0.03}
-      // onPointerOver={(e) => setHoveredPart(e.object.parent?.name || null)} 
-      // onPointerOut={(e) => setHoveredPart(null)}
     >
       {children.filter((child) => side === 'all' ? true : child.name.startsWith(side)).map((child) => (
         child instanceof THREE.Mesh ? 
@@ -73,7 +60,6 @@ function Brain({ values, side }: {values: BrainSVItem, side: Sides | 'all'}) {
             key={child.name}
             enabled={
               child.name === hoveredPart 
-              // || config[getGlassBrainRegion(child.name)]
             }>
             <mesh
               onPointerOver={(e) => {
@@ -88,7 +74,6 @@ function Brain({ values, side }: {values: BrainSVItem, side: Sides | 'all'}) {
               material={getMaterial(child.name)}
             >
               {(!child.name.includes('unknown') && (
-                // config[getGlassBrainRegion(child.name)] || 
                 child.name === hoveredPart
               )) && 
                 <ShapValueIndicator
@@ -125,11 +110,7 @@ function GlassBrain({
   const [feature, setFeature] = useState<string>(features[0]);
   const [side, setSide] = useState<string>('all');
 
-  const camera = useRef<typeof OrbitControls | null>(null);
-
-  function onResetView() {
-    camera.current?.reset();
-  }
+  const camera = useRef<CameraControls | null>(null);
 
   return (
     <Card className='h-full grid grid-rows-[auto,1fr]'>
@@ -158,7 +139,12 @@ function GlassBrain({
               />
             </div>
           </div>
-          <Button variant="outline" onClick={onResetView}>Reset View</Button>
+          <CameraButtons 
+            reset={() => camera.current?.reset()}
+            x={() => camera.current?.rotate(Math.PI / 2, 0, true)}
+            up={() => camera.current?.rotate(0, Math.PI / 2, true)}
+            down={() => camera.current?.rotate(0, -Math.PI / 2, true)}
+          />
         </div>
       </CardHeader>
       <CardContent className='grid grid-cols-[1fr,auto] gap-2'>
@@ -173,7 +159,7 @@ function GlassBrain({
               </EffectComposer>
               <Brain values={values[feature as Features]} side={side as Sides | 'all'} />
             </Selection>
-            <OrbitControls ref={camera} />
+            <CameraControls ref={camera} />
           </Canvas>
         </Suspense>
         <GlassBrainLegend />
