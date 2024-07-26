@@ -34,11 +34,9 @@ class Api(FastAPI):
   def predict_and_explain(self, data: Patient):
     X = data.to_df()
 
-    prediction = self.model.predict(X)
-    waterfall_sv, brain_sv = self.model.explain(X, 9)
+    prediction, waterfall_sv, brain_sv = self.model.predict_and_explain(X)
 
     return {
-      "id": str(uuid.uuid4()),
       "prediction": prediction,
       "waterfall_sv": waterfall_sv,
       "brain_sv": brain_sv

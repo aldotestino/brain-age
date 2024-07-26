@@ -1,45 +1,64 @@
 from tensorflow.keras.models import load_model as tf_load_model
+from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import shap
 from utils import cols, parse_col_name
 
 class Model:
   def __init__(self, model_path, train_path, random_state=42):
-    self.random_state = random_state
-    self.model = tf_load_model(model_path)
-    self.shap_exploainer = self.load_shap_explainer(train_path)
+    self._random_state = random_state
+    self._model = tf_load_model(model_path)
 
-
-  def load_shap_explainer(self, train_path):
-    if(self.model is None):
-      raise ValueError("Model not loaded")
-    
     train = pd.read_excel(train_path)
     train = train[cols]
-    train_sample = shap.sample(train, 100, random_state=self.random_state)
-    self.shap_explainer = shap.KernelExplainer(self.model, data=train_sample)
+
+    self._scaler = self._load_scaler(train)
+    self._shap_explainer = self._load_shap_explainer(train)
+
+  
+  def _load_scaler(self, train):
+    sc = MinMaxScaler()
+    sc.fit(train)
+    return sc
+
+
+  def _load_shap_explainer(self, train):
+    if(self._model is None or self._scaler is None):
+      raise ValueError("Model or Scaler not loaded")
+    
+    scaled_train = self._scaler.transform(train)
+
+    masker = shap.maskers.Independent(scaled_train, max_samples=100) 
+    return shap.PermutationExplainer(self._model, masker=masker, feature_names=cols)
   
 
-  def predict(self, X):
-    return self.model.predict(X).item()
+  def predict_and_explain(self, X, limit=9):
+    X_scaled = self._scaler.transform(X)
+    prediction = self._predict(X_scaled)
+    waterfall_sv, brain_sv = self._explain(X_scaled, limit)
+    return prediction, waterfall_sv, brain_sv
+
+
+  def _predict(self, X):
+    return self._model.predict(X).item()
   
 
-  def explain(self, X, limit):
-    sv = self.shap_explainer(X)[:,:,0]
+  def _explain(self, X, limit):
+    sv = self._shap_explainer(X, max_evals=953)
 
-    base_sv = sv.base_values.tolist()[0]
-    formatted_sv = self.format_shap_values(sv)
-    waterfall_sv = self.shap_values_waterfall_format(formatted_sv, base_sv, limit)
-    brain_sv = self.shap_values_glass_brain_format(formatted_sv)
+    base_sv = sv.base_values.tolist()[0][0]
+    formatted_sv = self._format_shap_values(sv)
+    waterfall_sv = self._shap_values_waterfall_format(formatted_sv, base_sv, limit)
+    brain_sv = self._shap_values_glass_brain_format(formatted_sv)
 
     return waterfall_sv, brain_sv
   
 
-  def format_shap_values(self, sv):
+  def _format_shap_values(self, sv):
     return [{'value': x, 'data': y, 'name': z} for x, y, z in zip(sv[0].values, sv[0].data, sv[0].feature_names)]
   
 
-  def shap_values_waterfall_format(self, formatted_sv, base_sv, limit=9):
+  def _shap_values_waterfall_format(self, formatted_sv, base_sv, limit=9):
     ordered_values = sorted(formatted_sv, key=lambda x: abs(x['value']))
 
     remaining_values_sum = sum(x['value'] for x in ordered_values[:-limit])
@@ -73,7 +92,7 @@ class Model:
     return final_values
 
 
-  def shap_values_glass_brain_format(self, formatted_sv):
+  def _shap_values_glass_brain_format(self, formatted_sv):
     shap_by_region = {}
 
     for item in formatted_sv:
