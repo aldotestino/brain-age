@@ -29,7 +29,7 @@ class Model:
     scaled_train = self._scaler.transform(train)
 
     masker = shap.maskers.Independent(scaled_train, max_samples=100) 
-    return shap.PermutationExplainer(self._model, masker=masker, feature_names=cols)
+    return shap.PermutationExplainer(self._model, masker=masker, feature_names=cols, seed=self._random_state)
   
 
   def predict_and_explain(self, X, limit=9):

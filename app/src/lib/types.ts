@@ -29,7 +29,6 @@ export type BrainSVItem = {
 }
 
 export type PredictionWithExplanation = {
-  id: string;
   prediction: number;
   waterfall_sv: WaterfallSVItem[];
   brain_sv: {
