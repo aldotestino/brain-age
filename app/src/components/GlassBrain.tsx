@@ -1,20 +1,22 @@
 'use client';
 
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, GroupProps, useLoader } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
-import { Suspense, useCallback, useState } from 'react';
+import { ComponentProps, forwardRef, LegacyRef, Suspense, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import Spinner from './ui/spinner';
 import * as THREE from 'three';
-import { features, featuresItems, glassBrainRegions } from '@/lib/data';
+import { features, featuresItems, glassBrainRegions, sidesItems } from '@/lib/data';
 import EasySelect from './EasySelect';
-import { BrainSVItem, Features, GlassBrainRegions, PredictionWithExplanation } from '@/lib/types';
+import { BrainSVItem, Features, GlassBrainRegions, PredictionWithExplanation, Sides } from '@/lib/types';
 import { cn, getGlassBrainRegion, valueToColor } from '@/lib/utils';
 import { Card, CardContent, CardHeader } from './ui/card';
 import GlassBrainLegend from './GlassBrainLegend';
 import { Selection, Select, EffectComposer, Outline } from '@react-three/postprocessing';
 import { folder, useControls } from 'leva';
 import { HtmlProps } from '@react-three/drei/web/Html';
+import { Label } from './ui/label';
+import { Button } from './ui/button';
 
 function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
   regionName: GlassBrainRegions;
@@ -35,8 +37,7 @@ function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
 }
 
 
-function Brain({ values }: {values: BrainSVItem}) {
-  
+function Brain({ values, side }: {values: BrainSVItem, side: Sides | 'all'}) {
   const { children } = useLoader(OBJLoader, '/brain.obj');
 
   // const config = useControls({
@@ -59,13 +60,14 @@ function Brain({ values }: {values: BrainSVItem}) {
     return new THREE.MeshStandardMaterial({ color: '#fff' });
   }, [values]);
 
+
   return (
     <group 
-      scale={0.03} 
+      scale={0.03}
       // onPointerOver={(e) => setHoveredPart(e.object.parent?.name || null)} 
       // onPointerOut={(e) => setHoveredPart(null)}
     >
-      {children.map((child) => (
+      {children.filter((child) => side === 'all' ? true : child.name.startsWith(side)).map((child) => (
         child instanceof THREE.Mesh ? 
           <Select 
             key={child.name}
@@ -121,22 +123,45 @@ function GlassBrain({
 }) {
 
   const [feature, setFeature] = useState<string>(features[0]);
-  
+  const [side, setSide] = useState<string>('all');
+
+  const camera = useRef<typeof OrbitControls | null>(null);
+
+  function onResetView() {
+    camera.current?.reset();
+  }
+
   return (
     <Card className='h-full grid grid-rows-[auto,1fr]'>
       <CardHeader>
-        <div className='grid grid-rows-2 gap-4 xl:grid-rows-1 xl:grid-cols-[auto,1fr] xl:gap-8'>
-          <div className='w-52'>
-            <EasySelect
-              items={featuresItems}
-              value={feature}
-              onValueChange={setFeature} 
-            />
+        <div className='flex gap-4 items-end justify-between'>
+          <div className='flex gap-4'>
+            <div className='space-y-2 w-48'>
+              <Label>Side</Label>
+              <EasySelect
+                items={[{
+                  label: 'All',
+                  value: 'all'
+                }, 
+                ...sidesItems
+                ]}
+                value={side}
+                onValueChange={setSide}
+              />
+            </div>
+            <div className='space-y-2 w-48'>
+              <Label>Feature</Label>
+              <EasySelect
+                items={featuresItems}
+                value={feature}
+                onValueChange={setFeature} 
+              />
+            </div>
           </div>
-          <GlassBrainLegend />
+          <Button variant="outline" onClick={onResetView}>Reset View</Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className='grid grid-cols-[1fr,auto] gap-2'>
         <Suspense fallback={<GlassBrainFallback />}>
           <Canvas>
             <ambientLight intensity={Math.PI / 2} />
@@ -146,11 +171,12 @@ function GlassBrain({
               <EffectComposer multisampling={0} autoClear={false}>
                 <Outline visibleEdgeColor={0xffffff} hiddenEdgeColor={0xffffff} blur width={1000} edgeStrength={100} />
               </EffectComposer>
-              <Brain values={values[feature as Features]}  />
+              <Brain values={values[feature as Features]} side={side as Sides | 'all'} />
             </Selection>
-            <OrbitControls  />
+            <OrbitControls ref={camera} />
           </Canvas>
         </Suspense>
+        <GlassBrainLegend />
       </CardContent>
     </Card>
   );
