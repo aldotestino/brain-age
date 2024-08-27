@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
 import PatientActions from './patient-actions';
 
-export const columns: ColumnDef<Patient>[] = [
+export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 'email' | 'age' | 'sex' | 'siteId'>>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -21,16 +21,24 @@ export const columns: ColumnDef<Patient>[] = [
   },
   {
     accessorKey: 'firstName',
-    header: 'First Name',
+    header: 'First Name'
   },
   {
     accessorKey: 'lastName',
-    header: 'Last Name',
+    header: 'Last Name'
   }, {
     accessorKey: 'email',
-    header: 'Email',
-  },
-  {
+    header: 'Email'
+  }, {
+    accessorKey: 'age',
+    header: 'Age'
+  }, {
+    accessorKey: 'sex',
+    header: 'Sex'
+  }, {
+    accessorKey: 'siteId',
+    header: 'Site ID'
+  }, {
     id: 'actions',
     cell: ({ row }) => <PatientActions patient={row.original} />,
   },

@@ -13,13 +13,22 @@ export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: n
   } satisfies Prisma.PatientWhereInput;
 
   const total = await prisma.patient.count({
-    where: query
+    where: query,
   });
 
   const patients = await prisma.patient.findMany({
     where: query,
     skip: (p - 1) * n,
-    take: n
+    take: n,
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      age: true,
+      sex: true,
+      siteId: true,
+    }
   });
 
   const pages = Math.ceil(total / n);
