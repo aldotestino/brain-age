@@ -101,7 +101,7 @@ function AddPatientForm({
                 <FormItem className="w-full">
                   <FormLabel>Sex</FormLabel>
                   <FormControl>
-                    <EasySelect items={sexItems} defaultValue='Male' />
+                    <EasySelect items={sexItems} value={field.value} onValueChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -151,6 +151,7 @@ function UpdatePatientForm({
 
   async function onSubmit(values: UpdatePatientSchema) {
     try {
+      console.log(values);
       await updatePatient({ patientId, values });
       closeDialog();
     }catch(err: any) {
@@ -170,6 +171,23 @@ function UpdatePatientForm({
             <Field name="lastName" label="Last name" formControl={form.control} />
           </div>
           <Field name="email" label="Email" formControl={form.control} />
+          <div className='flex gap-4'>
+            <Field name="age" label="Age" type='number' min={1} formControl={form.control} />
+            <FormField
+              control={form.control}
+              name="sex"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Sex</FormLabel>
+                  <FormControl>
+                    <EasySelect items={sexItems} value={field.value} onValueChange={field.onChange}  />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Field name="siteId" label="Site ID" type='number' min={1} formControl={form.control} />
         </div>
         <DialogFooter>
           <Button type="submit" disabled={form.formState.isSubmitting}>
