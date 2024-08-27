@@ -11,16 +11,18 @@ import Spinner from '@/components/ui/spinner';
 import { addPatientSchema, updatePatientSchema } from '@/lib/validators';
 import FileInput from './FileInput';
 import { addPatient, updatePatient } from '@/server/actions';
+import { ComponentProps } from 'react';
+import EasySelect from './EasySelect';
+import { sexItems } from '@/lib/data';
 
 function Field({
   name,
   label,
-  placeholder,
-  formControl
-}: {
+  formControl,
+  ...inputProps
+}: ComponentProps<typeof Input> & {
   name: string,
   label: string,
-  placeholder?: string,
   formControl: Control<any>
 }) {
   return (
@@ -31,7 +33,7 @@ function Field({
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input {...field} {...inputProps} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -50,7 +52,10 @@ function AddPatientForm({
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: ''
+      email: '',
+      age: 1,
+      sex: 'Male',
+      siteId: 1,
     },
     resolver: zodResolver(addPatientSchema)
   });
@@ -87,6 +92,23 @@ function AddPatientForm({
             <Field name="lastName" label="Last name" formControl={form.control} />
           </div>
           <Field name="email" label="Email" formControl={form.control} />
+          <div className='flex gap-4'>
+            <Field name="age" label="Age" type='number' min={1} formControl={form.control} />
+            <FormField
+              control={form.control}
+              name="sex"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Sex</FormLabel>
+                  <FormControl>
+                    <EasySelect items={sexItems} defaultValue='Male' />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Field name="siteId" label="Site ID" type='number' min={1} formControl={form.control} />
           <FormField
             control={form.control}
             name="data"
