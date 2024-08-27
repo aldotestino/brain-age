@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Spinner from '@/components/ui/spinner';
 import { Trash2 } from 'lucide-react';
 import { deletePrediction } from '@/server/actions';
+import { DropdownMenuItem } from './ui/dropdown-menu';
 
 function DeletePrediction({
   predictionId
@@ -26,10 +27,14 @@ function DeletePrediction({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="link" className='text-destructive space-x-2 p-0'>
+        {/* <Button variant="link" className='text-destructive space-x-2 p-0'>
           <Trash2 className="w-4 h-4" />
           <span>Delete</span>
-        </Button>
+        </Button> */}
+        <DropdownMenuItem onSelect={e => e.preventDefault()}>
+          <Trash2 className="mr-2 h-4 w-4" />
+          <span>Delete prediction</span>
+        </DropdownMenuItem>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

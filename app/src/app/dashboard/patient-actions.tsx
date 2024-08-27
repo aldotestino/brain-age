@@ -11,7 +11,7 @@ import { useState } from 'react';
 function PatientActions({
   patient
 }: {
-  patient: Pick<Patient, 'id' | 'firstName' | 'lastName' | 'email'>;
+  patient: Pick<Patient, 'id' | 'firstName' | 'lastName' | 'email' | 'age' | 'sex' | 'siteId'>;
 }) {
 
   const { id, ...defaultValues } = patient;

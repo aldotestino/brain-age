@@ -3,18 +3,25 @@ import { PredictionWithExplanation } from '@/lib/types';
 import GlassBrain from './GlassBrain';
 import PredictionCard from './PredictionCard';
 import WaterfallGraph from './WaterfallGraph';
-import { Inbox } from 'lucide-react';
+import { Inbox, MoreHorizontal } from 'lucide-react';
 import InfoCard from './InfoCard';
+import PredictionActions from './PredictionActions';
 
 function PredExp({
   id,
   parametersChanged,
+  age,
+  sex,
+  siteId,
   prediction,
   waterfallSV,
   brainSV
 }: {
   id: number;
   parametersChanged: string[];
+  age: number
+  sex: string;
+  siteId: number;
   prediction: PredictionWithExplanation['prediction'];
   waterfallSV: PredictionWithExplanation['waterfall_sv'];
   brainSV: PredictionWithExplanation['brain_sv'];
@@ -22,16 +29,18 @@ function PredExp({
 
   return (
     <main className='p-4 grid grid-rows-[auto,1fr] gap-4 overflow-y-scroll'>
-      <div className='flex gap-4'>
-        <InfoCard parametersChanged={parametersChanged} predictionId={id} />
-        <PredictionCard prediction={prediction} />
-        {/* <DeletePrediction predictionId={id} /> */}
+      <div className='grid gap-4 grid-cols-5'>
+        <InfoCard parametersChanged={parametersChanged} predictionId={id} age={age} sex={sex} siteId={siteId} />
+        <PredictionCard prediction={prediction} age={age} />
       </div>
       <Tabs defaultValue="waterfall" className='grid grid-rows-[auto,1fr]'>
-        <TabsList className='w-fit'>
-          <TabsTrigger value="waterfall">Waterfall Explanation</TabsTrigger>
-          <TabsTrigger value="glassbrain">Glass Brain</TabsTrigger>
-        </TabsList>
+        <div className='flex items-center gap-2 justify-between'>
+          <TabsList className='w-fit'>
+            <TabsTrigger value="waterfall">Waterfall Explanation</TabsTrigger>
+            <TabsTrigger value="glassbrain">Glass Brain</TabsTrigger>
+          </TabsList>
+          <PredictionActions predictionId={id} />
+        </div>
         <TabsContent value="waterfall">
           <WaterfallGraph values={waterfallSV} />
         </TabsContent>

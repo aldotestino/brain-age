@@ -55,6 +55,9 @@ export async function getPatient(id: string) {
       firstName: true,
       lastName: true,
       email: true,
+      age: true,
+      sex: true,
+      siteId: true,
       data: true,
       predictions: {
         select: {
