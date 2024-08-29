@@ -10,8 +10,8 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: 'Nextjs-shadcn-starter',
-  description: 'Next.js starter template with Typescript, Tailwind CSS and Shadcn/ui',
+  title: 'Brain Age',
+  description: '',
 };
 
 export default function RootLayout({
