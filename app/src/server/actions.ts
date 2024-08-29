@@ -6,8 +6,7 @@ import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
-
-const MODEL_API_URL = 'http://localhost:8080/predict_and_explain';
+import env from '@/lib/env';
 
 export async function predictAndExplain({
   patientId,
@@ -27,7 +26,7 @@ export async function predictAndExplain({
     throw new Error('Patient not found');
   }
 
-  const { data } = await axios.post<PredictionWithExplanation>(MODEL_API_URL, calculatedData);
+  const { data } = await axios.post<PredictionWithExplanation>(`${env.MODEL_API_URL}/predict_and_explain`, calculatedData);
 
   const { id } = await prisma.prediction.create({
     data: {
