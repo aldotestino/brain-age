@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
+    "prisma:migrate-prod": "prisma migrate deploy",
+    "prisma:migrate-dev": "prisma migrate dev",
     "prisma:push": "prisma db push",
-    "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
   },
   "dependencies": {
