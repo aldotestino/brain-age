@@ -12,4 +12,4 @@ if __name__ == "__main__":
     model = Model(model_path=model_path, train_path=train_path)
     app = Api(model=model)
 
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
+    uvicorn.run(app, port=PORT)
