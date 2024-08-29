@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
 import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures } from './data';
 import { DataSchema, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
+import fullRelations from './relations.json';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -31,28 +32,7 @@ export function updateFeatures({
   baseValues: DataSchema
 }) {
 
-  const relations = {
-    surface_area: {
-      [EDITABLE_FEATURE_1]: 2,
-      [EDITABLE_FEATURE_2]: 1.5,
-    },
-    mean_curv: {
-      [EDITABLE_FEATURE_1]: 0.2,
-      [EDITABLE_FEATURE_2]: -0.6,
-    },
-    intrinsic_cur_index: {
-      [EDITABLE_FEATURE_1]: -1.2,
-      [EDITABLE_FEATURE_2]: 0.7,
-    },
-    gaussian_curv: {
-      [EDITABLE_FEATURE_1]: 0.8,
-      [EDITABLE_FEATURE_2]: 1.4,
-    },
-    thickness_stddev: {
-      [EDITABLE_FEATURE_1]: -0.5,
-      [EDITABLE_FEATURE_2]: 0.3,
-    },
-  };
+  const relations = fullRelations[side][region];
 
   const values: Partial<DataSchema> = {};
   const percentages: Partial<DataSchema> = {};
@@ -70,7 +50,7 @@ export function updateFeatures({
     const relatedFeatureName = `${relatedFeature}_${side}-${region}` as ModelFeatures;
     const relatedFeatureValue = baseValues[relatedFeatureName];
 
-    const totalPercentage = factor.GM_vol * feature1Percentage + factor.average_thickness * feature2Percentage;
+    const totalPercentage = factor[EDITABLE_FEATURE_1] * feature1Percentage + factor[EDITABLE_FEATURE_2] * feature2Percentage;
 
     const updatedValue = relatedFeatureValue + relatedFeatureValue / 100 * totalPercentage;
 
