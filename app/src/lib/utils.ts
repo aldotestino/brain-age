@@ -18,6 +18,16 @@ export function isFeatureEditable(feature: string) {
   return feature === EDITABLE_FEATURE_1 || feature === EDITABLE_FEATURE_2;
 }
 
+export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string, n: number }) {
+  const urlSearchParams = new URLSearchParams();
+  urlSearchParams.set('p', p.toString());
+  urlSearchParams.set('n', n.toString());
+  if (q) {
+    urlSearchParams.set('q', q);
+  }
+  return `/dashboard?${urlSearchParams.toString()}`;
+}
+
 export function updateFeatures({
   side,
   region,

@@ -2,9 +2,13 @@ import prisma from '@/lib/db';
 import { DataSchema, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
-export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: number, n?: number }) {
+export async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
+
+  if (isNaN(p) || isNaN(n)) {
+    redirect('/dashboard');
+  }
 
   const query = {
     AND: q.split(' ').map(part => ({
@@ -15,6 +19,14 @@ export async function getPatients({ q = '', p = 1, n = 10 }: { q?: string, p?: n
   const total = await prisma.patient.count({
     where: query,
   });
+
+  if (n > total && p > 1) {
+    if (q) {
+      redirect(`/dashboard?q=${q}&n=${n}`);
+    } else {
+      redirect(`/dashboard?n=${n}`);
+    }
+  }
 
   const patients = await prisma.patient.findMany({
     where: query,

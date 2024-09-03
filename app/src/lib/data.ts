@@ -30,7 +30,15 @@ export const featuresItems = features.map(value => ({
   label: value.split('_').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }));
 
-export const sexItems = [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'Female' }];
+export const sexItems = ['Male', 'Female'].map(i => ({
+  label: i,
+  value: i
+}));
+
+export const itemsPerPageItems = ['5', '8', '10', '15', '20', '50', '100'].map(i => ({
+  label: i,
+  value: i
+}));
 
 export const EDITABLE_FEATURE_1 = 'GM_vol' as const;
 export const EDITABLE_FEATURE_2 = 'average_thickness' as const;

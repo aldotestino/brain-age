@@ -18,8 +18,9 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   total,
   pages,
-  currentPage = 1,
-  currentQuery = '',
+  itemsPerPage,
+  currentPage,
+  currentQuery,
   nextPage,
   prevPage,
   columns,
@@ -27,10 +28,11 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue> &  {
   total: number
   pages: number
+  itemsPerPage: number
   nextPage: number | null
   prevPage: number | null
   currentPage: number
-  currentQuery?: string
+  currentQuery: string
 }) {
   const table = useReactTable({
     data,
@@ -107,22 +109,21 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                  No results.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      {pages > 1 && <div className='flex justify-center sm:justify-end'>
-        <Paginator 
-          pages={pages} 
-          currentPage={currentPage}
-          currentQuery={currentQuery}
-          nextPage={nextPage} 
-          prevPage={prevPage} 
-        />
-      </div>}
+      <Paginator 
+        pages={pages}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        currentQuery={currentQuery}
+        nextPage={nextPage} 
+        prevPage={prevPage} 
+      />
     </div>
   );
 }
