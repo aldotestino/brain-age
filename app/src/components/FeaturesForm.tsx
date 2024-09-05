@@ -77,6 +77,11 @@ function FeaturesForm({
     });
   }
 
+  function reset() {
+    form.reset();
+    setCalculatedData(baseCalculatedData || baseData);
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[auto,1fr,auto] overflow-y-hidden">
@@ -135,7 +140,10 @@ function FeaturesForm({
               />
             ))}
         </div>
-        <div className="p-4 border-t flex justify-end">
+        <div className="p-4 border-t flex gap-2 justify-end">
+          <Button type='button' onClick={reset} variant="outline" className='space-x-2'>
+            Reset
+          </Button>
           <Button type='submit' className='space-x-2' disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting && <Spinner />}
             <span>Predict</span>
