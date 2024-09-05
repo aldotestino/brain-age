@@ -19,7 +19,7 @@ function PredictionCard({ prediction, age }: Pick<PredictionWithExplanation, 'pr
           <span className='text-muted-foreground text-xl font-semibold'>Years</span>
         </p>
         <p>
-          <span className={cn('text-5xl font-bold', Math.abs(bag) < 3 ? 'text-green-600' : 'text-red-600')}>{bag > 0 && '+'}{bag.toFixed(2)}</span>{' '}
+          <span className={cn('text-5xl font-bold', bag > 0 ? 'text-red-600' : 'text-green-600')}>{bag > 0 && '+'}{bag.toFixed(2)}</span>{' '}
           <span className='text-muted-foreground text-xl font-semibold'>BAG</span>
         </p>
       </CardContent>
