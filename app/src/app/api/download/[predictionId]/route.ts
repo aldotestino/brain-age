@@ -74,7 +74,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
   const headers = new Headers({
     'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'Content-Disposition': `attachment; filename="prediction_${predictionId}.xlsx"`,
+    'Content-Disposition': `attachment; filename="${patient.firstName}_${patient.lastName}_prediction_${predictionId}.xlsx"`,
   });
 
   return new NextResponse(excelBuffer, { headers });
