@@ -84,6 +84,9 @@ export const barOptions = {
       grid: {
         display: false,
       },
+      ticks: {
+        count: 10 // probably solves the overlapping issue with the labels
+      },
       bounds: 'data',
       beginAtZero: false,
       title: {
