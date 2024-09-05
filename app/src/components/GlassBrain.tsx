@@ -162,7 +162,7 @@ function GlassBrain({
             <CameraControls ref={camera} />
           </Canvas>
         </Suspense>
-        <GlassBrainLegend />
+        <GlassBrainLegend max={values[feature as Features].max} min={values[feature as Features].min} />
       </CardContent>
     </Card>
   );
