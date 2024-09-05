@@ -1,7 +1,8 @@
 import DeletePrediction from './DeletePrediction';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Button } from './ui/button';
-import { MoreHorizontal } from 'lucide-react';
+import { Download, MoreHorizontal } from 'lucide-react';
+import DownloadPrediction from './DownloadPrediction';
 
 function PredictionActions({
   predictionId
@@ -19,6 +20,7 @@ function PredictionActions({
       <DropdownMenuContent align="end" className='w-48'>
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DownloadPrediction predictionId={predictionId} />
         <DeletePrediction predictionId={predictionId} />
       </DropdownMenuContent>
     </DropdownMenu>
