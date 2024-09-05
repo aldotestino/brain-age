@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
 import env from '@/lib/env';
+import { dataZero } from '@/lib/utils';
 
 export async function predictAndExplain({
   patientId,
@@ -53,7 +54,15 @@ export async function addPatient(values: AddPatientSchema) {
     });
 
     revalidatePath('/dashboard');
-    redirect(`/patient/${id}`);
+
+    // create base prediction
+    await predictAndExplain({
+      patientId: id,
+      percentages: dataZero,
+      calculatedData: values.data
+    });
+
+    // redirect(`/patient/${id}`);
   } catch (e: any) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {
