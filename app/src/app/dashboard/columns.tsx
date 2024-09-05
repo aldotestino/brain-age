@@ -4,20 +4,24 @@ import { Patient } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
 import PatientActions from './patient-actions';
+import { buttonVariants } from '@/components/ui/button';
 
 export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 'email' | 'age' | 'sex' | 'siteId'>>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
+    id: 'open',
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
-        <Link href={`/patient/${patient.id}`} className='hover:underline'>
-          {patient.id}
+        <Link href={`/patient/${patient.id}`} className={buttonVariants({ className: 'h-8', variant: 'outline' })} >
+          Open
         </Link>
       );
-    },
+    }
+  },
+  {
+    accessorKey: 'id',
+    header: 'ID'
   },
   {
     accessorKey: 'firstName',
