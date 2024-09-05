@@ -24,7 +24,7 @@ function DownloadPrediction({ predictionId }: {predictionId: number}) {
     const url = window.URL.createObjectURL(new Blob([blob]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `prediction_${predictionId}.xlsx`); // Set the file name
+    link.setAttribute('download', `prediction_${predictionId}.xlsx`);
     document.body.appendChild(link);
     link.click();
     link.remove();

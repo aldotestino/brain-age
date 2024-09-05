@@ -28,12 +28,14 @@ export type BrainSVItem = {
   max: number,
 }
 
+export type BrainSV = {
+  [key in Features]: BrainSVItem;
+}
+
 export type PredictionWithExplanation = {
   prediction: number;
   waterfall_sv: WaterfallSVItem[];
-  brain_sv: {
-    [key in Features]: BrainSVItem;
-  };
+  brain_sv: BrainSV
 }
 
 export type Patient = {

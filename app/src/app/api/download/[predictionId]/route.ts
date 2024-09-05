@@ -1,4 +1,6 @@
+import { features, regions, sides } from '@/lib/data';
 import prisma from '@/lib/db';
+import { BrainSV, DataSchema, Features, GlassBrainRegions, ModelFeatures } from '@/lib/types';
 import { NextResponse } from 'next/server';
 import * as xlsx from 'xlsx';
 
@@ -40,6 +42,11 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
   const { patient, ...pred } = prediction;
 
+  const data = patient.data as DataSchema;
+  const percentages = pred.percentages as DataSchema;
+  const calculatedData = pred.calculatedData as DataSchema;
+  const brainSV = pred.brainSV as BrainSV;
+
   const sheetData = [
     ['ID', patient.id],
     ['First Name', patient.firstName],
@@ -51,7 +58,12 @@ export async function GET(request: Request, { params }: { params: { predictionId
     ['Predicted Brain Age', pred.prediction],
     ['BAG (Brain Age Gap)', pred.prediction - patient.age],
     [],
-    ['Feature', 'Value', 'Percentage', 'New value', 'Shap value']
+    ['Feature', 'Value', 'Percentage', 'New value', 'Shap value'],
+    ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
+      const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
+      const featureName = `${feature}_${side}-${region}` as ModelFeatures;
+      return [featureName, data[featureName], percentages[featureName], calculatedData[featureName], shapValue];
+    })))
   ];
 
   const workbook = xlsx.utils.book_new();
