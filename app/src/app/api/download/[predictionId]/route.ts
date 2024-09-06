@@ -42,10 +42,51 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
   const { patient, ...pred } = prediction;
 
+  const basePrediction = await prisma.prediction.findFirst({ // the base prediction is the first prediction for the patient
+    where: {
+      patientId: patient.id,
+    },
+    orderBy: {
+      createdAt: 'asc'
+    },
+    select: {
+      brainSV: true,
+      id: true
+    }
+  });
+
+  if (!basePrediction) {
+    return new Response('Base prediction not found', { status: 404 });
+  }
+
   const data = patient.data as DataSchema;
   const percentages = pred.percentages as DataSchema;
   const calculatedData = pred.calculatedData as DataSchema;
   const brainSV = pred.brainSV as BrainSV;
+  const baseBrainSV = basePrediction.brainSV as BrainSV;
+
+  const predictionData = id === basePrediction.id ?
+    [
+      ['Feature', 'Value', 'Shap Value'],
+      ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
+        const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
+        const featureName = `${feature}_${side}-${region}` as ModelFeatures;
+
+        return [featureName, data[featureName], shapValue];
+      })))
+    ] :
+    [
+      ['Feature', 'Base value', 'Value change [%]', 'Value', 'Base shap value', 'Shap value change [%]', 'Shap value'],
+      ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
+        const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
+        const baseShapValue = baseBrainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
+        const shapPercentageChange = (shapValue - baseShapValue) / baseShapValue * 100;
+
+        const featureName = `${feature}_${side}-${region}` as ModelFeatures;
+
+        return [featureName, data[featureName], percentages[featureName], calculatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
+      })))
+    ];
 
   const sheetData = [
     ['ID', patient.id],
@@ -58,12 +99,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
     ['Predicted Brain Age', pred.prediction],
     ['BAG (Brain Age Gap)', pred.prediction - patient.age],
     [],
-    ['Feature', 'Value', 'Percentage', 'New value', 'Shap value'],
-    ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
-      const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
-      const featureName = `${feature}_${side}-${region}` as ModelFeatures;
-      return [featureName, data[featureName], percentages[featureName], calculatedData[featureName], shapValue];
-    })))
+    ...predictionData
   ];
 
   const workbook = xlsx.utils.book_new();
