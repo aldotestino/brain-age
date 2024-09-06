@@ -112,13 +112,13 @@ function AddPatientForm({
           <FormField
             control={form.control}
             name="data"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem className="w-full">
                 <FormLabel>Data</FormLabel>
                 <FormControl>
                   <FileInput onChange={field.onChange} onRemoveFile={onRemoveFile} onError={onError} />
                 </FormControl>
-                <FormMessage />
+                {fieldState.invalid && <p className="text-sm font-medium text-destructive">Invalid JSON file</p>}
               </FormItem>
             )}
           />
