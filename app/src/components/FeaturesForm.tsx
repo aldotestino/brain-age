@@ -16,6 +16,7 @@ import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
+import DependantFeature from './DependantFeature';
 
 const percentagesZero = modelFeatures.reduce((acc, key) => {
   acc[key as ModelFeatures] = 0;
@@ -166,16 +167,7 @@ function FeaturesForm({
                 .map(f => {
                   const modelFeatureName = getModelFeatureName(f, side, region);
                   return (
-                    <div key={modelFeatureName} className='space-y-2'>
-                      <div className='flex items-baseline justify-between'>
-                        <Label>{f}</Label>
-                        <p className='text-lg font-semibold text-muted-foreground'>{calcData[modelFeatureName].toFixed(2)}</p>
-                      </div>
-                      <div className='grid grid-cols-[1fr,auto] gap-1'>
-                        <Slider min={-100} max={100} disabled className='opacity-50' value={[percentages[modelFeatureName]]} />
-                        <span className='w-20 text-right'>{percentages[modelFeatureName] >= 0 && '+'}{percentages[modelFeatureName].toFixed(2)}%</span>
-                      </div>
-                    </div>
+                    <DependantFeature key={modelFeatureName} featureName={f} calcData={calcData[modelFeatureName]} percentage={percentages[modelFeatureName]} />
                   );
                 })}
             </>
