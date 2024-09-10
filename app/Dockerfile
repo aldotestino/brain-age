@@ -11,7 +11,6 @@ RUN yarn
 COPY . .
 
 RUN yarn prisma:generate
-RUN yarn prisma:migrate-dev --name init
 RUN yarn prisma:migrate-prod
 RUN yarn prisma:push
 
