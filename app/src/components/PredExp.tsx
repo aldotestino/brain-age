@@ -9,7 +9,6 @@ import PredictionActions from './PredictionActions';
 
 function PredExp({
   id,
-  parametersChanged,
   age,
   sex,
   siteId,
@@ -18,7 +17,6 @@ function PredExp({
   brainSV
 }: {
   id: number;
-  parametersChanged: string[];
   age: number
   sex: string;
   siteId: number;
@@ -30,7 +28,7 @@ function PredExp({
   return (
     <main className='p-4 grid grid-rows-[auto,1fr] gap-4 overflow-y-scroll'>
       <div className='grid gap-4 grid-cols-5'>
-        <InfoCard parametersChanged={parametersChanged} predictionId={id} age={age} sex={sex} siteId={siteId} />
+        <InfoCard predictionId={id} age={age} sex={sex} siteId={siteId} />
         <PredictionCard prediction={prediction} age={age} />
       </div>
       <Tabs defaultValue="waterfall" className='grid grid-rows-[auto,1fr]'>

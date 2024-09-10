@@ -1,22 +1,20 @@
 import { ArrowLeft } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import FeaturesForm from './FeaturesForm';
-import { DataSchema } from '@/lib/types';
+import { DataChangeSchema, DataSchema } from '@/lib/types';
 import Link from 'next/link';
 
 function Sidebar({
   patientId,
   data,
-  basePercentages,
-  baseCalculatedData,
+  dataChange,
   email,
   firstName,
   lastName
 }: {
   patientId: number;
   data: DataSchema;
-  basePercentages: DataSchema | null;
-  baseCalculatedData: DataSchema | null;
+  dataChange?: DataChangeSchema;
   email: string;
   firstName: string;
   lastName: string;
@@ -37,7 +35,7 @@ function Sidebar({
       <FeaturesForm 
         patientId={patientId}
         data={data}
-        // dataChange={}
+        dataChange={dataChange}
       />
     </div>
   );

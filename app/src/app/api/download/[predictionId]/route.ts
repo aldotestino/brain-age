@@ -1,6 +1,7 @@
 import { features, regions, sides } from '@/lib/data';
 import prisma from '@/lib/db';
-import { BrainSV, DataSchema, Features, GlassBrainRegions, ModelFeatures } from '@/lib/types';
+import { BrainSV, DataChangeSchema, DataSchema, Features, GlassBrainRegions, ModelFeatures } from '@/lib/types';
+import { updateWholeDataAndPercentages } from '@/lib/utils';
 import { NextResponse } from 'next/server';
 import * as xlsx from 'xlsx';
 
@@ -18,8 +19,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
     where: { id },
     select: {
       prediction: true,
-      percentages: true,
-      calculatedData: true,
+      dataChange: true,
       brainSV: true,
       patient: {
         select: {
@@ -59,9 +59,12 @@ export async function GET(request: Request, { params }: { params: { predictionId
     return new Response('Base prediction not found', { status: 404 });
   }
 
+  const { percentages, updatedData } = updateWholeDataAndPercentages({
+    data: patient.data as DataSchema,
+    dataChange: pred.dataChange as DataChangeSchema
+  });
+
   const data = patient.data as DataSchema;
-  const percentages = pred.percentages as DataSchema;
-  const calculatedData = pred.calculatedData as DataSchema;
   const brainSV = pred.brainSV as BrainSV;
   const baseBrainSV = basePrediction.brainSV as BrainSV;
 
@@ -84,7 +87,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
         const featureName = `${feature}_${side}-${region}` as ModelFeatures;
 
-        return [featureName, data[featureName], percentages[featureName], calculatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
+        return [featureName, data[featureName], percentages[featureName], updatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
       })))
     ];
 

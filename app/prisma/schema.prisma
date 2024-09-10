@@ -32,7 +32,7 @@ model Prediction {
   patientId   Int
   patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
   prediction  Float
-  dataChange  Json
+  dataChange  Json?
   waterfallSV Json
   brainSV     Json
   createdAt   DateTime @default(now())

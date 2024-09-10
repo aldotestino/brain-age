@@ -1,8 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
-import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures } from './data';
-import { DataSchema, EditableFeatures, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
+import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures, regions, sides } from './data';
+import { DataChangeSchema, DataSchema, EditableFeatures, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
 import fullRelations from './fullRelations.json';
 
 export function cn(...inputs: ClassValue[]) {
@@ -21,6 +21,40 @@ export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string
     urlSearchParams.set('q', q);
   }
   return `/dashboard?${urlSearchParams.toString()}`;
+}
+
+export function updateWholeDataAndPercentages({
+  data,
+  dataChange
+}: {
+  data: DataSchema,
+  dataChange: DataChangeSchema
+}) {
+  const percentages = sides.reduce((acc, side) => {
+    acc = {
+      ...acc,
+      ...regions.reduce((acc, region) => {
+        acc = {
+          ...acc,
+          ...updatePercentages({
+            side,
+            region,
+            featureChanged: dataChange[side][region].featureChanged,
+            percentage: dataChange[side][region].percentage
+          })
+        };
+        return acc;
+      }, {} as any)
+    };
+    return acc;
+  }, {} as any) as DataSchema;
+
+  const updatedData = updateData({
+    data,
+    percentages
+  }) as DataSchema;
+
+  return { percentages, updatedData };
 }
 
 export function updatePercentages({

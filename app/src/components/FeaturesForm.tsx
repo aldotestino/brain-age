@@ -83,10 +83,10 @@ function FeaturesForm({
 
   async function handleOnSubmit(dataChange: DataChangeSchema) {
     console.log(dataChange);
-    // await predictAndExplain({
-    //   patientId,
-    //   dataChange
-    // });
+    await predictAndExplain({
+      patientId,
+      dataChange
+    });
   }
 
   function reset() {

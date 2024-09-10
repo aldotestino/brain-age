@@ -18,15 +18,13 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
         firstName={patient.firstName}
         lastName={patient.lastName}
         patientId={patient.id}
-        data={patient.data} 
-        basePercentages={prediction?.percentages || null} 
-        baseCalculatedData={prediction?.calculatedData || null} 
+        data={patient.data}
+        dataChange={prediction?.dataChange}
       />
       <PredictionsList predictions={patient.predictions} />
       {prediction ?
         <PredExp
           id={prediction.id}
-          parametersChanged={prediction.parametersChanged}
           age={patient.age}
           sex={patient.sex}
           siteId={patient.siteId}
