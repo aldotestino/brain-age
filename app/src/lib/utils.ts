@@ -26,7 +26,7 @@ export function updateWholeDataAndPercentages({
   data: DataSchema,
   dataChange: DataChangeSchema
 }) {
-  const percentages = sides.reduce((acc, side) => {
+  const updatedPercentages = sides.reduce((acc, side) => {
     acc = {
       ...acc,
       ...regions.reduce((acc, region) => {
@@ -47,10 +47,10 @@ export function updateWholeDataAndPercentages({
 
   const updatedData = updateData({
     data,
-    percentages
+    percentages: updatedPercentages
   }) as DataSchema;
 
-  return { percentages, updatedData };
+  return { updatedPercentages, updatedData };
 }
 
 export function updatePercentages({
@@ -64,18 +64,18 @@ export function updatePercentages({
   featureChanged: EditableFeatures,
   percentage: number
 }) {
-  const percentages: Partial<DataSchema> = {};
+  const updatedPercentages: Partial<DataSchema> = {};
 
   // add itself
-  percentages[getModelFeatureName(featureChanged, side, region)] = percentage;
+  updatedPercentages[getModelFeatureName(featureChanged, side, region)] = percentage;
 
   const relations = fullRelations[featureChanged][side][region];
 
   Object.entries(relations).forEach(([feature, relation]) => {
-    percentages[getModelFeatureName(feature, side, region)] = percentage * relation;
+    updatedPercentages[getModelFeatureName(feature, side, region)] = percentage * relation;
   });
 
-  return percentages;
+  return updatedPercentages;
 }
 
 export function updateData({

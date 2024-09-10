@@ -4,10 +4,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Slider } from '@/components/ui/slider';
 import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, sides, sidesItems } from '@/lib/data';
 import { DataChangeSchema, DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
-import { getModelFeatureName, updateData, updatePercentages } from '@/lib/utils';
+import { getModelFeatureName, updateData, updatePercentages, updateWholeDataAndPercentages } from '@/lib/utils';
 import { dataChangeSchema, dataSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import EasyComboBox from './EasyComboBox';
 import EasySelect from './EasySelect';
@@ -57,6 +57,58 @@ function FeaturesForm({
   const [calcData, setCalcData] = useState<DataSchema>(data);
   const [percentages, setPercentages] = useState<DataSchema>(percentagesZero);
 
+  // useEffect(() => {
+  //   if(dataChange) {
+  //     form.reset(dataChange);
+  //     const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
+  //       data,
+  //       dataChange: dataChange
+  //     });
+  //     setPercentages(updatedPercentages);
+  //     setCalcData(updatedData);
+  //   } else {
+  //     form.reset(dataChangeZero);
+  //     setPercentages(percentagesZero);
+  //     setCalcData(data);
+  //   }
+  // }, [data, dataChange, form]);
+
+  // function reset() {
+  //   if(dataChange) {
+  //     form.reset(dataChange);
+  //     const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
+  //       data,
+  //       dataChange
+  //     });
+
+  //     setPercentages(updatedPercentages);
+  //     setCalcData(updatedData);
+  //   }else {
+  //     form.reset(dataChangeZero);
+  //     setPercentages(percentagesZero);
+  //     setCalcData(data);
+  //   }
+  // }
+
+  const reset = useCallback(() => {
+    if(dataChange) {
+      form.reset(dataChange);
+      const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
+        data,
+        dataChange
+      });
+
+      setPercentages(updatedPercentages);
+      setCalcData(updatedData);
+    }else {
+      form.reset(dataChangeZero);
+      setPercentages(percentagesZero);
+      setCalcData(data);
+    }
+  }, [data, dataChange, form]);
+
+  useEffect(reset, [reset]);
+
   function onPercentageUpdate() {
     const updatedPercentags = updatePercentages({
       side: side as Sides,
@@ -82,17 +134,10 @@ function FeaturesForm({
   }
 
   async function handleOnSubmit(dataChange: DataChangeSchema) {
-    console.log(dataChange);
     await predictAndExplain({
       patientId,
       dataChange
     });
-  }
-
-  function reset() {
-    form.reset();
-    setPercentages(percentagesZero);
-    setCalcData(data);
   }
 
   return (
@@ -129,10 +174,14 @@ function FeaturesForm({
                     <FormItem>
                       <FormLabel>Editable Feature</FormLabel>
                       <FormControl>
-                        <EasySelect items={editableFeaturesItems} value={field.value} onValueChange={v => {
-                          field.onChange(v);
-                          onPercentageUpdate();
-                        }} />
+                        <EasySelect 
+                          items={editableFeaturesItems} 
+                          value={field.value} 
+                          onValueChange={v => {
+                            field.onChange(v);
+                            onPercentageUpdate();
+                          }} 
+                        />
                       </FormControl>
                       <div className='flex items-center justify-between'>
                         <Label>Value</Label>
@@ -150,10 +199,15 @@ function FeaturesForm({
                     <FormItem>
                       <FormControl>
                         <div className='grid grid-cols-[1fr,auto] gap-1'>
-                          <Slider min={-100} max={100} value={[field.value]} onValueChange={v => {
-                            field.onChange(v[0]);
-                            onPercentageUpdate();  
-                          }} />
+                          <Slider 
+                            min={-100} 
+                            max={100} 
+                            value={[field.value]} 
+                            onValueChange={v => {
+                              field.onChange(v[0]);
+                              onPercentageUpdate();  
+                            }} 
+                          />
                           <span className='w-20 text-right'>{field.value >= 0 && '+'}{field.value.toFixed(2)}%</span>
                         </div>
                       </FormControl>

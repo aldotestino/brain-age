@@ -76,7 +76,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
       })))
     ];
   } else {
-    const { percentages, updatedData } = updateWholeDataAndPercentages({
+    const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
       data: patient.data as DataSchema,
       dataChange: pred.dataChange as DataChangeSchema
     });
@@ -90,7 +90,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
         const featureName = `${feature}_${side}-${region}` as ModelFeatures;
 
-        return [featureName, data[featureName], percentages[featureName], updatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
+        return [featureName, data[featureName], updatedPercentages[featureName], updatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
       })))
     ];
   }
