@@ -9,10 +9,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function isFeatureEditable(feature: string) {
-  return feature === EDITABLE_FEATURE_1 || feature === EDITABLE_FEATURE_2;
-}
-
 export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string, n: number }) {
   const urlSearchParams = new URLSearchParams();
   urlSearchParams.set('p', p.toString());

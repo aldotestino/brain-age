@@ -59,17 +59,14 @@ export async function GET(request: Request, { params }: { params: { predictionId
     return new Response('Base prediction not found', { status: 404 });
   }
 
-  const { percentages, updatedData } = updateWholeDataAndPercentages({
-    data: patient.data as DataSchema,
-    dataChange: pred.dataChange as DataChangeSchema
-  });
-
   const data = patient.data as DataSchema;
   const brainSV = pred.brainSV as BrainSV;
   const baseBrainSV = basePrediction.brainSV as BrainSV;
 
-  const predictionData = id === basePrediction.id ?
-    [
+  let predictionData: any[][];
+
+  if (id === basePrediction.id) {
+    predictionData = [
       ['Feature', 'Value', 'Shap Value'],
       ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
         const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
@@ -77,8 +74,14 @@ export async function GET(request: Request, { params }: { params: { predictionId
 
         return [featureName, data[featureName], shapValue];
       })))
-    ] :
-    [
+    ];
+  } else {
+    const { percentages, updatedData } = updateWholeDataAndPercentages({
+      data: patient.data as DataSchema,
+      dataChange: pred.dataChange as DataChangeSchema
+    });
+
+    predictionData = [
       ['Feature', 'Base value', 'Value change [%]', 'Value', 'Base shap value', 'Shap value change [%]', 'Shap value'],
       ...features.flatMap(feature => sides.flatMap(side => regions.map(region => {
         const shapValue = brainSV[feature as Features].regions[`${side}.${region}` as GlassBrainRegions];
@@ -90,6 +93,7 @@ export async function GET(request: Request, { params }: { params: { predictionId
         return [featureName, data[featureName], percentages[featureName], updatedData[featureName], baseShapValue, shapPercentageChange, shapValue];
       })))
     ];
+  }
 
   const sheetData = [
     ['ID', patient.id],
