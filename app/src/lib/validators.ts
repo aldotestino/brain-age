@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { ModelFeatures } from './types';
-import { modelFeatures } from './data';
+import { Features, ModelFeatures, Regions, Sides } from './types';
+import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, modelFeatures, regions, sides } from './data';
 
 const dataObject = modelFeatures.reduce((acc, key) => {
   acc[key as ModelFeatures] = z.number();
@@ -21,3 +21,26 @@ export const updatePatientSchema = z.object({
 export const addPatientSchema = updatePatientSchema.extend({
   data: z.object(dataObject)
 });
+
+/* Data Change Schema */
+
+const regionChangeObject = {
+  featureChanged: z.enum([EDITABLE_FEATURE_1, EDITABLE_FEATURE_2]).default(EDITABLE_FEATURE_1),
+  percentage: z.number().default(0),
+};
+
+const regionChangeSchema = z.object(regionChangeObject);
+
+const sideChangeObject = regions.reduce((acc, region) => {
+  acc[region] = regionChangeSchema;
+  return acc;
+}, {} as Record<Regions, z.ZodObject<typeof regionChangeObject>>);
+
+const sideChangeSchema = z.object(sideChangeObject);
+
+const dataChangeObject = sides.reduce((acc, side) => {
+  acc[side] = sideChangeSchema;
+  return acc;
+}, {} as Record<Sides, z.ZodObject<typeof sideChangeObject>>);
+
+export const dataChangeSchema = z.object(dataChangeObject);

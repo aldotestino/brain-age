@@ -18,7 +18,7 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
         firstName={patient.firstName}
         lastName={patient.lastName}
         patientId={patient.id}
-        baseData={patient.data} 
+        data={patient.data} 
         basePercentages={prediction?.percentages || null} 
         baseCalculatedData={prediction?.calculatedData || null} 
       />

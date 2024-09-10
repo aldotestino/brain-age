@@ -2,12 +2,12 @@
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Slider } from '@/components/ui/slider';
-import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, featuresItems, regionsItems, sidesItems } from '@/lib/data';
-import { DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
-import { cn, dataZero, isFeatureEditable, updateFeatures } from '@/lib/utils';
-import { dataSchema } from '@/lib/validators';
+import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, sides, sidesItems } from '@/lib/data';
+import { DataChangeSchema, DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
+import { getModelFeatureName, updateData, updatePercentages } from '@/lib/utils';
+import { dataChangeSchema, dataSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import EasyComboBox from './EasyComboBox';
 import EasySelect from './EasySelect';
@@ -17,69 +17,81 @@ import { Separator } from './ui/separator';
 import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 
+const percentagesZero = modelFeatures.reduce((acc, key) => {
+  acc[key as ModelFeatures] = 0;
+  return acc;
+}, {} as Record<ModelFeatures, number>);
+
+const dataChangeZero: DataChangeSchema = sides.reduce((acc, side) => {
+  acc[side] = regions.reduce((acc, region) => {
+    acc[region] = {
+      featureChanged: EDITABLE_FEATURE_1,
+      percentage: 0
+    };
+    return acc;
+  }, {} as any);
+  return acc;
+}, {} as any);
+
 function FeaturesForm({
   patientId,
-  baseData,
-  basePercentages,
-  baseCalculatedData,
+  data,
+  dataChange
 }: {
   patientId: number;
-  baseData: DataSchema;
-  basePercentages: DataSchema | null;
-  baseCalculatedData: DataSchema | null;
+  data: DataSchema;
+  dataChange?: DataChangeSchema
 }) {
 
   const [side, setSide] = useState('');
   const [region, setRegion] = useState('');
 
-  const [baseValues] = useState<DataSchema>(baseData);
-  const [calculatedData, setCalculatedData] = useState<DataSchema>(baseCalculatedData || baseData);
-
-  const form = useForm<DataSchema>({
-    defaultValues: basePercentages || dataZero,
-    resolver: zodResolver(dataSchema),
+  const form = useForm<DataChangeSchema>({
+    defaultValues: dataChange || dataChangeZero,
+    resolver: zodResolver(dataChangeSchema),
   });
 
-  useEffect(() => {
-    if(baseCalculatedData) {
-      setCalculatedData(baseCalculatedData);
-    }
+  const liveForm = form.watch();
 
-    if(basePercentages) {
-      form.reset(basePercentages);
-    }
-  }, [baseCalculatedData, basePercentages, form]);
+  const [calcData, setCalcData] = useState<DataSchema>(data);
+  const [percentages, setPercentages] = useState<DataSchema>(percentagesZero);
 
   function onPercentageUpdate() {
-    const { values, percentages } = updateFeatures({
+    const updatedPercentags = updatePercentages({
       side: side as Sides,
       region: region as Regions,
-      feature1Percentage: form.getValues(`${EDITABLE_FEATURE_1}_${side}-${region}` as ModelFeatures),
-      feature2Percentage: form.getValues(`${EDITABLE_FEATURE_2}_${side}-${region}` as ModelFeatures),
-      baseValues
+      featureChanged: liveForm[side as Sides][region as Regions].featureChanged,
+      percentage: liveForm[side as Sides][region as Regions].percentage
     });
 
-    setCalculatedData(p => ({
-      ...p,
-      ...values
+    const updatedData = updateData({
+      data,
+      percentages: updatedPercentags
+    });
+
+    setPercentages(pv => ({
+      ...pv,
+      ...updatedPercentags
     }));
 
-    Object.entries(percentages).forEach(([relatedFeature, relatedPercentage]) => {
-      form.setValue(relatedFeature as ModelFeatures, relatedPercentage);
-    });
+    setCalcData(pv => ({
+      ...pv,
+      ...updatedData
+    }));
   }
 
-  async function handleOnSubmit(percentages: DataSchema) {
-    await predictAndExplain({
-      patientId,
-      percentages,
-      calculatedData
-    });
+  async function handleOnSubmit(dataChange: DataChangeSchema) {
+    console.log(dataChange);
+    // await predictAndExplain({
+    //   patientId,
+    //   dataChange
+    // });
   }
 
   function reset() {
     form.reset();
-    setCalculatedData(baseCalculatedData || baseData);
+    setPercentages(percentagesZero);
+    setCalcData(data);
   }
 
   return (
@@ -98,47 +110,76 @@ function FeaturesForm({
           </div>
           <Separator />
         </div>
-        <div className='p-4 grid gap-4 overflow-scroll'>
+        <div className='p-4 flex flex-col gap-4 overflow-scroll'>
           {!side ? 
             <p className='text-muted-foreground'>Select a side</p> : 
             !region ? 
               <p className='text-muted-foreground'>Select a region</p> : 
-              <p className='text-lg font-semibold text-muted-foreground'>Features</p>}
-          {(side && region) && 
-            featuresItems.map(({ value: feature, label }) => (
-              <FormField
-                key={`${feature}_${side}-${region}`}
-                control={form.control}
-                name={`${feature}_${side}-${region}` as ModelFeatures}
-                render={({ field }) => (
-                  <FormItem>
-                    <div className='flex items-baseline justify-between'>
-                      <FormLabel>
-                        {label}
-                      </FormLabel>
-                      <p className='text-lg font-semibold text-muted-foreground'>{calculatedData[`${feature}_${side}-${region}` as ModelFeatures].toFixed(2)}</p>
-                    </div>
-                    <FormControl>
-                      <div className='grid grid-cols-[1fr,auto]'>
-                        <Slider 
-                          min={-100} 
-                          max={100} 
-                          value={[field.value]} 
-                          onValueChange={(value) => {
-                            field.onChange(value[0]);
-                            onPercentageUpdate();
-                          }} 
-                          className={cn(!isFeatureEditable(feature) && 'opacity-50')} 
-                          disabled={!isFeatureEditable(feature)} 
-                        />
-                        <p className='w-20 text-right'>{field.value >= 0 && '+'}{field.value.toFixed(2)}%</p>
+              <p className='text-lg font-semibold text-muted-foreground'>Features</p>
+          }
+          {(side && region) &&
+            <>
+              <div className='space-y-2'>
+                <FormField
+                  control={form.control}
+                  name={`${side as Sides}.${region as Regions}.featureChanged`}
+                  key={`${side as Sides}.${region as Regions}.featureChanged`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Editable Feature</FormLabel>
+                      <FormControl>
+                        <EasySelect items={editableFeaturesItems} value={field.value} onValueChange={v => {
+                          field.onChange(v);
+                          onPercentageUpdate();
+                        }} />
+                      </FormControl>
+                      <div className='flex items-center justify-between'>
+                        <Label>Value</Label>
+                        <p className='text-lg font-semibold text-muted-foreground'>{calcData[getModelFeatureName(field.value, side, region)].toFixed(2)}</p>
                       </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`${side as Sides}.${region as Regions}.percentage`}
+                  key={`${side as Sides}.${region as Regions}.percentage`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className='grid grid-cols-[1fr,auto] gap-1'>
+                          <Slider min={-100} max={100} value={[field.value]} onValueChange={v => {
+                            field.onChange(v[0]);
+                            onPercentageUpdate();  
+                          }} />
+                          <span className='w-20 text-right'>{field.value >= 0 && '+'}{field.value.toFixed(2)}%</span>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              {features
+                .filter(f => f !== liveForm[side as Sides][region as Regions].featureChanged) // exclude the editable feature
+                .map(f => {
+                  const modelFeatureName = getModelFeatureName(f, side, region);
+                  return (
+                    <div key={modelFeatureName} className='space-y-2'>
+                      <div className='flex items-baseline justify-between'>
+                        <Label>{f}</Label>
+                        <p className='text-lg font-semibold text-muted-foreground'>{calcData[modelFeatureName].toFixed(2)}</p>
+                      </div>
+                      <div className='grid grid-cols-[1fr,auto] gap-1'>
+                        <Slider min={-100} max={100} disabled className='opacity-50' value={[percentages[modelFeatureName]]} />
+                        <span className='w-20 text-right'>{percentages[modelFeatureName] >= 0 && '+'}{percentages[modelFeatureName].toFixed(2)}%</span>
+                      </div>
+                    </div>
+                  );
+                })}
+            </>
+          }
         </div>
         <div className="p-4 border-t flex gap-2 justify-end">
           <Button type='button' onClick={reset} variant="outline" className='space-x-2'>

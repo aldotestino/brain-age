@@ -2,17 +2,12 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
 import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures } from './data';
-import { DataSchema, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
-import fullRelations from './relations.json';
+import { DataSchema, EditableFeatures, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
+import fullRelations from './fullRelations.json';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-export const dataZero = modelFeatures.reduce((acc, key) => {
-  acc[key as ModelFeatures] = 0;
-  return acc;
-}, {} as Record<ModelFeatures, number>);
 
 export function isFeatureEditable(feature: string) {
   return feature === EDITABLE_FEATURE_1 || feature === EDITABLE_FEATURE_2;
@@ -28,47 +23,46 @@ export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string
   return `/dashboard?${urlSearchParams.toString()}`;
 }
 
-export function updateFeatures({
+export function updatePercentages({
   side,
   region,
-  feature1Percentage,
-  feature2Percentage,
-  baseValues,
+  featureChanged,
+  percentage
 }: {
   side: Sides,
   region: Regions,
-  feature1Percentage: number,
-  feature2Percentage: number,
-  baseValues: DataSchema
+  featureChanged: EditableFeatures,
+  percentage: number
 }) {
-
-  const relations = fullRelations[side][region];
-
-  const values: Partial<DataSchema> = {};
   const percentages: Partial<DataSchema> = {};
 
-  const FULL_EDITABLE_FEATURE_1 = `${EDITABLE_FEATURE_1}_${side}-${region}` as ModelFeatures;
-  const FULL_EDITABLE_FEATURE_2 = `${EDITABLE_FEATURE_2}_${side}-${region}` as ModelFeatures;
+  // add itself
+  percentages[getModelFeatureName(featureChanged, side, region)] = percentage;
 
-  const baseFeature1 = baseValues[FULL_EDITABLE_FEATURE_1];
-  const baseFeature2 = baseValues[FULL_EDITABLE_FEATURE_2];
+  const relations = fullRelations[featureChanged][side][region];
 
-  values[FULL_EDITABLE_FEATURE_1] = baseFeature1 + baseFeature1 / 100 * feature1Percentage;
-  values[FULL_EDITABLE_FEATURE_2] = baseFeature2 + baseFeature2 / 100 * feature2Percentage;
+  Object.entries(relations).forEach(([feature, relation]) => {
+    percentages[getModelFeatureName(feature, side, region)] = percentage * relation;
+  });
 
-  for (const [relatedFeature, factor] of Object.entries(relations)) {
-    const relatedFeatureName = `${relatedFeature}_${side}-${region}` as ModelFeatures;
-    const relatedFeatureValue = baseValues[relatedFeatureName];
+  return percentages;
+}
 
-    const totalPercentage = factor[EDITABLE_FEATURE_1] * feature1Percentage + factor[EDITABLE_FEATURE_2] * feature2Percentage;
+export function updateData({
+  data,
+  percentages
+}: {
+  data: Partial<DataSchema>
+  percentages: Partial<DataSchema>
+}) {
+  const updatedData: Partial<DataSchema> = {};
 
-    const updatedValue = relatedFeatureValue + relatedFeatureValue / 100 * totalPercentage;
+  Object.entries(percentages).forEach(([modelFeature, percentage]) => {
+    const baseData = data[modelFeature as ModelFeatures];
+    updatedData[modelFeature as ModelFeatures] = baseData! + baseData! * percentage / 100;
+  });
 
-    values[relatedFeatureName] = updatedValue;
-    percentages[relatedFeatureName] = totalPercentage;
-  }
-
-  return { values, percentages };
+  return updatedData;
 }
 
 export function mapRange(value: number, inMin: number, inMax: number, outMin: number, outMax: number) {
@@ -88,4 +82,8 @@ export function valueToColor(value: number, min: number, max: number) {
 
 export function getGlassBrainRegion(modelChildName: string) {
   return modelChildName.replace('pial.DK.', '') as GlassBrainRegions;
+}
+
+export function getModelFeatureName(feature: string, side: string, region: string) {
+  return `${feature}_${side}-${region}` as ModelFeatures;
 }
