@@ -1,39 +1,51 @@
 'use server';
 
 import axios from 'axios';
-import { DataSchema, UpdatePatientSchema, AddPatientSchema, PredictionWithExplanation } from '@/lib/types';
+import { UpdatePatientSchema, AddPatientSchema, PredictionWithExplanation, DataChangeSchema, DataSchema } from '@/lib/types';
 import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
 import env from '@/lib/env';
-import { dataZero } from '@/lib/utils';
+import { updateWholeDataAndPercentages } from '@/lib/utils';
 
 export async function predictAndExplain({
   patientId,
-  percentages,
-  calculatedData
+  dataChange
 }: {
   patientId: number,
-  percentages: DataSchema,
-  calculatedData: DataSchema
+  dataChange?: DataChangeSchema
 }) {
 
   const patient = await prisma.patient.findUnique({
-    where: { id: patientId }
+    where: { id: patientId },
+    select: {
+      data: true
+    }
   });
 
   if (!patient) {
     throw new Error('Patient not found');
   }
 
-  const { data } = await axios.post<PredictionWithExplanation>(`${env.MODEL_API_URL}/predict_and_explain`, calculatedData);
+  let calcData: DataSchema;
+
+  if (dataChange) {
+    const { updatedData } = updateWholeDataAndPercentages({
+      data: patient.data as DataSchema,
+      dataChange
+    });
+    calcData = updatedData;
+  } else {
+    calcData = patient.data as DataSchema;
+  }
+
+  const { data } = await axios.post<PredictionWithExplanation>(`${env.MODEL_API_URL}/predict_and_explain`, calcData);
 
   const { id } = await prisma.prediction.create({
     data: {
       patientId,
-      percentages,
-      calculatedData,
+      dataChange,
       prediction: data.prediction,
       brainSV: data.brain_sv,
       waterfallSV: data.waterfall_sv
@@ -58,8 +70,6 @@ export async function addPatient(values: AddPatientSchema) {
     // create base prediction
     await predictAndExplain({
       patientId: id,
-      percentages: dataZero,
-      calculatedData: values.data
     });
 
     // redirect(`/patient/${id}`);

@@ -1,5 +1,6 @@
 import prisma from '@/lib/db';
-import { DataSchema, PredictionWithExplanation } from '@/lib/types';
+import { DataChangeSchema, DataSchema, PredictionWithExplanation } from '@/lib/types';
+import { dataChangeSchema, dataSchema } from '@/lib/validators';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { notFound, redirect } from 'next/navigation';
@@ -109,8 +110,7 @@ export async function getPrediction(id: string) {
     select: {
       id: true,
       createdAt: true,
-      calculatedData: true,
-      percentages: true,
+      dataChange: true,
       prediction: true,
       brainSV: true,
       waterfallSV: true,
@@ -121,19 +121,10 @@ export async function getPrediction(id: string) {
     return notFound();
   }
 
-  const parametersChanged = Object.entries(prediction.percentages as DataSchema).reduce((arr, [key, value]) => {
-    if (value !== 0) {
-      arr.push(key);
-    }
-    return arr;
-  }, [] as string[]);
-
   return {
     ...prediction,
-    calculatedData: prediction.calculatedData as DataSchema,
-    percentages: prediction.percentages as DataSchema,
+    dataChange: prediction.dataChange as DataChangeSchema,
     brainSV: prediction.brainSV as PredictionWithExplanation['brain_sv'],
     waterfallSV: prediction.waterfallSV as PredictionWithExplanation['waterfall_sv'],
-    parametersChanged
   };
 }

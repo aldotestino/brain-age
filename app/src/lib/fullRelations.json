@@ -1,0 +1,1102 @@
+{
+  "GM_vol": {
+    "lh": {
+      "bankssts": {
+        "surface_area": 0.76623550459475,
+        "mean_curv": 0.16418412437110197,
+        "intrinsic_cur_index": 0.5509034329258705,
+        "gaussian_curv": 0.09645604894757574,
+        "average_thickness": 0.46466548550203984,
+        "thickness_stddev": 0.2142573060233691
+      },
+      "caudalanteriorcingulate": {
+        "surface_area": 0.7975154771022755,
+        "mean_curv": 0.3319298278311129,
+        "intrinsic_cur_index": 0.7249936820860308,
+        "gaussian_curv": 0.3708951633096598,
+        "average_thickness": 0.44443709064573506,
+        "thickness_stddev": 0.4522999283882693
+      },
+      "caudalmiddlefrontal": {
+        "surface_area": 0.6807509937947983,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.3757143493909453,
+        "gaussian_curv": -0.06143175915680787,
+        "average_thickness": 0.5095767566985646,
+        "thickness_stddev": 0.2569872479396735
+      },
+      "cuneus": {
+        "surface_area": 0.6504015469343611,
+        "mean_curv": 0.21382584821933318,
+        "intrinsic_cur_index": 0.5103084777831631,
+        "gaussian_curv": 0.22108288670365742,
+        "average_thickness": 0.6605003569389385,
+        "thickness_stddev": 0.47199571616334535
+      },
+      "entorhinal": {
+        "surface_area": 0.7053100338617102,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.3210692769709252,
+        "gaussian_curv": -0.08091922714106553,
+        "average_thickness": 0.3657750250457629,
+        "thickness_stddev": 0.16416997100708414
+      },
+      "fusiform": {
+        "surface_area": 0.5587274078404528,
+        "mean_curv": -0.10598362884669861,
+        "intrinsic_cur_index": 0.2869220979498725,
+        "gaussian_curv": -0.0992184066152895,
+        "average_thickness": 0.5720762444286452,
+        "thickness_stddev": 0
+      },
+      "inferiorparietal": {
+        "surface_area": 0.6360503409938566,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.43488169754261136,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6194883899026548,
+        "thickness_stddev": 0.24473416169062165
+      },
+      "inferiortemporal": {
+        "surface_area": 0.6162613937401776,
+        "mean_curv": -0.0646803223738109,
+        "intrinsic_cur_index": 0.3359522477724867,
+        "gaussian_curv": -0.13552012519752285,
+        "average_thickness": 0.5305751283107907,
+        "thickness_stddev": 0.13588678570504276
+      },
+      "isthmuscingulate": {
+        "surface_area": 0.6103710027231826,
+        "mean_curv": 0.09956242798755006,
+        "intrinsic_cur_index": 0.4101925494579335,
+        "gaussian_curv": 0,
+        "average_thickness": 0.43264708191611523,
+        "thickness_stddev": 0.47933047665748085
+      },
+      "lateraloccipital": {
+        "surface_area": 0.5875955583215096,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.37210657902974403,
+        "gaussian_curv": 0.0885772352961428,
+        "average_thickness": 0.6430714271536033,
+        "thickness_stddev": 0.38275695240914437
+      },
+      "lateralorbitofrontal": {
+        "surface_area": 0.5131081593564712,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.27335856934075126,
+        "gaussian_curv": 0,
+        "average_thickness": 0.520320665102177,
+        "thickness_stddev": 0.23231432688838916
+      },
+      "lingual": {
+        "surface_area": 0.6426896628995956,
+        "mean_curv": 0.32289413806911277,
+        "intrinsic_cur_index": 0.5199397280817913,
+        "gaussian_curv": 0.27029569957387056,
+        "average_thickness": 0.67692258581748,
+        "thickness_stddev": 0.4525133833420349
+      },
+      "medialorbitofrontal": {
+        "surface_area": 0.4853438100708378,
+        "mean_curv": 0.11403525970321707,
+        "intrinsic_cur_index": 0.37686965165571856,
+        "gaussian_curv": 0.1487335940738561,
+        "average_thickness": 0.6124322866048094,
+        "thickness_stddev": 0.3636219578855377
+      },
+      "middletemporal": {
+        "surface_area": 0.5477498118236138,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.24189365999576914,
+        "gaussian_curv": -0.06144940941803609,
+        "average_thickness": 0.6557047082578679,
+        "thickness_stddev": 0.26542748583021747
+      },
+      "parahippocampal": {
+        "surface_area": 0.4997778600501502,
+        "mean_curv": 0.3203865735536632,
+        "intrinsic_cur_index": 0.33771726153922244,
+        "gaussian_curv": 0.24131538981320116,
+        "average_thickness": 0.6569352061558689,
+        "thickness_stddev": 0.3206043756517448
+      },
+      "paracentral": {
+        "surface_area": 0.5469840963081366,
+        "mean_curv": 0.08351453494202,
+        "intrinsic_cur_index": 0.059427721878519246,
+        "gaussian_curv": -0.11181270119056058,
+        "average_thickness": 0.699461949231074,
+        "thickness_stddev": 0.1364512097580738
+      },
+      "parsopercularis": {
+        "surface_area": 0.7659621828591219,
+        "mean_curv": 0.11070704423347366,
+        "intrinsic_cur_index": 0.5246796333848606,
+        "gaussian_curv": 0,
+        "average_thickness": 0.49630939930372536,
+        "thickness_stddev": 0.18820415774247704
+      },
+      "parsorbitalis": {
+        "surface_area": 0.56547932742365,
+        "mean_curv": 0.190323251286101,
+        "intrinsic_cur_index": 0.4031245397973812,
+        "gaussian_curv": 0.17015339412265035,
+        "average_thickness": 0.6476118809102097,
+        "thickness_stddev": 0.34753765973378764
+      },
+      "parstriangularis": {
+        "surface_area": 0.711411859366576,
+        "mean_curv": 0.16469541921733125,
+        "intrinsic_cur_index": 0.5216284693475426,
+        "gaussian_curv": 0.15328754091084007,
+        "average_thickness": 0.5764344943757558,
+        "thickness_stddev": 0.29194590039330864
+      },
+      "pericalcarine": {
+        "surface_area": 0.7397669642490383,
+        "mean_curv": 0.09810624336299542,
+        "intrinsic_cur_index": 0.5352367598595972,
+        "gaussian_curv": 0.05180239098906567,
+        "average_thickness": 0.5969667334280858,
+        "thickness_stddev": 0.45328564363070356
+      },
+      "postcentral": {
+        "surface_area": 0.5412577363036785,
+        "mean_curv": 0.34095457516970107,
+        "intrinsic_cur_index": 0.3289967683071143,
+        "gaussian_curv": 0.1384487770164854,
+        "average_thickness": 0.6570686111076365,
+        "thickness_stddev": 0.28036715173943966
+      },
+      "posteriorcingulate": {
+        "surface_area": 0.6653363087327242,
+        "mean_curv": 0.140635728990048,
+        "intrinsic_cur_index": 0.4602976523747836,
+        "gaussian_curv": 0,
+        "average_thickness": 0.48365738015815646,
+        "thickness_stddev": 0.4907121405544783
+      },
+      "precentral": {
+        "surface_area": 0.48319132491815964,
+        "mean_curv": -0.08598366152389714,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.19571545914457145,
+        "average_thickness": 0.6449362274219465,
+        "thickness_stddev": 0
+      },
+      "precuneus": {
+        "surface_area": 0.5173315024081597,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.3192627387046406,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6856309234933422,
+        "thickness_stddev": 0.17347335964240537
+      },
+      "rostralanteriorcingulate": {
+        "surface_area": 0.6314528278016823,
+        "mean_curv": 0.22727397354749582,
+        "intrinsic_cur_index": 0.5367510932956725,
+        "gaussian_curv": 0.1749458289654925,
+        "average_thickness": 0.37893117186822284,
+        "thickness_stddev": 0
+      },
+      "rostralmiddlefrontal": {
+        "surface_area": 0.5564720651835263,
+        "mean_curv": -0.06373398316329403,
+        "intrinsic_cur_index": 0.4401980181488029,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6303342857596216,
+        "thickness_stddev": 0.26703280880647173
+      },
+      "superiorfrontal": {
+        "surface_area": 0.49114918065939867,
+        "mean_curv": 0.09457713917641673,
+        "intrinsic_cur_index": 0.31209434405300196,
+        "gaussian_curv": 0.05354446168726849,
+        "average_thickness": 0.6301625276944418,
+        "thickness_stddev": 0.4238850747239301
+      },
+      "superiorparietal": {
+        "surface_area": 0.6015820484384414,
+        "mean_curv": 0.13603891971600587,
+        "intrinsic_cur_index": 0.4544638854462324,
+        "gaussian_curv": 0.12541144235309507,
+        "average_thickness": 0.651390244848144,
+        "thickness_stddev": 0.2622745576712529
+      },
+      "superiortemporal": {
+        "surface_area": 0.5341872242032693,
+        "mean_curv": 0.08917004814355506,
+        "intrinsic_cur_index": 0.274271557663006,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6550753637869822,
+        "thickness_stddev": 0.186874784515102
+      },
+      "supramarginal": {
+        "surface_area": 0.6364764406866567,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.4005447456018453,
+        "gaussian_curv": -0.05046060298076839,
+        "average_thickness": 0.49666992265440646,
+        "thickness_stddev": 0.19707736906920836
+      },
+      "frontalpole": {
+        "surface_area": 0.5279745878840615,
+        "mean_curv": 0.36347588491753335,
+        "intrinsic_cur_index": 0.40546381767049755,
+        "gaussian_curv": 0.3267369374917088,
+        "average_thickness": 0.7160207811416233,
+        "thickness_stddev": 0.3996720093057986
+      },
+      "temporalpole": {
+        "surface_area": 0.5427383718789384,
+        "mean_curv": -0.06165888908971199,
+        "intrinsic_cur_index": 0.12589979944228102,
+        "gaussian_curv": -0.18432368224926815,
+        "average_thickness": 0.6186362752600298,
+        "thickness_stddev": 0
+      },
+      "transversetemporal": {
+        "surface_area": 0.6316416960133419,
+        "mean_curv": -0.08631879384015184,
+        "intrinsic_cur_index": 0.1359034690368801,
+        "gaussian_curv": -0.07517673546609493,
+        "average_thickness": 0.48124800889446195,
+        "thickness_stddev": 0
+      },
+      "insula": {
+        "surface_area": 0.5101982983795723,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.2646406356602791,
+        "gaussian_curv": 0,
+        "average_thickness": 0.42376587689744843,
+        "thickness_stddev": 0.2147126031824648
+      }
+    },
+    "rh": {
+      "bankssts": {
+        "surface_area": 0.74463085747274,
+        "mean_curv": 0.09207932174496003,
+        "intrinsic_cur_index": 0.4772853649161305,
+        "gaussian_curv": 0,
+        "average_thickness": 0.5589147722942627,
+        "thickness_stddev": 0.11791764031042623
+      },
+      "caudalanteriorcingulate": {
+        "surface_area": 0.7955429538297432,
+        "mean_curv": 0.15793115409026567,
+        "intrinsic_cur_index": 0.6847113490325587,
+        "gaussian_curv": 0.23012332583888306,
+        "average_thickness": 0.4624323949229806,
+        "thickness_stddev": 0.39972760724548556
+      },
+      "caudalmiddlefrontal": {
+        "surface_area": 0.7341696695437486,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.46115215016793903,
+        "gaussian_curv": 0,
+        "average_thickness": 0.5187622086897032,
+        "thickness_stddev": 0.25766650751201786
+      },
+      "cuneus": {
+        "surface_area": 0.6045476748027345,
+        "mean_curv": 0.27651658119002875,
+        "intrinsic_cur_index": 0.4647091912532625,
+        "gaussian_curv": 0.23849054932976824,
+        "average_thickness": 0.6996362332211076,
+        "thickness_stddev": 0.5194307532922566
+      },
+      "entorhinal": {
+        "surface_area": 0.6650061315632131,
+        "mean_curv": 0.054552466665175686,
+        "intrinsic_cur_index": 0.33944324991074903,
+        "gaussian_curv": 0,
+        "average_thickness": 0.3798313937977624,
+        "thickness_stddev": 0.1912379162254377
+      },
+      "fusiform": {
+        "surface_area": 0.5355409344236115,
+        "mean_curv": -0.11203894192063019,
+        "intrinsic_cur_index": 0.17397674346497813,
+        "gaussian_curv": 0,
+        "average_thickness": 0.5546130336274775,
+        "thickness_stddev": 0.10649833495807677
+      },
+      "inferiorparietal": {
+        "surface_area": 0.6088627136421286,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.4025527183066056,
+        "gaussian_curv": 0,
+        "average_thickness": 0.593719694269162,
+        "thickness_stddev": 0.2209490468653835
+      },
+      "inferiortemporal": {
+        "surface_area": 0.6129645901779355,
+        "mean_curv": -0.0911657312895688,
+        "intrinsic_cur_index": 0.3262391397921305,
+        "gaussian_curv": -0.06860227533865368,
+        "average_thickness": 0.5283110636953404,
+        "thickness_stddev": 0.19932814743207763
+      },
+      "isthmuscingulate": {
+        "surface_area": 0.6388422069345469,
+        "mean_curv": 0.06389830981371653,
+        "intrinsic_cur_index": 0.36945382172080593,
+        "gaussian_curv": -0.09756214710131486,
+        "average_thickness": 0.42028769224793056,
+        "thickness_stddev": 0.4753764514285163
+      },
+      "lateraloccipital": {
+        "surface_area": 0.5552368891465722,
+        "mean_curv": 0.06653214744517082,
+        "intrinsic_cur_index": 0.3463843226716256,
+        "gaussian_curv": 0.0635277291787433,
+        "average_thickness": 0.6396332775432725,
+        "thickness_stddev": 0.36980519142349044
+      },
+      "lateralorbitofrontal": {
+        "surface_area": 0.5561850325274462,
+        "mean_curv": 0.09437467338816546,
+        "intrinsic_cur_index": 0.42406673695467906,
+        "gaussian_curv": 0.08036608994867075,
+        "average_thickness": 0.49470740703810306,
+        "thickness_stddev": 0.10865667262761879
+      },
+      "lingual": {
+        "surface_area": 0.6304207051429712,
+        "mean_curv": 0.3488015317985589,
+        "intrinsic_cur_index": 0.5014105969517024,
+        "gaussian_curv": 0.25864687562576055,
+        "average_thickness": 0.6735122719181618,
+        "thickness_stddev": 0.4714281607661149
+      },
+      "medialorbitofrontal": {
+        "surface_area": 0.4520766492941612,
+        "mean_curv": 0.05488477206363573,
+        "intrinsic_cur_index": 0.3709167862983987,
+        "gaussian_curv": 0.1430781854363268,
+        "average_thickness": 0.6450205556007533,
+        "thickness_stddev": 0.3024771767661131
+      },
+      "middletemporal": {
+        "surface_area": 0.5428791822941207,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.24981514286535855,
+        "gaussian_curv": -0.09285857268904396,
+        "average_thickness": 0.639744976387676,
+        "thickness_stddev": 0.20868406256092156
+      },
+      "parahippocampal": {
+        "surface_area": 0.5409516354812677,
+        "mean_curv": 0.12071991913209087,
+        "intrinsic_cur_index": 0.2840228673709442,
+        "gaussian_curv": 0.08765523166272741,
+        "average_thickness": 0.5822303466273454,
+        "thickness_stddev": 0.2337794219580203
+      },
+      "paracentral": {
+        "surface_area": 0.5649711780814901,
+        "mean_curv": 0.12645807775483864,
+        "intrinsic_cur_index": 0.14149365018418775,
+        "gaussian_curv": -0.054259462371175314,
+        "average_thickness": 0.6609076881120606,
+        "thickness_stddev": 0.17230749111607946
+      },
+      "parsopercularis": {
+        "surface_area": 0.7362771244632548,
+        "mean_curv": 0.07402891247705555,
+        "intrinsic_cur_index": 0.47793381112711836,
+        "gaussian_curv": 0,
+        "average_thickness": 0.4993375346476158,
+        "thickness_stddev": 0.1950975076410001
+      },
+      "parsorbitalis": {
+        "surface_area": 0.563879915933507,
+        "mean_curv": 0.20347493369056285,
+        "intrinsic_cur_index": 0.4245318865973664,
+        "gaussian_curv": 0.1889848288603803,
+        "average_thickness": 0.6468499476052164,
+        "thickness_stddev": 0.3370639850252048
+      },
+      "parstriangularis": {
+        "surface_area": 0.7254696464258489,
+        "mean_curv": 0.20264809498660025,
+        "intrinsic_cur_index": 0.567994222102901,
+        "gaussian_curv": 0.18140377561556906,
+        "average_thickness": 0.5447461076031227,
+        "thickness_stddev": 0.2663104711638287
+      },
+      "pericalcarine": {
+        "surface_area": 0.7056874506832844,
+        "mean_curv": 0.12444219377455393,
+        "intrinsic_cur_index": 0.5354957013492319,
+        "gaussian_curv": 0.12523516892913814,
+        "average_thickness": 0.6108755083464875,
+        "thickness_stddev": 0.4672483228655779
+      },
+      "postcentral": {
+        "surface_area": 0.5350127788972681,
+        "mean_curv": 0.3107816787542715,
+        "intrinsic_cur_index": 0.35191586577790634,
+        "gaussian_curv": 0.13747455399956837,
+        "average_thickness": 0.5995975383849252,
+        "thickness_stddev": 0.3064617232859493
+      },
+      "posteriorcingulate": {
+        "surface_area": 0.6689811783065066,
+        "mean_curv": 0.06886437235569168,
+        "intrinsic_cur_index": 0.4725294189925647,
+        "gaussian_curv": -0.053873825016698275,
+        "average_thickness": 0.4700988484463256,
+        "thickness_stddev": 0.4382932188525881
+      },
+      "precentral": {
+        "surface_area": 0.49575508539716207,
+        "mean_curv": -0.06307626556162484,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.05062506836368313,
+        "average_thickness": 0.6745656770993135,
+        "thickness_stddev": 0
+      },
+      "precuneus": {
+        "surface_area": 0.5393843197262014,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.34550181465336877,
+        "gaussian_curv": 0,
+        "average_thickness": 0.653438401962871,
+        "thickness_stddev": 0.20034902151177902
+      },
+      "rostralanteriorcingulate": {
+        "surface_area": 0.6889066489392862,
+        "mean_curv": 0.3678534154047644,
+        "intrinsic_cur_index": 0.6262303125198649,
+        "gaussian_curv": 0.2768500462089441,
+        "average_thickness": 0.39072604017333484,
+        "thickness_stddev": 0.09749597370145875
+      },
+      "rostralmiddlefrontal": {
+        "surface_area": 0.5793237149582761,
+        "mean_curv": -0.12483996924146197,
+        "intrinsic_cur_index": 0.4452667832145728,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6441440751840556,
+        "thickness_stddev": 0.23647719227803002
+      },
+      "superiorfrontal": {
+        "surface_area": 0.5153236271629732,
+        "mean_curv": 0.08297234847034005,
+        "intrinsic_cur_index": 0.34512213910963563,
+        "gaussian_curv": 0,
+        "average_thickness": 0.599836415452148,
+        "thickness_stddev": 0.38784896324919926
+      },
+      "superiorparietal": {
+        "surface_area": 0.6044325509692255,
+        "mean_curv": 0.19722155134202002,
+        "intrinsic_cur_index": 0.48525794387319016,
+        "gaussian_curv": 0.17513650187614274,
+        "average_thickness": 0.6644426855437051,
+        "thickness_stddev": 0.2738663579570968
+      },
+      "superiortemporal": {
+        "surface_area": 0.5084275507398475,
+        "mean_curv": 0.11881374307371227,
+        "intrinsic_cur_index": 0.2433774052898873,
+        "gaussian_curv": 0,
+        "average_thickness": 0.6705267459438623,
+        "thickness_stddev": 0.1564812569563643
+      },
+      "supramarginal": {
+        "surface_area": 0.6291596483280182,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.4012285669674469,
+        "gaussian_curv": 0,
+        "average_thickness": 0.525779873627837,
+        "thickness_stddev": 0.13882144497201218
+      },
+      "frontalpole": {
+        "surface_area": 0.5075805254746749,
+        "mean_curv": 0.4139976089943306,
+        "intrinsic_cur_index": 0.4547701356374927,
+        "gaussian_curv": 0.38921512610111547,
+        "average_thickness": 0.7138549770683137,
+        "thickness_stddev": 0.45730796542085833
+      },
+      "temporalpole": {
+        "surface_area": 0.47044846435203547,
+        "mean_curv": -0.09602271982368726,
+        "intrinsic_cur_index": 0.08245174947962819,
+        "gaussian_curv": -0.19032594838936817,
+        "average_thickness": 0.5878787058507381,
+        "thickness_stddev": -0.08517400063460882
+      },
+      "transversetemporal": {
+        "surface_area": 0.5497918969084779,
+        "mean_curv": 0.11247735326581347,
+        "intrinsic_cur_index": 0.13030769268141357,
+        "gaussian_curv": 0,
+        "average_thickness": 0.5547255817223783,
+        "thickness_stddev": 0
+      },
+      "insula": {
+        "surface_area": 0.4930453941047862,
+        "mean_curv": -0.08793258038901018,
+        "intrinsic_cur_index": 0.23166646130665872,
+        "gaussian_curv": 0,
+        "average_thickness": 0.4287672192167506,
+        "thickness_stddev": 0.19159317293477254
+      }
+    }
+  },
+  "average_thickness": {
+    "lh": {
+      "bankssts": {
+        "surface_area": 0.16036057081842253,
+        "mean_curv": -0.12293925577743055,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.17718163671180723,
+        "GM_vol": 0.46466548550203984,
+        "thickness_stddev": 0.07755083665662997
+      },
+      "caudalanteriorcingulate": {
+        "surface_area": 0,
+        "mean_curv": 0.11004726429015368,
+        "intrinsic_cur_index": 0.10314544795164608,
+        "gaussian_curv": 0.1287447011020099,
+        "GM_vol": 0.44443709064573506,
+        "thickness_stddev": 0.1684298594319818
+      },
+      "caudalmiddlefrontal": {
+        "surface_area": 0.08737807825318841,
+        "mean_curv": -0.28896370350044986,
+        "intrinsic_cur_index": -0.16326964963270194,
+        "gaussian_curv": -0.22787537175810993,
+        "GM_vol": 0.5095767566985646,
+        "thickness_stddev": 0.20818828234027328
+      },
+      "cuneus": {
+        "surface_area": 0.13394559056293465,
+        "mean_curv": 0.2527387576716953,
+        "intrinsic_cur_index": 0.08010578115598721,
+        "gaussian_curv": 0.2632795713265778,
+        "GM_vol": 0.6605003569389385,
+        "thickness_stddev": 0.6105546250169324
+      },
+      "entorhinal": {
+        "surface_area": -0.19036813481668727,
+        "mean_curv": -0.4421971865508932,
+        "intrinsic_cur_index": -0.42179731315929064,
+        "gaussian_curv": -0.4129708588671297,
+        "GM_vol": 0.3657750250457629,
+        "thickness_stddev": -0.12149098830067868
+      },
+      "fusiform": {
+        "surface_area": 0.10459828992767482,
+        "mean_curv": -0.23658063147654038,
+        "intrinsic_cur_index": -0.1701971049842033,
+        "gaussian_curv": -0.2569663366127014,
+        "GM_vol": 0.5720762444286452,
+        "thickness_stddev": 0
+      },
+      "inferiorparietal": {
+        "surface_area": 0.13768861194816662,
+        "mean_curv": -0.24498199881813504,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.12029144704743802,
+        "GM_vol": 0.6194883899026548,
+        "thickness_stddev": 0.2197970895057097
+      },
+      "inferiortemporal": {
+        "surface_area": 0.09785653512459032,
+        "mean_curv": -0.14124685355492758,
+        "intrinsic_cur_index": -0.13089941348221903,
+        "gaussian_curv": -0.22570867963910068,
+        "GM_vol": 0.5305751283107907,
+        "thickness_stddev": 0.24855125384048782
+      },
+      "isthmuscingulate": {
+        "surface_area": -0.07692882440805004,
+        "mean_curv": 0.07286842625364034,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.43264708191611523,
+        "thickness_stddev": 0.3229467185619013
+      },
+      "lateraloccipital": {
+        "surface_area": 0.14278390434227162,
+        "mean_curv": -0.0760659969464187,
+        "intrinsic_cur_index": -0.07245364882514095,
+        "gaussian_curv": 0,
+        "GM_vol": 0.6430714271536033,
+        "thickness_stddev": 0.45647398126996164
+      },
+      "lateralorbitofrontal": {
+        "surface_area": -0.08656424927858217,
+        "mean_curv": -0.148755430062621,
+        "intrinsic_cur_index": -0.2513876928794809,
+        "gaussian_curv": -0.16542862116507898,
+        "GM_vol": 0.520320665102177,
+        "thickness_stddev": 0.36703671819362427
+      },
+      "lingual": {
+        "surface_area": 0.176712025605263,
+        "mean_curv": 0.23165422521288645,
+        "intrinsic_cur_index": 0.0729515872088854,
+        "gaussian_curv": 0.18703410099579448,
+        "GM_vol": 0.67692258581748,
+        "thickness_stddev": 0.5697695876901288
+      },
+      "medialorbitofrontal": {
+        "surface_area": -0.07326646139958123,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.056032225195753155,
+        "GM_vol": 0.6124322866048094,
+        "thickness_stddev": 0.528718588983421
+      },
+      "middletemporal": {
+        "surface_area": 0.13859036073517236,
+        "mean_curv": -0.19873664097013877,
+        "intrinsic_cur_index": -0.19033030392888767,
+        "gaussian_curv": -0.25989415575865366,
+        "GM_vol": 0.6557047082578679,
+        "thickness_stddev": 0.20740507324303437
+      },
+      "parahippocampal": {
+        "surface_area": -0.15529284759925333,
+        "mean_curv": 0.357899623491056,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.20141330453646195,
+        "GM_vol": 0.6569352061558689,
+        "thickness_stddev": 0.5319737795424887
+      },
+      "paracentral": {
+        "surface_area": 0.0845137123900865,
+        "mean_curv": -0.1120976226503144,
+        "intrinsic_cur_index": -0.2773577576510401,
+        "gaussian_curv": -0.2390310954136106,
+        "GM_vol": 0.699461949231074,
+        "thickness_stddev": 0.23325740057554692
+      },
+      "parsopercularis": {
+        "surface_area": 0.11784542326445202,
+        "mean_curv": -0.1265170813067815,
+        "intrinsic_cur_index": -0.06119015681018306,
+        "gaussian_curv": -0.13008561303828392,
+        "GM_vol": 0.49630939930372536,
+        "thickness_stddev": 0.15062159582760154
+      },
+      "parsorbitalis": {
+        "surface_area": 0,
+        "mean_curv": 0.07991275665313748,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.07599497981167883,
+        "GM_vol": 0.6476118809102097,
+        "thickness_stddev": 0.27135685920282815
+      },
+      "parstriangularis": {
+        "surface_area": 0.13742116359359136,
+        "mean_curv": -0.09945216612036226,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.05772956688956166,
+        "GM_vol": 0.5764344943757558,
+        "thickness_stddev": 0.27493426095443213
+      },
+      "pericalcarine": {
+        "surface_area": 0.10314758884471112,
+        "mean_curv": -0.06722811294072487,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.5969667334280858,
+        "thickness_stddev": 0.6814612276533474
+      },
+      "postcentral": {
+        "surface_area": 0.14840536218317005,
+        "mean_curv": 0.1966125493636985,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.6570686111076365,
+        "thickness_stddev": 0.297805300287549
+      },
+      "posteriorcingulate": {
+        "surface_area": 0,
+        "mean_curv": -0.16305188027992631,
+        "intrinsic_cur_index": -0.08538948900635776,
+        "gaussian_curv": -0.16912128545735725,
+        "GM_vol": 0.48365738015815646,
+        "thickness_stddev": 0.3188824755522801
+      },
+      "precentral": {
+        "surface_area": 0.09152396054283266,
+        "mean_curv": -0.3749529419393089,
+        "intrinsic_cur_index": -0.34955130170671694,
+        "gaussian_curv": -0.39158564090840464,
+        "GM_vol": 0.6449362274219465,
+        "thickness_stddev": -0.07089546112779646
+      },
+      "precuneus": {
+        "surface_area": 0.1574584153040282,
+        "mean_curv": -0.16926030704237335,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.14796491170588102,
+        "GM_vol": 0.6856309234933422,
+        "thickness_stddev": 0.21544135550543936
+      },
+      "rostralanteriorcingulate": {
+        "surface_area": -0.17356588205425955,
+        "mean_curv": 0,
+        "intrinsic_cur_index": -0.08411915146632651,
+        "gaussian_curv": 0,
+        "GM_vol": 0.37893117186822284,
+        "thickness_stddev": 0.3219792176286402
+      },
+      "rostralmiddlefrontal": {
+        "surface_area": 0.09238941342778932,
+        "mean_curv": -0.11001827232131824,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.6303342857596216,
+        "thickness_stddev": 0.31157817666662635
+      },
+      "superiorfrontal": {
+        "surface_area": 0,
+        "mean_curv": -0.06815691458461612,
+        "intrinsic_cur_index": -0.13677064900701255,
+        "gaussian_curv": -0.08239403423052363,
+        "GM_vol": 0.6301625276944418,
+        "thickness_stddev": 0.4009797492020929
+      },
+      "superiorparietal": {
+        "surface_area": 0.14163864833906853,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.651390244848144,
+        "thickness_stddev": 0.2385282346939938
+      },
+      "superiortemporal": {
+        "surface_area": 0.14769607217921746,
+        "mean_curv": -0.19309402385544167,
+        "intrinsic_cur_index": -0.15502031988625492,
+        "gaussian_curv": -0.25094046235835865,
+        "GM_vol": 0.6550753637869822,
+        "thickness_stddev": 0.12180500332291648
+      },
+      "supramarginal": {
+        "surface_area": 0,
+        "mean_curv": -0.20939949445845307,
+        "intrinsic_cur_index": -0.16103803759646185,
+        "gaussian_curv": -0.20740200770333808,
+        "GM_vol": 0.49666992265440646,
+        "thickness_stddev": 0.17000928266635587
+      },
+      "frontalpole": {
+        "surface_area": 0,
+        "mean_curv": 0.21566880009670314,
+        "intrinsic_cur_index": 0.07078099610256458,
+        "gaussian_curv": 0.18338145273427922,
+        "GM_vol": 0.7160207811416233,
+        "thickness_stddev": 0.1724358463533133
+      },
+      "temporalpole": {
+        "surface_area": -0.07395028705427915,
+        "mean_curv": -0.32118146135077963,
+        "intrinsic_cur_index": -0.36785176599139946,
+        "gaussian_curv": -0.4263320540759975,
+        "GM_vol": 0.6186362752600298,
+        "thickness_stddev": -0.3571021852153128
+      },
+      "transversetemporal": {
+        "surface_area": -0.11505123895759989,
+        "mean_curv": 0,
+        "intrinsic_cur_index": -0.2990400496959868,
+        "gaussian_curv": -0.17671827786448313,
+        "GM_vol": 0.48124800889446195,
+        "thickness_stddev": 0
+      },
+      "insula": {
+        "surface_area": -0.18353977034012492,
+        "mean_curv": -0.45073093500165395,
+        "intrinsic_cur_index": -0.3667846440467786,
+        "gaussian_curv": -0.3598544931170017,
+        "GM_vol": 0.42376587689744843,
+        "thickness_stddev": 0.2659315578114375
+      }
+    },
+    "rh": {
+      "bankssts": {
+        "surface_area": 0.19161672933875373,
+        "mean_curv": -0.13754396265728003,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.2276056748320043,
+        "GM_vol": 0.5589147722942627,
+        "thickness_stddev": 0.06432462636986008
+      },
+      "caudalanteriorcingulate": {
+        "surface_area": 0.06828724794812048,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.10089828433082058,
+        "gaussian_curv": 0.07236141323636061,
+        "GM_vol": 0.4624323949229806,
+        "thickness_stddev": 0.1638031915013288
+      },
+      "caudalmiddlefrontal": {
+        "surface_area": 0.12930643513490614,
+        "mean_curv": -0.2334371664256773,
+        "intrinsic_cur_index": -0.11725967051905022,
+        "gaussian_curv": -0.21894280956944465,
+        "GM_vol": 0.5187622086897032,
+        "thickness_stddev": 0.23867414181504307
+      },
+      "cuneus": {
+        "surface_area": 0.15337093250216124,
+        "mean_curv": 0.31410343174278976,
+        "intrinsic_cur_index": 0.09282841447493763,
+        "gaussian_curv": 0.27941847850855955,
+        "GM_vol": 0.6996362332211076,
+        "thickness_stddev": 0.5979845664081006
+      },
+      "entorhinal": {
+        "surface_area": -0.24348024151770764,
+        "mean_curv": -0.43763433639640764,
+        "intrinsic_cur_index": -0.43002680084345635,
+        "gaussian_curv": -0.41807128434570445,
+        "GM_vol": 0.3798313937977624,
+        "thickness_stddev": -0.22601171721150687
+      },
+      "fusiform": {
+        "surface_area": 0.08358412880939933,
+        "mean_curv": -0.2750213690043608,
+        "intrinsic_cur_index": -0.12783960934210964,
+        "gaussian_curv": -0.054116635544936155,
+        "GM_vol": 0.5546130336274775,
+        "thickness_stddev": 0.09101656963352546
+      },
+      "inferiorparietal": {
+        "surface_area": 0.12177835326075016,
+        "mean_curv": -0.2153423964436711,
+        "intrinsic_cur_index": -0.08703570017715152,
+        "gaussian_curv": -0.16590429003455634,
+        "GM_vol": 0.593719694269162,
+        "thickness_stddev": 0.17317403750555216
+      },
+      "inferiortemporal": {
+        "surface_area": 0.10395558356239179,
+        "mean_curv": -0.23376490091927524,
+        "intrinsic_cur_index": -0.18268308589208362,
+        "gaussian_curv": -0.18188661798863098,
+        "GM_vol": 0.5283110636953404,
+        "thickness_stddev": 0.24529399622365244
+      },
+      "isthmuscingulate": {
+        "surface_area": -0.09920224103313464,
+        "mean_curv": 0.07167000557817199,
+        "intrinsic_cur_index": -0.05633715651170435,
+        "gaussian_curv": 0,
+        "GM_vol": 0.42028769224793056,
+        "thickness_stddev": 0.27553443842977304
+      },
+      "lateraloccipital": {
+        "surface_area": 0.13143564720758816,
+        "mean_curv": -0.053173259635289204,
+        "intrinsic_cur_index": -0.09826511273325779,
+        "gaussian_curv": -0.05897005834820872,
+        "GM_vol": 0.6396332775432725,
+        "thickness_stddev": 0.4359905386577353
+      },
+      "lateralorbitofrontal": {
+        "surface_area": -0.12550699283793568,
+        "mean_curv": -0.05739225561618956,
+        "intrinsic_cur_index": -0.16189501739700757,
+        "gaussian_curv": -0.088503178944074,
+        "GM_vol": 0.49470740703810306,
+        "thickness_stddev": 0.3548703271602739
+      },
+      "lingual": {
+        "surface_area": 0.14211802594539058,
+        "mean_curv": 0.2526344136576129,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.19914211774169419,
+        "GM_vol": 0.6735122719181618,
+        "thickness_stddev": 0.6040633526761496
+      },
+      "medialorbitofrontal": {
+        "surface_area": -0.07263494190213865,
+        "mean_curv": 0.16903705783627265,
+        "intrinsic_cur_index": 0.0769920779793615,
+        "gaussian_curv": 0.19248715231552027,
+        "GM_vol": 0.6450205556007533,
+        "thickness_stddev": 0.430555352785786
+      },
+      "middletemporal": {
+        "surface_area": 0.1438150001096139,
+        "mean_curv": -0.20082884022222458,
+        "intrinsic_cur_index": -0.1782187896249424,
+        "gaussian_curv": -0.27860286659984396,
+        "GM_vol": 0.639744976387676,
+        "thickness_stddev": 0.16295455974622458
+      },
+      "parahippocampal": {
+        "surface_area": -0.1777534356954281,
+        "mean_curv": 0.24161376192109807,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.11460346099400393,
+        "GM_vol": 0.5822303466273454,
+        "thickness_stddev": 0.5079440072969377
+      },
+      "paracentral": {
+        "surface_area": 0.051796737153713204,
+        "mean_curv": -0.08969928929474162,
+        "intrinsic_cur_index": -0.24694381155527018,
+        "gaussian_curv": -0.19861398825348361,
+        "GM_vol": 0.6609076881120606,
+        "thickness_stddev": 0.2810281113019933
+      },
+      "parsopercularis": {
+        "surface_area": 0.07579017170562212,
+        "mean_curv": -0.09988594714176793,
+        "intrinsic_cur_index": -0.09648021262349957,
+        "gaussian_curv": -0.1314476256251656,
+        "GM_vol": 0.4993375346476158,
+        "thickness_stddev": 0.1691850543022977
+      },
+      "parsorbitalis": {
+        "surface_area": 0,
+        "mean_curv": 0.11070230779244862,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.11715317983126446,
+        "GM_vol": 0.6468499476052164,
+        "thickness_stddev": 0.28238418314846503
+      },
+      "parstriangularis": {
+        "surface_area": 0.08845810486088342,
+        "mean_curv": -0.08873219068014648,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.0506309983016733,
+        "GM_vol": 0.5447461076031227,
+        "thickness_stddev": 0.28678216215422603
+      },
+      "pericalcarine": {
+        "surface_area": 0.09484094974847261,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.07200553225094118,
+        "GM_vol": 0.6108755083464875,
+        "thickness_stddev": 0.6792324204344926
+      },
+      "postcentral": {
+        "surface_area": 0.05219220136971187,
+        "mean_curv": 0.2850594694613124,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.08568470885019128,
+        "GM_vol": 0.5995975383849252,
+        "thickness_stddev": 0.22205236755423657
+      },
+      "posteriorcingulate": {
+        "surface_area": 0,
+        "mean_curv": -0.09750876569250888,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.12799853156860164,
+        "GM_vol": 0.4700988484463256,
+        "thickness_stddev": 0.30816086348209476
+      },
+      "precentral": {
+        "surface_area": 0.10232014303076284,
+        "mean_curv": -0.3169565235400277,
+        "intrinsic_cur_index": -0.2827445786742459,
+        "gaussian_curv": -0.11432284985104825,
+        "GM_vol": 0.6745656770993135,
+        "thickness_stddev": -0.08282335562969283
+      },
+      "precuneus": {
+        "surface_area": 0.14437185964239999,
+        "mean_curv": -0.170522230706806,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": -0.1545185072269051,
+        "GM_vol": 0.653438401962871,
+        "thickness_stddev": 0.25539541135680277
+      },
+      "rostralanteriorcingulate": {
+        "surface_area": -0.09734664087190273,
+        "mean_curv": 0.06252231567153504,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0.1032641909631659,
+        "GM_vol": 0.39072604017333484,
+        "thickness_stddev": 0.3237290824059833
+      },
+      "rostralmiddlefrontal": {
+        "surface_area": 0.1048642323010003,
+        "mean_curv": -0.07958120112557018,
+        "intrinsic_cur_index": 0,
+        "gaussian_curv": 0,
+        "GM_vol": 0.6441440751840556,
+        "thickness_stddev": 0.293075610132978
+      },
+      "superiorfrontal": {
+        "surface_area": 0,
+        "mean_curv": -0.06282899043686305,
+        "intrinsic_cur_index": -0.1432504246089172,
+        "gaussian_curv": -0.08326049937837003,
+        "GM_vol": 0.599836415452148,
+        "thickness_stddev": 0.3775633215822222
+      },
+      "superiorparietal": {
+        "surface_area": 0.16824255176654673,
+        "mean_curv": 0,
+        "intrinsic_cur_index": 0.09838029424237162,
+        "gaussian_curv": 0.08652243881145584,
+        "GM_vol": 0.6644426855437051,
+        "thickness_stddev": 0.25649042811067974
+      },
+      "superiortemporal": {
+        "surface_area": 0.14561830261858255,
+        "mean_curv": -0.1751544402878146,
+        "intrinsic_cur_index": -0.16494191258204455,
+        "gaussian_curv": -0.24607406012899755,
+        "GM_vol": 0.6705267459438623,
+        "thickness_stddev": 0.08300126841528699
+      },
+      "supramarginal": {
+        "surface_area": 0.06778205190179692,
+        "mean_curv": -0.1635550179188348,
+        "intrinsic_cur_index": -0.1343913376082238,
+        "gaussian_curv": -0.191017685379027,
+        "GM_vol": 0.525779873627837,
+        "thickness_stddev": 0.1198720577830854
+      },
+      "frontalpole": {
+        "surface_area": 0,
+        "mean_curv": 0.2535180119953982,
+        "intrinsic_cur_index": 0.07527967426396166,
+        "gaussian_curv": 0.23285902663489422,
+        "GM_vol": 0.7138549770683137,
+        "thickness_stddev": 0.22551386455807051
+      },
+      "temporalpole": {
+        "surface_area": -0.1849175701806366,
+        "mean_curv": -0.4466099700907925,
+        "intrinsic_cur_index": -0.44773405719437076,
+        "gaussian_curv": -0.5030473024793398,
+        "GM_vol": 0.5878787058507381,
+        "thickness_stddev": -0.4510186649715466
+      },
+      "transversetemporal": {
+        "surface_area": -0.07878176298713231,
+        "mean_curv": 0,
+        "intrinsic_cur_index": -0.28279047775261607,
+        "gaussian_curv": -0.21777920210989832,
+        "GM_vol": 0.5547255817223783,
+        "thickness_stddev": 0
+      },
+      "insula": {
+        "surface_area": -0.1966379662963165,
+        "mean_curv": -0.47025943942313736,
+        "intrinsic_cur_index": -0.3644664560421705,
+        "gaussian_curv": -0.3645954355587413,
+        "GM_vol": 0.4287672192167506,
+        "thickness_stddev": 0.27083817005879696
+      }
+    }
+  }
+}

@@ -45,6 +45,12 @@ export const EDITABLE_FEATURE_2 = 'average_thickness' as const;
 
 export const editableFeatures = [EDITABLE_FEATURE_1, EDITABLE_FEATURE_2] as const;
 
+export const editableFeaturesItems = editableFeatures.map(f => ({
+  label: f,
+  value: f
+}));
+
+
 export const graphColors = {
   stroke: {
     red: 'rgb(248, 113, 113)',
