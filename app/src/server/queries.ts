@@ -74,6 +74,7 @@ export async function getPatient(id: string) {
       predictions: {
         select: {
           id: true,
+          isBase: true,
           createdAt: true,
         },
         orderBy: {
@@ -94,9 +95,9 @@ export async function getPatient(id: string) {
     data: patient.data as DataSchema,
     predictions: patient.predictions.map((p, i, arr) => ({
       id: p.id,
+      isBase: p.isBase,
       label: formatDistanceToNow(p.createdAt, { addSuffix: true }),
       isNew: Math.abs(differenceInMinutes(p.createdAt, now)) < 5,
-      isBase: i === arr.length - 1
     }))
   };
 }
@@ -109,6 +110,7 @@ export async function getPrediction(id: string) {
     where: { id: parsedId },
     select: {
       id: true,
+      isBase: true,
       createdAt: true,
       dataChange: true,
       prediction: true,

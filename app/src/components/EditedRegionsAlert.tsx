@@ -11,12 +11,16 @@ function EditedRegionsAlert({ dataChange }: {dataChange: DataChangeSchema}) {
       .map(([region]) => `${side}_${region}`)  // Create strings like "lh_region"
   ), [dataChange]);
 
+  if (modifiedRegions.length === 0) {
+    return null;
+  }
+
   return (
     <Alert>
       <FileSliders className="h-4 w-4" />
       <AlertTitle>Heads up!</AlertTitle>
       <AlertDescription>
-        {modifiedRegions[0]} {modifiedRegions.length > 1 && `and other ${modifiedRegions.length - 1} regions`} have already been modified. To use the original values select the &quot;Base&quot; prediction.
+        {modifiedRegions[0]} {modifiedRegions.length > 1 && `and ${modifiedRegions.length - 1} other regions`} have already been modified. To use the original values select the &quot;Base&quot; prediction.
       </AlertDescription>
     </Alert>
   );

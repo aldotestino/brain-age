@@ -37,4 +37,5 @@ model Prediction {
   brainSV     Json
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  isBase      Boolean
 }

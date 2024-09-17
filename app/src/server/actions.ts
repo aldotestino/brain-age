@@ -10,10 +10,11 @@ import axios from 'axios';
 import env from '@/lib/env';
 
 // returns -1 if prediction failed
-export async function makePredictionAndExplanation({ baseData, dataChange, patientId }: {
+export async function makePredictionAndExplanation({ baseData, dataChange, patientId, isBase = false }: {
   baseData: DataSchema;
   dataChange?: DataChangeSchema;
   patientId: number;
+  isBase?: boolean;
 }) {
   try {
 
@@ -25,6 +26,7 @@ export async function makePredictionAndExplanation({ baseData, dataChange, patie
       data: {
         patientId,
         dataChange,
+        isBase,
         prediction: data.prediction,
         brainSV: data.brain_sv,
         waterfallSV: data.waterfall_sv
@@ -70,6 +72,18 @@ export async function predictAndExplain({
 }
 
 export async function deletePrediction(predictionId: number) {
+
+  const { isBase } = await prisma.prediction.findUnique({
+    where: { id: predictionId },
+    select: {
+      isBase: true
+    }
+  });
+
+  if (isBase) {
+    return 'Cannot delete base prediction';
+  }
+
   const { patientId } = await prisma.prediction.delete({
     where: { id: predictionId },
     select: {
@@ -93,7 +107,8 @@ export async function addPatient(values: AddPatientSchema) {
     // create base prediction
     const predictionId = await makePredictionAndExplanation({
       baseData: values.data,
-      patientId: id
+      patientId: id,
+      isBase: true
     });
 
     if (predictionId === -1) {

@@ -5,9 +5,11 @@ import { Download, MoreHorizontal } from 'lucide-react';
 import DownloadPrediction from './DownloadPrediction';
 
 function PredictionActions({
-  predictionId
+  predictionId,
+  isBase
 }: {
-  predictionId: number
+  predictionId: number;
+  isBase: boolean;
 }) {
   return (
     <DropdownMenu>
@@ -21,7 +23,7 @@ function PredictionActions({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DownloadPrediction predictionId={predictionId} />
-        <DeletePrediction predictionId={predictionId} />
+        <DeletePrediction predictionId={predictionId} isBase={isBase} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

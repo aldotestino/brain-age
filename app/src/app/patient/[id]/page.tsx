@@ -28,6 +28,7 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
           age={patient.age}
           sex={patient.sex}
           siteId={patient.siteId}
+          isBase={prediction.isBase}
           prediction={prediction.prediction} 
           brainSV={prediction.brainSV as PredictionWithExplanation['brain_sv']}
           waterfallSV={prediction.waterfallSV as PredictionWithExplanation['waterfall_sv']} 

@@ -11,6 +11,7 @@ function PredExp({
   id,
   age,
   sex,
+  isBase,
   siteId,
   prediction,
   waterfallSV,
@@ -20,6 +21,7 @@ function PredExp({
   age: number
   sex: string;
   siteId: number;
+  isBase: boolean;
   prediction: PredictionWithExplanation['prediction'];
   waterfallSV: PredictionWithExplanation['waterfall_sv'];
   brainSV: PredictionWithExplanation['brain_sv'];
@@ -37,7 +39,7 @@ function PredExp({
             <TabsTrigger value="waterfall">Waterfall Explanation</TabsTrigger>
             <TabsTrigger value="glassbrain">Glass Brain</TabsTrigger>
           </TabsList>
-          <PredictionActions predictionId={id} />
+          <PredictionActions predictionId={id} isBase={isBase} />
         </div>
         <TabsContent value="waterfall">
           <WaterfallGraph values={waterfallSV} />

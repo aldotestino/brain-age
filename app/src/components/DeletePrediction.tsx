@@ -10,9 +10,11 @@ import { DropdownMenuItem } from './ui/dropdown-menu';
 import { useToast } from './ui/use-toast';
 
 function DeletePrediction({
-  predictionId
+  predictionId,
+  isBase
 }: {
   predictionId: number;
+  isBase: boolean;
 }) {
 
   const { toast } = useToast();
@@ -38,7 +40,7 @@ function DeletePrediction({
           <Trash2 className="w-4 h-4" />
           <span>Delete</span>
         </Button> */}
-        <DropdownMenuItem onSelect={e => e.preventDefault()}>
+        <DropdownMenuItem onSelect={e => e.preventDefault()} disabled={isBase}>
           <Trash2 className="mr-2 h-4 w-4" />
           <span>Delete prediction</span>
         </DropdownMenuItem>
