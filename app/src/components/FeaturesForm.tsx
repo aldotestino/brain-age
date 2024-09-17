@@ -179,6 +179,7 @@ function FeaturesForm({
                           value={field.value} 
                           onValueChange={v => {
                             field.onChange(v);
+                            form.setValue(`${side as Sides}.${region as Regions}.percentage`, 0);
                             onPercentageUpdate();
                           }} 
                         />
