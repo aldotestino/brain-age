@@ -18,6 +18,7 @@ import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 import DependantFeature from './DependantFeature';
 import { useToast } from './ui/use-toast';
+import EditedRegionsAlert from './EditedRegionsAlert';
 
 const percentagesZero = modelFeatures.reduce((acc, key) => {
   acc[key as ModelFeatures] = 0;
@@ -146,7 +147,10 @@ function FeaturesForm({
             <p className='text-muted-foreground'>Select a side</p> : 
             !region ? 
               <p className='text-muted-foreground'>Select a region</p> : 
-              <p className='text-lg font-semibold text-muted-foreground'>Features</p>
+              <div className='space-y-1'>
+                <p className='text-lg font-semibold text-muted-foreground'>Features</p>
+                {dataChange && <EditedRegionsAlert dataChange={dataChange} />}
+              </div>
           }
           {(side && region) &&
             <>
