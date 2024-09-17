@@ -1,7 +1,7 @@
 import PredExp, { EmptyPredExp } from '@/components/PredExp';
 import PredictionsList from '@/components/PredictionsList';
 import Sidebar from '@/components/Sidebar';
-import { DataSchema, PredictionWithExplanation } from '@/lib/types';
+import { PredictionWithExplanation } from '@/lib/types';
 import { getPatient, getPrediction } from '@/server/queries';
 
 async function PatientPage({ params, searchParams }: {params: {id: string}, searchParams: {predId?: string}}) {
@@ -18,7 +18,7 @@ async function PatientPage({ params, searchParams }: {params: {id: string}, sear
         firstName={patient.firstName}
         lastName={patient.lastName}
         patientId={patient.id}
-        data={patient.data}
+        baseData={patient.data}
         dataChange={prediction?.dataChange}
       />
       <PredictionsList predictions={patient.predictions} />

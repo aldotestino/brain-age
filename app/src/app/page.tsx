@@ -13,8 +13,8 @@ function page() {
         <h1 className="text-4xl sm:text-7xl font-bold z-20 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-500 pb-2">
           Brain Age
         </h1>
-        <div className='w-3/5 shadow-lg'>
-          <Image priority src={AppScreen} alt='app screenshot' className="object-cover" />
+        <div className='w-3/5 shadow-lg p-1.5 bg-muted rounded-lg'>
+          <Image priority src={AppScreen} quality={90} alt='app screenshot' className="object-cover" />
         </div>
         <Link href="/dashboard">
           <Button variant="expandIcon" size="lg" Icon={ArrowRightIcon} iconPlacement="right">

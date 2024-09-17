@@ -6,14 +6,14 @@ import Link from 'next/link';
 
 function Sidebar({
   patientId,
-  data,
+  baseData,
   dataChange,
   email,
   firstName,
   lastName
 }: {
   patientId: number;
-  data: DataSchema;
+  baseData: DataSchema;
   dataChange?: DataChangeSchema;
   email: string;
   firstName: string;
@@ -34,7 +34,7 @@ function Sidebar({
       </div>
       <FeaturesForm 
         patientId={patientId}
-        data={data}
+        baseData={baseData}
         dataChange={dataChange}
       />
     </div>

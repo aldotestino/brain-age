@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Slider } from '@/components/ui/slider';
 import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, sides, sidesItems } from '@/lib/data';
 import { DataChangeSchema, DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
-import { getModelFeatureName, updateData, updatePercentages, updateWholeDataAndPercentages } from '@/lib/utils';
+import { getModelFeatureName, updateData, updatePercentages, updateAllDataAndPercentages } from '@/lib/utils';
 import { dataChangeSchema, dataSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect, useState } from 'react';
@@ -17,6 +17,7 @@ import { Separator } from './ui/separator';
 import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 import DependantFeature from './DependantFeature';
+import { useToast } from './ui/use-toast';
 
 const percentagesZero = modelFeatures.reduce((acc, key) => {
   acc[key as ModelFeatures] = 0;
@@ -36,13 +37,15 @@ const dataChangeZero: DataChangeSchema = sides.reduce((acc, side) => {
 
 function FeaturesForm({
   patientId,
-  data,
+  baseData,
   dataChange
 }: {
   patientId: number;
-  data: DataSchema;
+  baseData: DataSchema;
   dataChange?: DataChangeSchema
 }) {
+
+  const { toast } = useToast();
 
   const [side, setSide] = useState('');
   const [region, setRegion] = useState('');
@@ -54,59 +57,29 @@ function FeaturesForm({
 
   const liveForm = form.watch();
 
-  const [calcData, setCalcData] = useState<DataSchema>(data);
+  const [updatedData, setUpdatedData] = useState<DataSchema>(baseData);
   const [percentages, setPercentages] = useState<DataSchema>(percentagesZero);
 
-  // useEffect(() => {
-  //   if(dataChange) {
-  //     form.reset(dataChange);
-  //     const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
-  //       data,
-  //       dataChange: dataChange
-  //     });
-  //     setPercentages(updatedPercentages);
-  //     setCalcData(updatedData);
-  //   } else {
-  //     form.reset(dataChangeZero);
-  //     setPercentages(percentagesZero);
-  //     setCalcData(data);
-  //   }
-  // }, [data, dataChange, form]);
-
-  // function reset() {
-  //   if(dataChange) {
-  //     form.reset(dataChange);
-  //     const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
-  //       data,
-  //       dataChange
-  //     });
-
-  //     setPercentages(updatedPercentages);
-  //     setCalcData(updatedData);
-  //   }else {
-  //     form.reset(dataChangeZero);
-  //     setPercentages(percentagesZero);
-  //     setCalcData(data);
-  //   }
-  // }
-
+  // Function to reset the form to the defaults of the selected prediction
   const reset = useCallback(() => {
     if(dataChange) {
       form.reset(dataChange);
-      const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
-        data,
+      
+      const { updatedPercentages, updatedData: returnedUpdatedData } = updateAllDataAndPercentages({
+        baseData,
         dataChange
       });
 
       setPercentages(updatedPercentages);
-      setCalcData(updatedData);
-    }else {
+      setUpdatedData(returnedUpdatedData);
+    } else {
       form.reset(dataChangeZero);
       setPercentages(percentagesZero);
-      setCalcData(data);
+      setUpdatedData(baseData);
     }
-  }, [data, dataChange, form]);
+  }, [baseData, dataChange, form]);
 
+  // Reset the form to the new data
   useEffect(reset, [reset]);
 
   function onPercentageUpdate() {
@@ -117,8 +90,8 @@ function FeaturesForm({
       percentage: liveForm[side as Sides][region as Regions].percentage
     });
 
-    const updatedData = updateData({
-      data,
+    const returnedUpdatedData = updateData({
+      baseData,
       percentages: updatedPercentags
     });
 
@@ -127,17 +100,29 @@ function FeaturesForm({
       ...updatedPercentags
     }));
 
-    setCalcData(pv => ({
+    setUpdatedData(pv => ({
       ...pv,
-      ...updatedData
+      ...returnedUpdatedData
     }));
   }
 
   async function handleOnSubmit(dataChange: DataChangeSchema) {
-    await predictAndExplain({
+    const err = await predictAndExplain({
       patientId,
       dataChange
     });
+    if(err) {
+      toast({
+        title: 'Error',
+        description: err,
+        variant: 'destructive'
+      });
+    } else {
+      toast({
+        title: 'Sucess',
+        description: 'Prediction created successfully',
+      });
+    }
   }
 
   return (
@@ -186,7 +171,7 @@ function FeaturesForm({
                       </FormControl>
                       <div className='flex items-center justify-between'>
                         <Label>Value</Label>
-                        <p className='text-lg font-semibold text-muted-foreground'>{calcData[getModelFeatureName(field.value, side, region)].toFixed(2)}</p>
+                        <p className='text-lg font-semibold text-muted-foreground'>{updatedData[getModelFeatureName(field.value, side, region)].toFixed(2)}</p>
                       </div>
                       <FormMessage />
                     </FormItem>
@@ -222,7 +207,7 @@ function FeaturesForm({
                 .map(f => {
                   const modelFeatureName = getModelFeatureName(f, side, region);
                   return (
-                    <DependantFeature key={modelFeatureName} featureName={f} calcData={calcData[modelFeatureName]} percentage={percentages[modelFeatureName]} />
+                    <DependantFeature key={modelFeatureName} featureName={f} calcData={updatedData[modelFeatureName]} percentage={percentages[modelFeatureName]} />
                   );
                 })}
             </>

@@ -21,17 +21,13 @@ function DeletePatientAlert({
 
   async function onDelete() {
     setIsSubmitting(true);
-    await deletePatient(patientId)
-      .catch(() => {
-        toast({
-          title: 'Errore',
-          description: 'Si è verificato un errore, riprova più tardi.',
-          variant: 'destructive'
-        });
-      }).finally(() => {
-        setIsSubmitting(false);
-        setOpen(false);
-      });
+    await deletePatient(patientId);
+    setIsSubmitting(false);
+    setOpen(false);
+    toast({
+      title: 'Sucess',
+      description: 'Patient deleted successfully',
+    });
   }
 
   return (

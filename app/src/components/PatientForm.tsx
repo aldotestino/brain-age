@@ -11,9 +11,10 @@ import Spinner from '@/components/ui/spinner';
 import { addPatientSchema, updatePatientSchema } from '@/lib/validators';
 import FileInput from './FileInput';
 import { addPatient, updatePatient } from '@/server/actions';
-import { ComponentProps } from 'react';
+import { ComponentProps, use } from 'react';
 import EasySelect from './EasySelect';
 import { sexItems } from '@/lib/data';
+import { useToast } from '@/components/ui/use-toast';
 
 function Field({
   name,
@@ -48,6 +49,8 @@ function AddPatientForm({
   closeDialog: () => void;
 }) {
 
+  const { toast } = useToast();
+
   const form = useForm<AddPatientSchema>({
     defaultValues: {
       firstName: '',
@@ -72,13 +75,26 @@ function AddPatientForm({
   }
 
   async function onSubmit(values: AddPatientSchema) {
-    try {
-      await addPatient(values);
+    const err = await addPatient(values);
+    if(err) {
+      if(err === 'Prediction failed, try again later') {
+        closeDialog();
+        toast({
+          title: 'Error',
+          description: err,
+          variant: 'destructive'
+        });
+      } else {
+        form.setError('email', {
+          type: 'manual',
+          message: err
+        });
+      }
+    } else {
       closeDialog();
-    }catch(err: any) {
-      form.setError('email', {
-        type: 'manual',
-        message: err.message
+      toast({
+        title: 'Sucess',
+        description: 'Patient created successfully',
       });
     }
   }
@@ -144,20 +160,25 @@ function UpdatePatientForm({
   closeDialog: () => void;
 }) {
 
+  const { toast } = useToast();
+
   const form = useForm<UpdatePatientSchema>({
     defaultValues,
     resolver: zodResolver(updatePatientSchema)
   });
 
   async function onSubmit(values: UpdatePatientSchema) {
-    try {
-      console.log(values);
-      await updatePatient({ patientId, values });
-      closeDialog();
-    }catch(err: any) {
+    const err = await updatePatient({ patientId, values });
+    if(err) {
       form.setError('email', {
         type: 'manual',
-        message: err.message
+        message: err
+      });
+    }else {
+      closeDialog();
+      toast({
+        title: 'Sucess',
+        description: 'Patient updated successfully',
       });
     }
   }

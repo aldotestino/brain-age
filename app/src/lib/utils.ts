@@ -1,9 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
-import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, GLASS_BRAIN_SHADES, modelFeatures, regions, sides } from './data';
-import { DataChangeSchema, DataSchema, EditableFeatures, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
-import fullRelations from './fullRelations.json';
+import { GLASS_BRAIN_SHADES, regions, sides } from './data';
+import { DataChangeSchema, DataSchema, EditableFeatures, GlassBrainRegions, ModelFeatures, PredictionWithExplanation, Regions, Sides } from './types';
+import fullRelations from '@/lib/fullRelations.json';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,11 +19,11 @@ export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string
   return `/dashboard?${urlSearchParams.toString()}`;
 }
 
-export function updateWholeDataAndPercentages({
-  data,
+export function updateAllDataAndPercentages({
+  baseData,
   dataChange
 }: {
-  data: DataSchema,
+  baseData: DataSchema,
   dataChange: DataChangeSchema
 }) {
   const updatedPercentages = sides.reduce((acc, side) => {
@@ -46,7 +46,7 @@ export function updateWholeDataAndPercentages({
   }, {} as any) as DataSchema;
 
   const updatedData = updateData({
-    data,
+    baseData,
     percentages: updatedPercentages
   }) as DataSchema;
 
@@ -79,17 +79,17 @@ export function updatePercentages({
 }
 
 export function updateData({
-  data,
+  baseData,
   percentages
 }: {
-  data: Partial<DataSchema>
+  baseData: Partial<DataSchema>
   percentages: Partial<DataSchema>
 }) {
   const updatedData: Partial<DataSchema> = {};
 
   Object.entries(percentages).forEach(([modelFeature, percentage]) => {
-    const baseData = data[modelFeature as ModelFeatures];
-    updatedData[modelFeature as ModelFeatures] = baseData! + baseData! * percentage / 100;
+    const baseFeature = baseData[modelFeature as ModelFeatures];
+    updatedData[modelFeature as ModelFeatures] = baseFeature! + baseFeature! * percentage / 100;
   });
 
   return updatedData;

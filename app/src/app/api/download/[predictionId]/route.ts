@@ -1,7 +1,7 @@
 import { features, regions, sides } from '@/lib/data';
 import prisma from '@/lib/db';
 import { BrainSV, DataChangeSchema, DataSchema, Features, GlassBrainRegions, ModelFeatures } from '@/lib/types';
-import { updateWholeDataAndPercentages } from '@/lib/utils';
+import { updateAllDataAndPercentages } from '@/lib/utils';
 import { NextResponse } from 'next/server';
 import * as xlsx from 'xlsx';
 
@@ -76,8 +76,8 @@ export async function GET(request: Request, { params }: { params: { predictionId
       })))
     ];
   } else {
-    const { updatedPercentages, updatedData } = updateWholeDataAndPercentages({
-      data: patient.data as DataSchema,
+    const { updatedPercentages, updatedData } = updateAllDataAndPercentages({
+      baseData: patient.data as DataSchema,
       dataChange: pred.dataChange as DataChangeSchema
     });
 

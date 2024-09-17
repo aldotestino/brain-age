@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
+import env from '@/lib/env';
 
 let prisma: PrismaClient;
 
-if (process.env.NODE_ENV === 'production') {
+if (env.NODE_ENV === 'production') {
   prisma = new PrismaClient();
 } else {
   // @ts-ignore

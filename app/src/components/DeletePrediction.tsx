@@ -7,12 +7,15 @@ import Spinner from '@/components/ui/spinner';
 import { Trash2 } from 'lucide-react';
 import { deletePrediction } from '@/server/actions';
 import { DropdownMenuItem } from './ui/dropdown-menu';
+import { useToast } from './ui/use-toast';
 
 function DeletePrediction({
   predictionId
 }: {
   predictionId: number;
 }) {
+
+  const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
@@ -22,6 +25,10 @@ function DeletePrediction({
     await deletePrediction(predictionId);
     setIsSubmitting(false);
     setOpen(false);
+    toast({
+      title: 'Success',
+      description: 'Prediction deleted successfully',
+    });
   }
 
   return (
