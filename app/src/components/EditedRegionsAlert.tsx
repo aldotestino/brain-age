@@ -1,17 +1,59 @@
-import { DataChangeSchema } from '@/lib/types';
+import { DataChangeSchema, Regions, Sides } from '@/lib/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FileSliders } from 'lucide-react';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { useMemo } from 'react';
 
-function EditedRegionsAlert({ dataChange }: {dataChange: DataChangeSchema}) {
+function OtherEditedRegions({ 
+  other, 
+  onSelect  
+}: {
+  other: { side: Sides, region: Regions }[],
+  onSelect: (side: Sides, region: Regions) => void
+}) {
 
-  const modifiedRegions = useMemo(() => Object.entries(dataChange).flatMap(([side, regions]) => 
-    Object.entries(regions)
-      .filter(([, value]) => value.percentage !== 0) // Filter regions with percentage !== 0
-      .map(([region]) => `${side}_${region}`)  // Create strings like "lh_region"
-  ), [dataChange]);
+  return (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <span
+          className="underline cursor-help"
+          tabIndex={0}
+          role="button"
+          aria-haspopup="true"
+        >
+          {other.length} other regions
+        </span>
+      </HoverCardTrigger>
+      <HoverCardContent className="w-60 p-0">
+        <div className="max-h-72 overflow-y-auto p-4">
+          <ul className="space-y-2">
+            {other.map(r => (
+              <li key={`${r.side}_${r.region}`} className="text-sm hover:underline cursor-pointer" onClick={() => onSelect(r.side, r.region)}>{r.side}_{r.region}</li>
+            ))}
+          </ul>
+        </div>
+      </HoverCardContent>
+    </HoverCard>);
+}
 
-  if (modifiedRegions.length === 0) {
+function EditedRegionsAlert({ 
+  dataChange, 
+  onSelect 
+}: {
+  dataChange: DataChangeSchema, 
+  onSelect: (side: Sides, region: Regions) => void}
+) {
+
+  const { first, other } = useMemo(() => {
+    const [first, ...other] = Object.entries(dataChange).flatMap(([side, regions]) => 
+      Object.entries(regions)
+        .filter(([, value]) => value.percentage !== 0) // Filter regions with percentage !== 0
+        .map(([region]) => ({ side: side as Sides, region: region as Regions }))
+    );
+    return { first, other };
+  }, [dataChange]);
+
+  if (!first) {
     return null;
   }
 
@@ -20,7 +62,23 @@ function EditedRegionsAlert({ dataChange }: {dataChange: DataChangeSchema}) {
       <FileSliders className="h-4 w-4" />
       <AlertTitle>Heads up!</AlertTitle>
       <AlertDescription>
-        {modifiedRegions[0]} {modifiedRegions.length > 1 && `and ${modifiedRegions.length - 1} other regions`} have already been modified. To use the original values select the &quot;Base&quot; prediction.
+        <p>
+          <span 
+            className='hover:underline cursor-pointer' 
+            onClick={() => onSelect(first.side, first.region)}>
+            {first.side}_{first.region}
+          </span>
+          {' '}
+          {other.length > 0 && 
+            <>
+              and{' '}
+              <OtherEditedRegions other={other} onSelect={onSelect} />
+            </>
+          }
+          {' '}
+          have already been modified.
+          To use the original values select the &quot;Base&quot; prediction.
+        </p>
       </AlertDescription>
     </Alert>
   );

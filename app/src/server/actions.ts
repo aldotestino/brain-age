@@ -73,14 +73,14 @@ export async function predictAndExplain({
 
 export async function deletePrediction(predictionId: number) {
 
-  const { isBase } = await prisma.prediction.findUnique({
+  const pred = await prisma.prediction.findUnique({
     where: { id: predictionId },
     select: {
       isBase: true
     }
   });
 
-  if (isBase) {
+  if (pred && pred.isBase) {
     return 'Cannot delete base prediction';
   }
 

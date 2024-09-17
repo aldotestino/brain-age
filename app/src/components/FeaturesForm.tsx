@@ -126,6 +126,11 @@ function FeaturesForm({
     }
   }
 
+  function onSelectEditedRegion(side: Sides, region: Regions) {
+    setSide(side);
+    setRegion(region);
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[auto,1fr,auto] overflow-y-hidden">
@@ -149,7 +154,7 @@ function FeaturesForm({
               <p className='text-muted-foreground'>Select a region</p> : 
               <div className='space-y-1'>
                 <p className='text-lg font-semibold text-muted-foreground'>Features</p>
-                {dataChange && <EditedRegionsAlert dataChange={dataChange} />}
+                {dataChange && <EditedRegionsAlert dataChange={dataChange} onSelect={onSelectEditedRegion} />}
               </div>
           }
           {(side && region) &&
