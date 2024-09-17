@@ -13,7 +13,7 @@ function createUrl(patientId: string, predId: number) {
 function PredictionsList({
   predictions
 }: {
-  predictions: {id: number, label: string, isNew: boolean}[]
+  predictions: {id: number, label: string, isNew: boolean, isBase: boolean}[]
 }) {
 
   const sp = useSearchParams();
@@ -30,7 +30,7 @@ function PredictionsList({
             <span className='min-w-0 truncate normal-case'>
               {p.label}
             </span>
-            {p.isNew && <Badge>New</Badge>}
+            {p.isBase ? <Badge>Base</Badge> : p.isNew ? <Badge>New</Badge> : null}
           </Link>
         ))}
       </div>

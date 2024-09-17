@@ -1,6 +1,5 @@
 import prisma from '@/lib/db';
 import { DataChangeSchema, DataSchema, PredictionWithExplanation } from '@/lib/types';
-import { dataChangeSchema, dataSchema } from '@/lib/validators';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { notFound, redirect } from 'next/navigation';
@@ -93,10 +92,11 @@ export async function getPatient(id: string) {
   return {
     ...patient,
     data: patient.data as DataSchema,
-    predictions: patient.predictions.map(p => ({
+    predictions: patient.predictions.map((p, i, arr) => ({
       id: p.id,
       label: formatDistanceToNow(p.createdAt, { addSuffix: true }),
-      isNew: Math.abs(differenceInMinutes(p.createdAt, now)) < 5
+      isNew: Math.abs(differenceInMinutes(p.createdAt, now)) < 5,
+      isBase: i === arr.length - 1
     }))
   };
 }
