@@ -1,8 +1,8 @@
 #! /bin/bash
 
-yarn prisma:generate &&
-yarn prisma:migrate-prod &&
-yarn prisma:push &&
+pnpm prisma:generate &&
+pnpm prisma:migrate-prod &&
+pnpm prisma:push &&
 
-yarn build && 
-yarn start
+pnpm build && 
+pnpm start
