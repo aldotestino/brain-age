@@ -2,7 +2,7 @@
 
 import { features, featuresItems, sidesItems } from '@/lib/data';
 import { BrainSVItem, Features, GlassBrainRegions, PredictionWithExplanation, Sides } from '@/lib/types';
-import { cn, getGlassBrainRegion, valueToColor } from '@/lib/utils';
+import { cn, formatGlassBrainRegion, getGlassBrainRegion, valueToColor } from '@/lib/utils';
 import { CameraControls, Html } from '@react-three/drei';
 import { HtmlProps } from '@react-three/drei/web/Html';
 import { Canvas, useLoader } from '@react-three/fiber';
@@ -25,8 +25,9 @@ function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
   return (
     <Html 
       {...props}
-      className='p-2 bg-black/90 text-white rounded-md pointer-events-none'>
-      <p className='font-semibold'>{regionName}</p>
+      className='p-2 bg-black/90 space-y-1 text-white rounded-md pointer-events-none w-auto'
+    >
+      <p className='font-semibold capitalize whitespace-nowrap'>{formatGlassBrainRegion(regionName)}</p>
       <p className={cn('text-sm', shapValue > 0 ? 'text-red-300' : shapValue < 0 ? 'text-blue-300' : '')}>
         {shapValue > 0 ? '+' : shapValue < 0 ? '-' : ''}
         {Math.abs(shapValue).toFixed(2)}
@@ -117,7 +118,7 @@ function GlassBrain({
       <CardHeader>
         <div className='flex gap-4 items-end justify-between'>
           <div className='flex gap-4'>
-            <div className='space-y-2 w-48'>
+            <div className='space-y-2 w-32'>
               <Label>Side</Label>
               <EasySelect
                 items={[{
@@ -130,7 +131,7 @@ function GlassBrain({
                 onValueChange={setSide}
               />
             </div>
-            <div className='space-y-2 w-48'>
+            <div className='space-y-2 w-64'>
               <Label>Feature</Label>
               <EasySelect
                 items={featuresItems}

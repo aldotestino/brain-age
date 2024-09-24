@@ -10,7 +10,7 @@ const EnvSchema = z.object({
   MODEL_API_URL: z.string(),
 });
 
-export type EnvSchema = z.infer<typeof EnvSchema>;
+type EnvSchema = z.infer<typeof EnvSchema>;
 
 try {
   EnvSchema.parse(process.env);

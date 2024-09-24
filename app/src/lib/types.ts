@@ -17,7 +17,7 @@ export type DataChangeSchema = z.infer<typeof dataChangeSchema>;
 export type UpdatePatientSchema = z.infer<typeof updatePatientSchema>;
 export type AddPatientSchema = z.infer<typeof addPatientSchema>;
 
-export type WaterfallSVItem = {
+type WaterfallSVItem = {
   value: number;
   data: number | null;
   name: string;
@@ -40,11 +40,4 @@ export type PredictionWithExplanation = {
   prediction: number;
   waterfall_sv: WaterfallSVItem[];
   brain_sv: BrainSV
-}
-
-export type Patient = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
 }

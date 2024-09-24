@@ -1,11 +1,12 @@
 'use client';
 
-import { PredictionWithExplanation } from '@/lib/types';
+import { ModelFeatures, PredictionWithExplanation } from '@/lib/types';
 import { Card, CardContent } from './ui/card';
 import { Bar } from 'react-chartjs-2';
 import { BarElement, CategoryScale, Chart as ChartJS, LinearScale, Title, Tooltip, PointElement, Legend } from 'chart.js';
 import { useMemo } from 'react';
 import { barOptions, graphColors } from '@/lib/data';
+import { formatWaterfallLabel } from '@/lib/utils';
 
 ChartJS.register(
   CategoryScale,
@@ -25,7 +26,7 @@ function WaterfallGraph({
 
   const { labels, borderColor, backgroundColor, data } = useMemo(() => {
     return {
-      labels: values.map(({ name }) => name),
+      labels: values.map(({ name }, i, arr) => i === arr.length - 1 ? name : formatWaterfallLabel(name as ModelFeatures)), // raname all labels but the last one
       borderColor: values.map(({ value }) => value < 0 ? graphColors.stroke.blue : graphColors.stroke.red),
       backgroundColor: values.map(({ value }) => value < 0 ? graphColors.fill.blue : graphColors.fill.red),
       data: values.map(({ range }) => range),

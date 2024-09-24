@@ -5,9 +5,15 @@ export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM
 export const regions = ['bankssts', 'caudalanteriorcingulate', 'caudalmiddlefrontal', 'cuneus', 'entorhinal', 'fusiform', 'inferiorparietal', 'inferiortemporal', 'isthmuscingulate', 'lateraloccipital', 'lateralorbitofrontal', 'lingual', 'medialorbitofrontal', 'middletemporal', 'parahippocampal', 'paracentral', 'parsopercularis', 'parsorbitalis', 'parstriangularis', 'pericalcarine', 'postcentral', 'posteriorcingulate', 'precentral', 'precuneus', 'rostralanteriorcingulate', 'rostralmiddlefrontal', 'superiorfrontal', 'superiorparietal', 'superiortemporal', 'supramarginal', 'frontalpole', 'temporalpole', 'transversetemporal', 'insula'] as const;
 export const sides = ['lh', 'rh'] as const;
 
-export const glassBrainRegions = sides.flatMap((s) =>
-  regions.map((r) => `${s}.${r}`)
-);
+export const featuresCompleteNames = {
+  surface_area: 'Surface Area',
+  mean_curv: 'Mean Curvature',
+  intrinsic_cur_index: 'Intrinsic Curvature Index',
+  GM_vol: 'Gray Matter Volume',
+  gaussian_curv: 'Gaussian Curvature',
+  average_thickness: 'Average Thickness',
+  thickness_stddev: 'Thickness Standard Deviation'
+} as const;
 
 export const modelFeatures = sides.flatMap((s) =>
   regions.flatMap((r) =>
@@ -27,7 +33,7 @@ export const regionsItems = regions.map(value => ({
 
 export const featuresItems = features.map(value => ({
   value,
-  label: value.split('_').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  label: featuresCompleteNames[value]
 }));
 
 export const sexItems = ['Male', 'Female'].map(i => ({
@@ -46,8 +52,8 @@ export const EDITABLE_FEATURE_2 = 'average_thickness' as const;
 export const editableFeatures = [EDITABLE_FEATURE_1, EDITABLE_FEATURE_2] as const;
 
 export const editableFeaturesItems = editableFeatures.map(f => ({
-  label: f,
-  value: f
+  value: f,
+  label: featuresCompleteNames[f]
 }));
 
 

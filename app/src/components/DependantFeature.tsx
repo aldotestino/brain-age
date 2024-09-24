@@ -1,6 +1,7 @@
 import { Features } from '@/lib/types';
 import { Label } from './ui/label';
 import { Slider } from './ui/slider';
+import { featuresCompleteNames } from '@/lib/data';
 
 function DependantFeature({
   featureName,
@@ -14,7 +15,7 @@ function DependantFeature({
   return (
     <div className='space-y-2'>
       <div className='flex items-baseline justify-between'>
-        <Label>{featureName}</Label>
+        <Label>{featuresCompleteNames[featureName]}</Label>
         <p className='text-lg font-semibold text-muted-foreground'>{calcData.toFixed(2)}</p>
       </div>
       <div className='grid grid-cols-[1fr,auto] gap-1'>

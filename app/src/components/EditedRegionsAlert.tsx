@@ -3,6 +3,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FileSliders } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { useMemo } from 'react';
+import { formatGlassBrainRegion } from '@/lib/utils';
 
 function OtherEditedRegions({ 
   other, 
@@ -28,7 +29,13 @@ function OtherEditedRegions({
         <div className="max-h-72 overflow-y-auto p-4">
           <ul className="space-y-2">
             {other.map(r => (
-              <li key={`${r.side}_${r.region}`} className="text-sm hover:underline cursor-pointer" onClick={() => onSelect(r.side, r.region)}>{r.side}_{r.region}</li>
+              <li 
+                key={`${r.side}_${r.region}`} 
+                className="text-sm hover:underline cursor-pointer capitalize" 
+                onClick={() => onSelect(r.side, r.region)}
+              >
+                {formatGlassBrainRegion(`${r.side}.${r.region}`)}
+              </li>
             ))}
           </ul>
         </div>
@@ -64,9 +71,10 @@ function EditedRegionsAlert({
       <AlertDescription>
         <p>
           <span 
-            className='hover:underline cursor-pointer' 
-            onClick={() => onSelect(first.side, first.region)}>
-            {first.side}_{first.region}
+            className='hover:underline cursor-pointer capitalize' 
+            onClick={() => onSelect(first.side, first.region)}
+          >
+            {formatGlassBrainRegion(`${first.side}.${first.region}`)}
           </span>
           {' '}
           {other.length > 0 && 
