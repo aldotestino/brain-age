@@ -138,6 +138,7 @@ function GlassBrain({
                 onValueChange={setFeature} 
               />
             </div>
+            <a className='self-end text-muted-foreground hover:underline' href='https://www.freesurfer.net/pub/articles/desikan06-parcellation.pdf' target='_blank'>Desikan-Killiany Atlas</a>
           </div>
           <CameraButtons 
             reset={() => camera.current?.reset()}
