@@ -9,7 +9,8 @@ async function DashboardPage({
   searchParams: Record<string, string | string[] | undefined>
 }) {
 
-  const { patients, total, pages, prevPage, nextPage } = await getPatients(tableParamsCache.parse(searchParams));  
+  const sp = tableParamsCache.parse(searchParams);
+  const { patients, total, pages, prevPage, nextPage } = await getPatients(sp);  
 
   return (
     <main className="container max-w-screen-lg space-y-10 py-10">

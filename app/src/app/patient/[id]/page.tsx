@@ -3,11 +3,20 @@ import PredictionsList from '@/components/PredictionsList';
 import Sidebar from '@/components/Sidebar';
 import { PredictionWithExplanation } from '@/lib/types';
 import { getPatient, getPrediction } from '@/server/queries';
+import { patientParamsCache } from './patient-params';
 
-async function PatientPage({ params, searchParams }: {params: {id: string}, searchParams: {predId?: string}}) {
+async function PatientPage({ 
+  params, 
+  searchParams 
+}: {
+  params: {id: string}, 
+  searchParams: Record<string, string | string[] | undefined>
+}) {
+
+  const { predId } = patientParamsCache.parse(searchParams);
 
   const patientPromise = getPatient(params.id);
-  const predictionPromise = searchParams.predId ? getPrediction(searchParams.predId) : null;
+  const predictionPromise = predId ? getPrediction(predId) : null;
 
   const [patient, prediction] = await Promise.all([patientPromise, predictionPromise]);
 

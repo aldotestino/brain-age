@@ -1,14 +1,10 @@
 'use client';
 
-import { useParams, useSearchParams } from 'next/navigation';
 import { Badge } from './ui/badge';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { buttonVariants } from './ui/button';
-
-function createUrl(patientId: string, predId: number) {
-  return `/patient/${patientId}?predId=${predId}`;
-}
+import { Button, buttonVariants } from './ui/button';
+import { useQueryStates } from 'nuqs';
+import { patientParser } from '@/app/patient/[id]/patient-params';
 
 function PredictionsList({
   predictions
@@ -16,8 +12,7 @@ function PredictionsList({
   predictions: {id: number, label: string, isNew: boolean, isBase: boolean}[]
 }) {
 
-  const sp = useSearchParams();
-  const { id } = useParams<{id: string}>();
+  const [{ predId }, setPatientParams] = useQueryStates(patientParser, { clearOnDefault: true, history: 'push', shallow: false });
   
   return (
     <div className='w-56 border-r grid grid-rows-[auto,1fr] overflow-y-hidden bg-muted'>
@@ -26,12 +21,12 @@ function PredictionsList({
       </div>
       <div className='p-2 overflow-scroll space-y-1'>
         {predictions.map((p, i) => (
-          <Link key={p.id} href={createUrl(id, p.id)} className={buttonVariants({ variant: 'link', className: cn('w-full justify-between space-x-2 px-3 py-2 rounded-md', sp.get('predId') === p.id.toString() ? 'bg-white hover:no-underline' : 'hover:bg-transparent') })}>
+          <Button onClick={() => setPatientParams({ predId: p.id })} key={p.id} variant="link" className={cn('w-full justify-between space-x-2 px-3 py-2 rounded-md', predId === p.id ? 'bg-white hover:no-underline' : 'hover:bg-transparent')}>
             <span className='min-w-0 truncate normal-case'>
               {p.label}
             </span>
             {p.isBase ? <Badge>Base</Badge> : p.isNew ? <Badge>New</Badge> : null}
-          </Link>
+          </Button>
         ))}
       </div>
     </div>

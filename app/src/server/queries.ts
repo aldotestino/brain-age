@@ -6,10 +6,6 @@ import { notFound, redirect } from 'next/navigation';
 
 export async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
 
-  if (isNaN(p) || isNaN(n)) {
-    redirect('/dashboard');
-  }
-
   const query = {
     AND: q.split(' ').map(part => ({
       OR: [{ firstName: { contains: part, mode: 'insensitive' } }, { lastName: { contains: part, mode: 'insensitive' } }, { email: { contains: part, mode: 'insensitive' } }]
@@ -102,12 +98,10 @@ export async function getPatient(id: string) {
   };
 }
 
-export async function getPrediction(id: string) {
-
-  const parsedId = parseInt(id, 10);
+export async function getPrediction(id: number) {
 
   const prediction = await prisma.prediction.findUnique({
-    where: { id: parsedId },
+    where: { id },
     select: {
       id: true,
       isBase: true,
