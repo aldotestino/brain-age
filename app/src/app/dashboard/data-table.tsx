@@ -4,11 +4,10 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable, } from '@tanstac
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useDebounce } from '@/lib/hooks';
-import { useRouter } from 'next/navigation';
 import Paginator from './paginator';
 import AddPatient from '@/components/AddPatient';
+import { useQueryStates } from 'nuqs';
+import { tableParser } from './table-params';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -16,23 +15,17 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({
-  total,
-  pages,
-  itemsPerPage,
-  currentPage,
-  currentQuery,
-  nextPage,
-  prevPage,
   columns,
   data,
+  total,
+  pages,
+  prevPage,
+  nextPage,
 }: DataTableProps<TData, TValue> &  {
   total: number
   pages: number
-  itemsPerPage: number
   nextPage: number | null
   prevPage: number | null
-  currentPage: number
-  currentQuery: string
 }) {
   const table = useReactTable({
     data,
@@ -40,20 +33,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const [query, setQuery] = useState(currentQuery);
-  
-  const debouncedQuery = useDebounce(query, 500);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (debouncedQuery !== currentQuery) {
-      if(debouncedQuery === '') {
-        router.push('/dashboard');
-      } else {
-        router.push(`/dashboard?q=${debouncedQuery}`);
-      }
-    }
-  }, [debouncedQuery, currentQuery, router]);
+  const [{ q }, setTableParams] = useQueryStates(tableParser, { clearOnDefault: true, history: 'push', shallow: false, throttleMs: 500 });
 
   return (
     <div className='space-y-4'>
@@ -64,8 +44,8 @@ export function DataTable<TData, TValue>({
             <Input
               placeholder="Search patient..."
               className="pl-8"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              value={q}
+              onChange={(e) => setTableParams(prev => ({ ...prev, q: e.target.value }))}
             />
           </div>
           <p className='text-large font-semibold text-muted-foreground'>{total} patients</p>
@@ -118,9 +98,6 @@ export function DataTable<TData, TValue>({
       </div>
       <Paginator 
         pages={pages}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        currentQuery={currentQuery}
         nextPage={nextPage} 
         prevPage={prevPage} 
       />

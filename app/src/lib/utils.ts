@@ -2,21 +2,11 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
 import { featuresCompleteNames, GLASS_BRAIN_SHADES, regions, sides } from './data';
-import { DataChangeSchema, DataSchema, EditableFeatures, Features, GlassBrainRegions, ModelFeatures, PredictionWithExplanation, Regions, Sides } from './types';
+import { DataChangeSchema, DataSchema, EditableFeatures, Features, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
 import fullRelations from '@/lib/fullRelations.json';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function createDashboardPaginationURL({ p, q, n }: { p: number, q: string, n: number }) {
-  const urlSearchParams = new URLSearchParams();
-  urlSearchParams.set('p', p.toString());
-  urlSearchParams.set('n', n.toString());
-  if (q) {
-    urlSearchParams.set('q', q);
-  }
-  return `/dashboard?${urlSearchParams.toString()}`;
 }
 
 export function updateAllDataAndPercentages({

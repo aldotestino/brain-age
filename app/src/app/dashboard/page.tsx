@@ -1,26 +1,15 @@
 import { columns } from './columns';
 import { DataTable } from './data-table';
 import { getPatients } from '@/server/queries';
+import { tableParamsCache } from './table-params';
 
-async function DashboardPage({ 
-  searchParams: {
-    q = '',
-    p = '1',
-    n = '8',
-  }
+async function DashboardPage({
+  searchParams
 }: {
-  searchParams: {
-    q: string;
-    p: string;
-    n: string;
-  }
+  searchParams: Record<string, string | string[] | undefined>
 }) {
 
-  const { patients, total, pages, prevPage, nextPage } = await getPatients({
-    q,
-    p: parseInt(p),
-    n: parseInt(n),
-  });
+  const { patients, total, pages, prevPage, nextPage } = await getPatients(tableParamsCache.parse(searchParams));  
 
   return (
     <main className="container max-w-screen-lg space-y-10 py-10">
@@ -32,11 +21,8 @@ async function DashboardPage({
         data={patients}
         total={total}
         pages={pages}
-        itemsPerPage={parseInt(n)}
-        currentQuery={q}
-        currentPage={parseInt(p)} 
-        prevPage={prevPage} 
-        nextPage={nextPage} 
+        prevPage={prevPage}
+        nextPage={nextPage}
       />
     </main>
   );
