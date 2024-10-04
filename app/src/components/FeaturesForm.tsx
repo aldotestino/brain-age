@@ -1,6 +1,6 @@
 'use client';
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Slider } from '@/components/ui/slider';
 import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, regionsNamesAndDescription, sides, sidesItems } from '@/lib/data';
 import { DataChangeSchema, DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
@@ -133,31 +133,19 @@ function FeaturesForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[auto,1fr,auto] overflow-y-hidden">
-        <div>
-          <div className='p-4 grid gap-4'>
-            <div className='space-y-2'>
-              <Label>Side</Label>
-              <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a side' />
-            </div>
-            <div className='flex flex-col space-y-2'>
-              <Label>Region</Label>
-              <EasyComboBox emptyText='No region found.' placeholder='Select a region' value={region} onValueChange={setRegion} items={regionsItems} />
-              {region && <p className='text-muted-foreground text-sm'>{regionsNamesAndDescription[region as Regions].description}</p>}
-            </div>
+      <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[1fr,auto] overflow-y-hidden">
+        <div className='p-4 overflow-y-auto space-y-4'>
+          {dataChange && <EditedRegionsAlert dataChange={dataChange} onSelect={onSelectEditedRegion} />}
+          <div className='space-y-2'>
+            <Label>Side</Label>
+            <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a side' />
           </div>
-          <Separator />
-        </div>
-        <div className='p-4 flex flex-col gap-4 overflow-scroll'>
-          {!side ? 
-            <p className='text-muted-foreground'>Select a side</p> : 
-            !region ? 
-              <p className='text-muted-foreground'>Select a region</p> : 
-              <div className='space-y-1'>
-                <p className='text-lg font-semibold text-muted-foreground'>Features</p>
-                {dataChange && <EditedRegionsAlert dataChange={dataChange} onSelect={onSelectEditedRegion} />}
-              </div>
-          }
+          <div className='flex flex-col space-y-2'>
+            <Label>Region</Label>
+            <EasyComboBox emptyText='No region found.' placeholder='Select a region' value={region} onValueChange={setRegion} items={regionsItems} />
+            {region && <FormDescription className='text-muted-foreground text-sm'>{regionsNamesAndDescription[region as Regions].description}</FormDescription>}
+          </div>
+
           {(side && region) &&
             <>
               <div className='space-y-2'>
@@ -212,6 +200,7 @@ function FeaturesForm({
                   )}
                 />
               </div>
+
               {features
                 .filter(f => f !== liveForm[side as Sides][region as Regions].featureChanged) // exclude the editable feature
                 .map(f => {
@@ -223,6 +212,7 @@ function FeaturesForm({
             </>
           }
         </div>
+        
         <div className="p-4 border-t flex gap-2 justify-end">
           <Button type='button' onClick={reset} variant="outline" className='space-x-2'>
             Reset

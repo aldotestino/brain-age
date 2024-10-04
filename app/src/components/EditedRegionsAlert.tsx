@@ -20,14 +20,14 @@ function EditedRegionsAlert({
 
   return (
     <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger>
+      <AccordionItem value="item-1" className='border-0'>
+        <AccordionTrigger className='p-0'>
           <div className='flex items-center gap-2'>
             <TriangleAlert className="h-4 w-4" />
             <span>{modifiedRegions.length} modified regions</span>
           </div>
         </AccordionTrigger>
-        <AccordionContent className='space-y-2 pt-2'>
+        <AccordionContent className='space-y-2 p-0 pt-2'>
           <p className='text-muted-foreground'>These regions have already been modified. To use the original values select the &quot;Base&quot; prediction.</p>
           <ul className='space-y-1 list-inside list-disc'>
             {modifiedRegions.map(r => (
