@@ -1,4 +1,4 @@
-import { createSearchParamsCache, parseAsInteger, parseAsString } from 'nuqs/parsers';
+import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 
 export const patientParser = {
   predId: parseAsInteger

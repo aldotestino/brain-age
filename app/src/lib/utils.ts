@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import colormap from 'colormap';
-import { featuresCompleteNames, GLASS_BRAIN_SHADES, regions, sides } from './data';
+import { featuresNames, GLASS_BRAIN_SHADES, regions, regionsNamesAndDescription, sides } from './data';
 import { DataChangeSchema, DataSchema, EditableFeatures, Features, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
 import fullRelations from '@/lib/fullRelations.json';
 
@@ -110,13 +110,13 @@ export function getModelFeatureName(feature: string, side: string, region: strin
 
 export function formatGlassBrainRegion(gbRegion: GlassBrainRegions) {
   const [side, region] = gbRegion.split('.');
-  return `${side === 'lh' ? 'Left' : 'Right'} ${region}`;
+  return `${side === 'lh' ? 'Left' : 'Right'} ${regionsNamesAndDescription[region as Regions].name}`;
 }
 
 export function formatWaterfallLabel(mf: ModelFeatures) {
   const [first, r] = mf.split('-');
-  const region = r.charAt(0).toUpperCase() + r.slice(1);
+  const region = r.charAt(0) + r.slice(1);
   const side = first.slice(-2) === 'lh' ? 'Left' : 'Right';
   const feature = first.slice(0, -3) as Features;
-  return `${featuresCompleteNames[feature]} (${side} ${region})`;
+  return `${featuresNames[feature]} (${side} ${regionsNamesAndDescription[region as Regions].name})`;
 }

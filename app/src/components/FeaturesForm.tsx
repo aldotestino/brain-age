@@ -2,10 +2,10 @@
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Slider } from '@/components/ui/slider';
-import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, sides, sidesItems } from '@/lib/data';
+import { EDITABLE_FEATURE_1, editableFeaturesItems, features, modelFeatures, regions, regionsItems, regionsNamesAndDescription, sides, sidesItems } from '@/lib/data';
 import { DataChangeSchema, DataSchema, ModelFeatures, Regions, Sides } from '@/lib/types';
 import { getModelFeatureName, updateData, updatePercentages, updateAllDataAndPercentages } from '@/lib/utils';
-import { dataChangeSchema, dataSchema } from '@/lib/validators';
+import { dataChangeSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -143,6 +143,7 @@ function FeaturesForm({
             <div className='flex flex-col space-y-2'>
               <Label>Region</Label>
               <EasyComboBox emptyText='No region found.' placeholder='Select a region' value={region} onValueChange={setRegion} items={regionsItems} />
+              {region && <p className='text-muted-foreground text-sm'>{regionsNamesAndDescription[region as Regions].description}</p>}
             </div>
           </div>
           <Separator />

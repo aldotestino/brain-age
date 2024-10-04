@@ -44,7 +44,7 @@ function WaterfallGraph({
             backgroundColor,
             borderSkipped: false
           }]
-        }} options={barOptions} className='w-full max-w-screen-md' />
+        }} options={barOptions} className='h-full w-auto max-w-screen-lg' />
       </CardContent>
     </Card>
   );
