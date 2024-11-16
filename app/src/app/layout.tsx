@@ -10,7 +10,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: 'Brain Age',
+  title: 'Brain Age Predictor',
   description: '',
 };
 
