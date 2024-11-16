@@ -6,7 +6,7 @@ import Link from 'next/link';
 import PatientActions from './patient-actions';
 import { buttonVariants } from '@/components/ui/button';
 
-export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 'email' | 'age' | 'sex' | 'siteId'>>[] = [
+export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 'taxIdCode' | 'age' | 'sex' | 'siteId'>>[] = [
   {
     id: 'open',
     cell: ({ row }) => {
@@ -31,8 +31,8 @@ export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 
     accessorKey: 'lastName',
     header: 'Last Name'
   }, {
-    accessorKey: 'email',
-    header: 'Email'
+    accessorKey: 'taxIdCode',
+    header: 'Tax Id Code'
   }, {
     accessorKey: 'age',
     header: 'Age'

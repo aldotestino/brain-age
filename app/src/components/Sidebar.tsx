@@ -8,14 +8,14 @@ function Sidebar({
   patientId,
   baseData,
   dataChange,
-  email,
+  taxIdCode,
   firstName,
   lastName
 }: {
   patientId: number;
   baseData: DataSchema;
   dataChange?: DataChangeSchema;
-  email: string;
+  taxIdCode: string;
   firstName: string;
   lastName: string;
 }) {
@@ -28,7 +28,7 @@ function Sidebar({
           </Link>
           <div className='min-w-0'>
             <h1 className="text-xl font-semibold truncate">{firstName} {lastName}</h1>
-            <p className='text-muted-foreground text-sm truncate'>{email}</p>
+            <p className='text-muted-foreground text-sm truncate'>{taxIdCode}</p>
           </div>
         </div>
       </div>

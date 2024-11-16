@@ -23,7 +23,7 @@ async function PatientPage({
   return (
     <div className="h-screen grid grid-cols-[auto,auto,1fr]">
       <Sidebar
-        email={patient.email}
+        taxIdCode={patient.taxIdCode}
         firstName={patient.firstName}
         lastName={patient.lastName}
         patientId={patient.id}

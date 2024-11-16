@@ -55,7 +55,7 @@ function AddPatientForm({
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: '',
+      taxIdCode: '',
       age: 1,
       sex: 'Male',
       siteId: 1,
@@ -85,7 +85,7 @@ function AddPatientForm({
           variant: 'destructive'
         });
       } else {
-        form.setError('email', {
+        form.setError('taxIdCode', {
           type: 'manual',
           message: err
         });
@@ -107,7 +107,7 @@ function AddPatientForm({
             <Field name="firstName" label="First name" formControl={form.control} />
             <Field name="lastName" label="Last name" formControl={form.control} />
           </div>
-          <Field name="email" label="Email" formControl={form.control} />
+          <Field name="taxIdCode" label="Tax Id Code" formControl={form.control} />
           <div className='flex gap-4'>
             <Field name="age" label="Age" type='number' min={1} formControl={form.control} />
             <FormField
@@ -170,7 +170,7 @@ function UpdatePatientForm({
   async function onSubmit(values: UpdatePatientSchema) {
     const err = await updatePatient({ patientId, values });
     if(err) {
-      form.setError('email', {
+      form.setError('taxIdCode', {
         type: 'manual',
         message: err
       });
@@ -191,7 +191,7 @@ function UpdatePatientForm({
             <Field name="firstName" label="First name" formControl={form.control} />
             <Field name="lastName" label="Last name" formControl={form.control} />
           </div>
-          <Field name="email" label="Email" formControl={form.control} />
+          <Field name="taxIdCode" label="Tax Id Code" formControl={form.control} />
           <div className='flex gap-4'>
             <Field name="age" label="Age" type='number' min={1} formControl={form.control} />
             <FormField

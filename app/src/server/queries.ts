@@ -8,7 +8,7 @@ export async function getPatients({ q, p, n }: { q: string, p: number, n: number
 
   const query = {
     AND: q.split(' ').map(part => ({
-      OR: [{ firstName: { contains: part, mode: 'insensitive' } }, { lastName: { contains: part, mode: 'insensitive' } }, { email: { contains: part, mode: 'insensitive' } }]
+      OR: [{ firstName: { contains: part, mode: 'insensitive' } }, { lastName: { contains: part, mode: 'insensitive' } }, { taxIdCode: { contains: part, mode: 'insensitive' } }]
     }))
   } satisfies Prisma.PatientWhereInput;
 
@@ -32,7 +32,7 @@ export async function getPatients({ q, p, n }: { q: string, p: number, n: number
       id: true,
       firstName: true,
       lastName: true,
-      email: true,
+      taxIdCode: true,
       age: true,
       sex: true,
       siteId: true,
@@ -62,7 +62,7 @@ export async function getPatient(id: string) {
       id: true,
       firstName: true,
       lastName: true,
-      email: true,
+      taxIdCode: true,
       age: true,
       sex: true,
       siteId: true,
