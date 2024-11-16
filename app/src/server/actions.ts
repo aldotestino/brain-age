@@ -20,7 +20,9 @@ export async function makePredictionAndExplanation({ baseData, dataChange, patie
 
     let dataToSend = dataChange ? updateAllDataAndPercentages({ baseData, dataChange }).updatedData : baseData;
 
-    const { data, status } = await axios.post<PredictionWithExplanation>(`${env.MODEL_API_URL}/predict_and_explain`, dataToSend);
+    console.log(env.MODEL_API_URL);
+
+    const { data, status, } = await axios.post<PredictionWithExplanation>(`${env.MODEL_API_URL}/predict_and_explain`, dataToSend);
 
     const { id } = await prisma.prediction.create({
       data: {
@@ -35,6 +37,7 @@ export async function makePredictionAndExplanation({ baseData, dataChange, patie
 
     return id;
   } catch (e: any) {
+    console.error(e);
     return -1;
   }
 }
