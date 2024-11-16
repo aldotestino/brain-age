@@ -10,7 +10,7 @@ import axios from 'axios';
 import env from '@/lib/env';
 
 // returns -1 if prediction failed
-export async function makePredictionAndExplanation({ baseData, dataChange, patientId, isBase = false }: {
+async function makePredictionAndExplanation({ baseData, dataChange, patientId, isBase = false }: {
   baseData: DataSchema;
   dataChange?: DataChangeSchema;
   patientId: number;
@@ -94,6 +94,7 @@ export async function deletePrediction(predictionId: number) {
     }
   });
 
+  revalidatePath(`/patient/${patientId}?predId=${predictionId}`);
   revalidatePath(`/patient/${patientId}`);
   redirect(`/patient/${patientId}`);
 }
@@ -139,6 +140,7 @@ export async function deletePatient(patientId: number) {
     where: { id: patientId }
   });
 
+  revalidatePath(`/patient/${patientId}`);
   revalidatePath('/dashboard');
 }
 
@@ -156,6 +158,7 @@ export async function updatePatient({
     });
 
     revalidatePath('/dashboard');
+    revalidatePath(`/patient/${patientId}`);
   } catch (e: any) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {

@@ -2,7 +2,7 @@ import PredExp, { EmptyPredExp } from '@/components/PredExp';
 import PredictionsList from '@/components/PredictionsList';
 import Sidebar from '@/components/Sidebar';
 import { PredictionWithExplanation } from '@/lib/types';
-import { getPatient, getPrediction } from '@/server/queries';
+import { getCachedPatient, getCachedPrediction } from '@/server/queries';
 import { patientParamsCache } from './patient-params';
 
 async function PatientPage({ 
@@ -15,10 +15,10 @@ async function PatientPage({
 
   const { predId } = patientParamsCache.parse(searchParams);
 
-  const patientPromise = getPatient(params.id);
-  const predictionPromise = predId ? getPrediction(predId) : null;
-
-  const [patient, prediction] = await Promise.all([patientPromise, predictionPromise]);
+  const [patient, prediction] = await Promise.all([
+    getCachedPatient(params.id),
+    getCachedPrediction({ patientId: params.id, predictionId: predId })
+  ]);
 
   return (
     <div className="h-screen grid grid-cols-[auto,auto,1fr]">

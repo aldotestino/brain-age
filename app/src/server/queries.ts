@@ -2,6 +2,7 @@ import prisma from '@/lib/db';
 import { DataChangeSchema, DataSchema, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
 import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
+import { unstable_cache } from 'next/cache';
 import { notFound, redirect } from 'next/navigation';
 
 export async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
@@ -52,9 +53,15 @@ export async function getPatients({ q, p, n }: { q: string, p: number, n: number
   };
 }
 
-export async function getPatient(id: string) {
+export const getCachedPatient = unstable_cache(getPatient, ['patient'], {
+  tags: ['patient']
+});
 
-  const parsedId = parseInt(id, 10);
+async function getPatient(id: string) {
+
+  console.log('getPatient', id);
+
+  const parsedId = parseInt(id);
 
   const patient = await prisma.patient.findUnique({
     where: { id: parsedId },
@@ -98,10 +105,18 @@ export async function getPatient(id: string) {
   };
 }
 
-export async function getPrediction(id: number) {
+export const getCachedPrediction = unstable_cache(getPrediction, ['prediction'], {
+  tags: ['prediction']
+});
 
-  const prediction = await prisma.prediction.findUnique({
-    where: { id },
+async function getPrediction({ patientId, predictionId }: { patientId: string, predictionId: number | null }) {
+
+  const parsedPatientId = parseInt(patientId);
+
+  const query = predictionId ? { id: predictionId } : { patientId: parsedPatientId, isBase: true } satisfies Prisma.PredictionWhereInput;
+
+  const prediction = await prisma.prediction.findFirst({
+    where: query,
     select: {
       id: true,
       isBase: true,

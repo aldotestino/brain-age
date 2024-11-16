@@ -21,7 +21,7 @@ function PredictionsList({
       </div>
       <div className='p-2 overflow-scroll space-y-1'>
         {predictions.map((p, i) => (
-          <Button onClick={() => setPatientParams({ predId: p.id })} key={p.id} variant="link" className={cn('w-full justify-between space-x-2 px-3 py-2 rounded-md', predId === p.id ? 'bg-white hover:no-underline' : 'hover:bg-transparent')}>
+          <Button onClick={() => setPatientParams({ predId: p.id })} key={p.id} variant="link" className={cn('w-full justify-between space-x-2 px-3 py-2 rounded-md', (predId === p.id || (predId === null && p.isBase)) ? 'bg-white hover:no-underline' : 'hover:bg-transparent')}>
             <span className='min-w-0 truncate normal-case'>
               {p.label}
             </span>

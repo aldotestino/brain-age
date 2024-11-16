@@ -18,6 +18,9 @@ function EditedRegionsAlert({
       .map(([region]) => ({ side: side as Sides, region: region as Regions }))
   ), [dataChange]);
 
+  // if no modified regions, return null
+  if(modifiedRegions.length === 0) return null;
+
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1" className='border-0'>
