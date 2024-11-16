@@ -28,7 +28,7 @@ function ShapValueIndicator({ regionName, shapValue, ...props }: HtmlProps & {
       className='p-2 bg-black/90 space-y-1 text-white rounded-md pointer-events-none w-auto'
     >
       <p className='font-semibold capitalize whitespace-nowrap'>{formatGlassBrainRegion(regionName)}</p>
-      <p className={cn('text-sm', shapValue > 0 ? 'text-red-300' : shapValue < 0 ? 'text-blue-300' : '')}>
+      <p className={cn('text-sm', shapValue > 0 ? 'text-red-300' : shapValue < 0 ? 'text-green-300' : '')}>
         {shapValue > 0 ? '+' : shapValue < 0 ? '-' : ''}
         {Math.abs(shapValue).toFixed(2)}
       </p>

@@ -41,7 +41,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
-    "colormap": "^2.3.2",
+    "color-map": "^2.0.6",
     "date-fns": "^3.6.0",
     "leva": "^0.9.35",
     "lucide-react": "^0.396.0",

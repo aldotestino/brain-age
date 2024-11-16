@@ -1,11 +1,7 @@
-import { GLASS_BRAIN_SHADES } from '@/lib/data';
-import colormap from 'colormap';
+import { glassBrainShades } from '@/lib/data';
+import { createColors, rgbHex } from 'color-map';
 
-const bgGradient = `linear-gradient(to top, ${colormap({
-  colormap: 'RdBu',
-  nshades: GLASS_BRAIN_SHADES,
-  format: 'hex'
-}).join(', ')})`;
+const bgGradient = `linear-gradient(to top, ${glassBrainShades.join(', ')})`;
 
 function GlassBrainLegend({
   max,
@@ -22,8 +18,8 @@ function GlassBrainLegend({
           style={{ background: bgGradient }}>
         </div>
         <div className='h-full flex flex-col justify-between'>
-          <span>+{max.toFixed(2)}</span>
-          <span>{min.toFixed(2)}</span>
+          <span>{max > 0 ? '+' : '-'}{max.toFixed(2)}</span>
+          <span>{min > 0 ? '+' : '-'}{Math.abs(min).toFixed(2)}</span>
         </div>
       </div>
       <p>Decrease age</p>

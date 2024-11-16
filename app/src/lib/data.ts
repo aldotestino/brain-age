@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import { Color, defaults } from 'chart.js';
+import { ColorMap, createColorsFromMap, rgbHex } from 'color-map';
 
 export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM_vol', 'gaussian_curv', 'average_thickness', 'thickness_stddev'] as const;
 export const regions = ['bankssts', 'caudalanteriorcingulate', 'caudalmiddlefrontal', 'cuneus', 'entorhinal', 'fusiform', 'inferiorparietal', 'inferiortemporal', 'isthmuscingulate', 'lateraloccipital', 'lateralorbitofrontal', 'lingual', 'medialorbitofrontal', 'middletemporal', 'parahippocampal', 'paracentral', 'parsopercularis', 'parsorbitalis', 'parstriangularis', 'pericalcarine', 'postcentral', 'posteriorcingulate', 'precentral', 'precuneus', 'rostralanteriorcingulate', 'rostralmiddlefrontal', 'superiorfrontal', 'superiorparietal', 'superiortemporal', 'supramarginal', 'frontalpole', 'temporalpole', 'transversetemporal', 'insula'] as const;
@@ -199,12 +200,12 @@ export const editableFeaturesItems = editableFeatures.map(f => ({
 
 export const graphColors = {
   stroke: {
-    red: 'rgb(248, 113, 113)',
-    blue: 'rgb(96, 165, 250)',
+    red: 'rgb(220, 38, 38)',
+    green: 'rgb(22, 163, 74)',
   },
   fill: {
-    red: 'rgba(248, 113, 113, 0.5)',
-    blue: 'rgba(96, 165, 250, 0.5)',
+    red: 'rgba(220, 38, 38, 0.5)',
+    green: 'rgba(22, 163, 74, 0.5)',
   }
 } as const;
 
@@ -262,8 +263,8 @@ export const barOptions = {
             {
               fontColor: defaults.color as Color,
               text: 'Decrease Age',
-              strokeStyle: graphColors.stroke.blue,
-              fillStyle: graphColors.fill.blue,
+              strokeStyle: graphColors.stroke.green,
+              fillStyle: graphColors.fill.green,
               borderRadius: 2
             },
             {
@@ -291,4 +292,5 @@ export const barOptions = {
   },
 } satisfies React.ComponentProps<typeof Bar>['options'];
 
-export const GLASS_BRAIN_SHADES = 20;
+const glassBrainColorMap: ColorMap = [{ index: 0, rgb: [220, 38, 38] }, { index: 1, rgb: [22, 163, 74] }];
+export const glassBrainShades = createColorsFromMap(glassBrainColorMap, 20).map(rgbHex);

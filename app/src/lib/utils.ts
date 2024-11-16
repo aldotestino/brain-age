@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import colormap from 'colormap';
-import { featuresNames, GLASS_BRAIN_SHADES, regions, regionsNamesAndDescription, sides } from './data';
+import { featuresNames, glassBrainShades, regions, regionsNamesAndDescription, sides } from './data';
 import { DataChangeSchema, DataSchema, EditableFeatures, Features, GlassBrainRegions, ModelFeatures, Regions, Sides } from './types';
 import fullRelations from '@/lib/fullRelations.json';
 
@@ -90,14 +89,8 @@ function mapRange(value: number, inMin: number, inMax: number, outMin: number, o
 }
 
 export function valueToColor(value: number, min: number, max: number) {
-  const colors = colormap({
-    colormap: 'RdBu',
-    nshades: GLASS_BRAIN_SHADES,
-    format: 'hex'
-  });
-
-  const colorIndex = Math.round(mapRange(value, min, max, 0, colors.length - 1));
-  return colors[colorIndex];
+  const colorIndex = Math.round(mapRange(value, min, max, 0, glassBrainShades.length - 1));
+  return glassBrainShades[colorIndex];
 }
 
 export function getGlassBrainRegion(modelChildName: string) {
