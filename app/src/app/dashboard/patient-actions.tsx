@@ -1,12 +1,12 @@
 'use client';
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { ArrowUpRight, MoreHorizontal } from 'lucide-react';
 import UpdatePatient from '@/components/UpdatePatient';
 import DeletePatient from '@/components/DeletePatient';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Patient } from '@prisma/client';
-import { useState } from 'react';
+import Link from 'next/link';
 
 function PatientActions({
   patient
@@ -15,24 +15,26 @@ function PatientActions({
 }) {
 
   const { id, ...defaultValues } = patient;
-  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
-
 
   return (
-    <DropdownMenu open={showDropdownMenu} onOpenChange={setShowDropdownMenu}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open the menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className='w-48'>
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <UpdatePatient patientId={id} defaultValues={defaultValues} />
-        <DeletePatient patientId={id} />
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className='inline-flex'>
+      <Link href={`/patient/${id}`} className={buttonVariants({ size: 'sm', variant: 'outline', className: 'rounded-r-none border-r-0 focus-visible:z-10' })}>
+        <ArrowUpRight className='size-4 mr-2' />
+        Open
+      </Link>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon" className='size-9 rounded-l-none focus-visible:z-10'>
+            <span className="sr-only">Open the menu</span>
+            <MoreHorizontal className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className='w-48'>
+          <UpdatePatient patientId={id} defaultValues={defaultValues} />
+          <DeletePatient patientId={id} />
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
 
