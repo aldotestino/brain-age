@@ -55,7 +55,7 @@ function EasyComboBox({ items, emptyText, value, onValueChange, placeholder }: E
                       >
                         <Check
                           className={cn(
-                            'h-4 w-4 mr-2',
+                            'size-4 mr-2',
                             value === i.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />

@@ -20,7 +20,7 @@ function Paginator({
   const [{ p, n }, setTableParams] = useQueryStates(tableParser, { clearOnDefault: true, history: 'push', shallow: false });
 
   return (
-    <div className='w-full flex items-center justify-between'>
+    <div className='w-full flex flex-col gap-4 sm:flex-row items-center justify-between'>
       <div className='flex items-center gap-2'>
         <Label>Items</Label>
         <EasySelect

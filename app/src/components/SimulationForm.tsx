@@ -13,12 +13,13 @@ import EasyComboBox from './EasyComboBox';
 import EasySelect from './EasySelect';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
-import { Separator } from './ui/separator';
 import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 import DependantFeature from './DependantFeature';
 import { useToast } from './ui/use-toast';
 import EditedRegionsAlert from './EditedRegionsAlert';
+import { Brain, Hexagon } from 'lucide-react';
+import SubmitButton from '@/components/SubmitButton';
 
 const percentagesZero = modelFeatures.reduce((acc, key) => {
   acc[key as ModelFeatures] = 0;
@@ -36,7 +37,7 @@ const dataChangeZero: DataChangeSchema = sides.reduce((acc, side) => {
   return acc;
 }, {} as any);
 
-function FeaturesForm({
+function SimulationForm({
   patientId,
   baseData,
   dataChange
@@ -133,15 +134,21 @@ function FeaturesForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleOnSubmit)} className="grid grid-rows-[1fr,auto] overflow-y-hidden">
+      <form onSubmit={form.handleSubmit(handleOnSubmit)} className="h-full grid grid-rows-[1fr,auto] overflow-y-hidden divide-y">
         <div className='p-4 overflow-y-auto space-y-4'>
           {dataChange && <EditedRegionsAlert dataChange={dataChange} onSelect={onSelectEditedRegion} />}
           <div className='space-y-2'>
-            <Label>Side</Label>
-            <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a side' />
+            <Label className='inline-flex'>
+              <Brain className='size-4 mr-2' />
+              Emisphere
+            </Label>
+            <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a emisphere' />
           </div>
           <div className='flex flex-col space-y-2'>
-            <Label>Region</Label>
+            <Label className='inline-flex'>
+              <Hexagon className="size-4 mr-2" />
+              Region
+            </Label>
             <EasyComboBox emptyText='No region found.' placeholder='Select a region' value={region} onValueChange={setRegion} items={regionsItems} />
             {region && <FormDescription className='text-muted-foreground text-sm'>{regionsNamesAndDescription[region as Regions].description}</FormDescription>}
           </div>
@@ -213,18 +220,15 @@ function FeaturesForm({
           }
         </div>
         
-        <div className="p-4 border-t flex gap-2 justify-end">
+        <div className="p-4 flex gap-2 justify-end">
           <Button type='button' onClick={reset} variant="outline" className='space-x-2'>
             Reset
           </Button>
-          <Button type='submit' className='space-x-2' disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting && <Spinner />}
-            <span>Predict</span>
-          </Button>
+          <SubmitButton>Simulate</SubmitButton>
         </div>
       </form>
     </Form>
   );
 }
 
-export default FeaturesForm;
+export default SimulationForm;

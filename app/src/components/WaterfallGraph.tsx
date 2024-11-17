@@ -1,7 +1,6 @@
 'use client';
 
 import { ModelFeatures, PredictionWithExplanation } from '@/lib/types';
-import { Card, CardContent } from './ui/card';
 import { Bar } from 'react-chartjs-2';
 import { BarElement, CategoryScale, Chart as ChartJS, LinearScale, Title, Tooltip, PointElement, Legend } from 'chart.js';
 import { useMemo } from 'react';
@@ -34,9 +33,9 @@ function WaterfallGraph({
   }, [values]);
 
   return (
-    <Card className='h-full'>
-      <CardContent className='p-6 h-full grid place-items-center'>
-        <Bar data={{
+    <div className='h-full flex justify-center'>
+      <Bar 
+        data={{
           labels,
           datasets: [{
             data,
@@ -44,9 +43,11 @@ function WaterfallGraph({
             backgroundColor,
             borderSkipped: false
           }]
-        }} options={barOptions} className='h-full w-auto max-w-screen-lg' />
-      </CardContent>
-    </Card>
+        }} 
+        options={barOptions} 
+        className='h-full w-auto max-w-screen-lg' 
+      />
+    </div>
   );
 }
 

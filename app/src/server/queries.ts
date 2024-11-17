@@ -5,7 +5,11 @@ import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { unstable_cache } from 'next/cache';
 import { notFound, redirect } from 'next/navigation';
 
-export async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
+export const getCachedPatients = unstable_cache(getPatients, ['patients'], {
+  tags: ['patients']
+});
+
+async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
 
   const query = {
     AND: q.split(' ').map(part => ({
@@ -95,13 +99,7 @@ async function getPatient(id: string) {
 
   return {
     ...patient,
-    data: patient.data as DataSchema,
-    predictions: patient.predictions.map((p, i, arr) => ({
-      id: p.id,
-      isBase: p.isBase,
-      label: formatDistanceToNow(p.createdAt, { addSuffix: true }),
-      isNew: Math.abs(differenceInMinutes(p.createdAt, now)) < 5,
-    }))
+    data: patient.data as DataSchema
   };
 }
 

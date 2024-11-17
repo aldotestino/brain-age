@@ -1,6 +1,6 @@
 import { columns } from './columns';
 import { DataTable } from './data-table';
-import { getPatients } from '@/server/queries';
+import { getCachedPatients } from '@/server/queries';
 import { tableParamsCache } from './table-params';
 
 async function DashboardPage({
@@ -10,13 +10,11 @@ async function DashboardPage({
 }) {
 
   const sp = tableParamsCache.parse(searchParams);
-  const { patients, total, pages, prevPage, nextPage } = await getPatients(sp);  
+  const { patients, total, pages, prevPage, nextPage } = await getCachedPatients(sp);  
 
   return (
-    <main className="container max-w-screen-lg space-y-10 py-10">
-      <header>
-        <h1 className='text-4xl font-bold'>Patients</h1>
-      </header>
+    <main className="w-full max-w-screen-lg mx-auto px-4 py-10 space-y-10">
+      <h1 className='text-4xl font-bold'>Patients</h1>
       <DataTable 
         columns={columns} 
         data={patients}

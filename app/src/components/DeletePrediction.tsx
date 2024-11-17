@@ -36,10 +36,6 @@ function DeletePrediction({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        {/* <Button variant="link" className='text-destructive space-x-2 p-0'>
-          <Trash2 className="w-4 h-4" />
-          <span>Delete</span>
-        </Button> */}
         <DropdownMenuItem onSelect={e => e.preventDefault()} disabled={isBase}>
           <Trash2 className="mr-2 h-4 w-4" />
           <span>Delete prediction</span>

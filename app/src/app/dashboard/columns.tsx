@@ -18,7 +18,7 @@ export const columns: ColumnDef<Pick<Patient, 'id' | 'firstName' | 'lastName' | 
     header: 'Last Name'
   }, {
     accessorKey: 'taxIdCode',
-    header: 'Tax Id Code'
+    header: 'Tax ID Code'
   }, {
     accessorKey: 'age',
     header: 'Age'

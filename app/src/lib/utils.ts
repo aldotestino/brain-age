@@ -113,3 +113,11 @@ export function formatWaterfallLabel(mf: ModelFeatures) {
   const feature = first.slice(0, -3) as Features;
   return `${featuresNames[feature]} (${side} ${regionsNamesAndDescription[region as Regions].name})`;
 }
+
+export function sampleColormap(colormap: string[], samples: number) {
+  if (samples < 1 || samples > colormap.length)
+    throw new Error(`Samples must be between 1 and ${colormap.length}.`);
+  const step = (colormap.length - 1) / (samples - 1);
+
+  return Array.from({ length: samples }, (_, i) => colormap[Math.round(i * step)]);
+}

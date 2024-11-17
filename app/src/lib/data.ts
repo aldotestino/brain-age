@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2';
 import { Color, defaults } from 'chart.js';
-import { ColorMap, createColorsFromMap, rgbHex } from 'color-map';
+import { RdYlGn, RdGnTW } from '@/lib/colorMaps.json';
+import { sampleColormap } from '@/lib/utils';
 
 export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM_vol', 'gaussian_curv', 'average_thickness', 'thickness_stddev'] as const;
 export const regions = ['bankssts', 'caudalanteriorcingulate', 'caudalmiddlefrontal', 'cuneus', 'entorhinal', 'fusiform', 'inferiorparietal', 'inferiortemporal', 'isthmuscingulate', 'lateraloccipital', 'lateralorbitofrontal', 'lingual', 'medialorbitofrontal', 'middletemporal', 'parahippocampal', 'paracentral', 'parsopercularis', 'parsorbitalis', 'parstriangularis', 'pericalcarine', 'postcentral', 'posteriorcingulate', 'precentral', 'precuneus', 'rostralanteriorcingulate', 'rostralmiddlefrontal', 'superiorfrontal', 'superiorparietal', 'superiortemporal', 'supramarginal', 'frontalpole', 'temporalpole', 'transversetemporal', 'insula'] as const;
@@ -251,10 +252,6 @@ export const barOptions = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
-    // title: {
-    //   display: true,
-    //   text: 'Explanation',
-    // },
     legend: {
       onClick: () => null,
       labels: {
@@ -292,5 +289,5 @@ export const barOptions = {
   },
 } satisfies React.ComponentProps<typeof Bar>['options'];
 
-const glassBrainColorMap: ColorMap = [{ index: 0, rgb: [220, 38, 38] }, { index: 1, rgb: [22, 163, 74] }];
-export const glassBrainShades = createColorsFromMap(glassBrainColorMap, 20).map(rgbHex);
+
+export const glassBrainShades = sampleColormap(RdYlGn.reverse(), 14);

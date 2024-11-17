@@ -3,17 +3,18 @@ import { PredictionWithExplanation } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { useMemo } from 'react';
 
-function PredictionCard({ prediction, age }: Pick<PredictionWithExplanation, 'prediction'> & {age: number}) {
+function ResultCard({ prediction, age }: Pick<PredictionWithExplanation, 'prediction'> & {age: number}) {
 
   const bag = useMemo(() => prediction - age, [prediction, age]);
 
   return (
-    <Card className='col-span-3 flex flex-col justify-between'>
+    <Card className='h-full grid grid-rows-[auto,1fr,auto] col-span-3'>
       <CardHeader>
-        <CardTitle>Prediction</CardTitle>
+        <CardTitle>Predicted Age</CardTitle>
         <CardDescription>This is the brain age predicted for the patient</CardDescription>
       </CardHeader>
-      <CardContent className='flex gap-10'>
+      <span /> {/* Spacer */}
+      <CardContent className='h-full flex gap-10'>
         <p>
           <span className='text-5xl font-bold'>{prediction.toFixed(2)}</span>{' '}
           <span className='text-muted-foreground text-xl font-semibold'>Years</span>
@@ -27,4 +28,4 @@ function PredictionCard({ prediction, age }: Pick<PredictionWithExplanation, 'pr
   );
 }
 
-export default PredictionCard;
+export default ResultCard;

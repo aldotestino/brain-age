@@ -1,9 +1,8 @@
 import { glassBrainShades } from '@/lib/data';
-import { createColors, rgbHex } from 'color-map';
 
 const bgGradient = `linear-gradient(to top, ${glassBrainShades.join(', ')})`;
 
-function GlassBrainLegend({
+function Legend({
   max,
   min,
 }: {
@@ -11,7 +10,7 @@ function GlassBrainLegend({
   min: number;
 }) {
   return (
-    <div className='grid place-items-center grid-rows-[auto,1fr,auto] gap-2 text-muted-foreground font-semibold text-center'>
+    <div className='grid place-items-start grid-rows-[auto,1fr,auto] gap-2 text-muted-foreground font-semibold text-center'>
       <p>Increase age</p>
       <div className='h-full flex gap-2'>
         <div className='h-full w-10 rounded-md bg-gradient-to-b' 
@@ -27,4 +26,4 @@ function GlassBrainLegend({
   );
 }
 
-export default GlassBrainLegend;
+export default Legend;
