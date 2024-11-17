@@ -140,9 +140,9 @@ function SimulationForm({
           <div className='space-y-2'>
             <Label className='inline-flex'>
               <Brain className='size-4 mr-2' />
-              Emisphere
+              Hemisphere
             </Label>
-            <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a emisphere' />
+            <EasySelect items={sidesItems} value={side} onValueChange={setSide} placeholder='Select a hemisphere' />
           </div>
           <div className='flex flex-col space-y-2'>
             <Label className='inline-flex'>
