@@ -16,7 +16,7 @@ import { Label } from './ui/label';
 import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 import DependantFeature from './DependantFeature';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../lib/hooks/use-toast';
 import EditedRegionsAlert from './EditedRegionsAlert';
 import { Brain, Hexagon } from 'lucide-react';
 import SubmitButton from '@/components/SubmitButton';

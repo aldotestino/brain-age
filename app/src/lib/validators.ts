@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Features, ModelFeatures, Regions, Sides } from './types';
+import { ModelFeatures, Regions, Sides } from './types';
 import { EDITABLE_FEATURE_1, EDITABLE_FEATURE_2, modelFeatures, regions, sides } from './data';
 
 const dataObject = modelFeatures.reduce((acc, key) => {

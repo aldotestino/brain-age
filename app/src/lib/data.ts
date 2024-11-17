@@ -1,6 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import { Color, defaults } from 'chart.js';
-import { RdYlGn, RdGnTW } from '@/lib/colorMaps.json';
+import { RdYlGn } from '@/lib/colorMaps.json';
 import { sampleColormap } from '@/lib/utils';
 
 export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM_vol', 'gaussian_curv', 'average_thickness', 'thickness_stddev'] as const;

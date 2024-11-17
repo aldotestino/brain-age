@@ -8,7 +8,7 @@ import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { updatePatientSchema } from '@/lib/validators';
 import { updatePatient } from '@/server/actions';
 import { useForm } from 'react-hook-form';

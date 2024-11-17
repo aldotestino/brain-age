@@ -1,7 +1,6 @@
 import prisma from '@/lib/db';
 import { DataChangeSchema, DataSchema, PredictionWithExplanation } from '@/lib/types';
 import { Prisma } from '@prisma/client';
-import { differenceInMinutes, formatDistanceToNow } from 'date-fns';
 import { unstable_cache } from 'next/cache';
 import { notFound, redirect } from 'next/navigation';
 

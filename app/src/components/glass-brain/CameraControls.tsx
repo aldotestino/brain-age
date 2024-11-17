@@ -1,5 +1,4 @@
 import { ArrowDown, ArrowUp, Home, MoveHorizontal } from 'lucide-react';
-import ButtonTooltip from '../WithTooltip';
 import WithTooltip from '../WithTooltip';
 import { Button } from '@/components/ui/button';
 

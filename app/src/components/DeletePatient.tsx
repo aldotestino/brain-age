@@ -7,7 +7,7 @@ import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import Spinner from '@/components/ui/spinner';
 import { deletePatient } from '@/server/actions';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../lib/hooks/use-toast';
 
 function DeletePatientAlert({
   patientId

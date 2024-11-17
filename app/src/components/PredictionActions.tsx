@@ -1,7 +1,7 @@
 import DeletePrediction from './DeletePrediction';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Button } from './ui/button';
-import { Download, MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import DownloadPrediction from './DownloadPrediction';
 
 function PredictionActions({

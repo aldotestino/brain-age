@@ -7,7 +7,7 @@ import Spinner from '@/components/ui/spinner';
 import { Trash2 } from 'lucide-react';
 import { deletePrediction } from '@/server/actions';
 import { DropdownMenuItem } from './ui/dropdown-menu';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../lib/hooks/use-toast';
 
 function DeletePrediction({
   predictionId,
