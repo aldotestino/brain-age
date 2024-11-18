@@ -13,7 +13,6 @@ import EasyComboBox from './EasyComboBox';
 import EasySelect from './EasySelect';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
-import Spinner from './ui/spinner';
 import { predictAndExplain } from '@/server/actions';
 import DependantFeature from './DependantFeature';
 import { useToast } from '../lib/hooks/use-toast';

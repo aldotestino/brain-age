@@ -14,8 +14,6 @@ import { updatePatient } from '@/server/actions';
 import { useForm } from 'react-hook-form';
 import EasySelect from '@/components/EasySelect';
 import { sexItems } from '@/lib/data';
-import { Button } from '@/components/ui/button';
-import Spinner from '@/components/ui/spinner';
 import SubmitButton from '@/components/SubmitButton';
 
 
