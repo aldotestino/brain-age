@@ -12,7 +12,11 @@ async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
 
   const query = {
     AND: q.split(' ').map(part => ({
-      OR: [{ firstName: { contains: part, mode: 'insensitive' } }, { lastName: { contains: part, mode: 'insensitive' } }, { taxIdCode: { contains: part, mode: 'insensitive' } }]
+      OR: [
+        { firstName: { contains: part, mode: 'insensitive' } },
+        { lastName: { contains: part, mode: 'insensitive' } },
+        { taxIdCode: { contains: part, mode: 'insensitive' } }
+      ]
     }))
   } satisfies Prisma.PatientWhereInput;
 
@@ -21,11 +25,10 @@ async function getPatients({ q, p, n }: { q: string, p: number, n: number }) {
   });
 
   if (n > total && p > 1) {
-    if (q) {
+    if (q)
       redirect(`/dashboard?q=${q}&n=${n}`);
-    } else {
+    else
       redirect(`/dashboard?n=${n}`);
-    }
   }
 
   const patients = await prisma.patient.findMany({
@@ -62,8 +65,6 @@ export const getCachedPatient = unstable_cache(getPatient, ['patient'], {
 
 async function getPatient(id: string) {
 
-  console.log('getPatient', id);
-
   const parsedId = parseInt(id);
 
   const patient = await prisma.patient.findUnique({
@@ -90,11 +91,8 @@ async function getPatient(id: string) {
     }
   });
 
-  if (!patient) {
+  if (!patient)
     notFound();
-  }
-
-  const now = new Date();
 
   return {
     ...patient,
@@ -125,9 +123,8 @@ async function getPrediction({ patientId, predictionId }: { patientId: string, p
     }
   });
 
-  if (!prediction) {
+  if (!prediction)
     return notFound();
-  }
 
   return {
     ...prediction,
