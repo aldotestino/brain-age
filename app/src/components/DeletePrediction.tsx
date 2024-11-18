@@ -3,8 +3,7 @@
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import Spinner from '@/components/ui/spinner';
-import { Trash2 } from 'lucide-react';
+import { Loader2, Trash2 } from 'lucide-react';
 import { deletePrediction } from '@/server/actions';
 import { DropdownMenuItem } from './ui/dropdown-menu';
 import { useToast } from '../lib/hooks/use-toast';
@@ -51,7 +50,7 @@ function DeletePrediction({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>     
           <Button onClick={onDelete} variant="destructive" disabled={isSubmitting}>
-            {isSubmitting && <Spinner className="mr-2" />}
+            {isSubmitting && <Loader2 className="size-4 mr-2 animate-spin" />}
               Continue
           </Button>
         </AlertDialogFooter>

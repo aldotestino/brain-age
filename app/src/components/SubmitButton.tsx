@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from '@/components/ui/button';
-import Spinner from '@/components/ui/spinner';
+import { Loader2 } from 'lucide-react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -9,7 +9,7 @@ function SubmitButton({ children, ...props }: ButtonProps) {
 
   return (
     <Button type="submit" disabled={formState.isSubmitting} {...props}>
-      {formState.isSubmitting && <Spinner className="size-4 mr-2" />}
+      {formState.isSubmitting && <Loader2 className="size-4 mr-2 animate-spin" />}
       {children}
     </Button>
   );
