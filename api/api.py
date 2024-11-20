@@ -1,6 +1,5 @@
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-import uuid
 from model import Model
 from schema.patient import Patient
 
