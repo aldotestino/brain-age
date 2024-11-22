@@ -3,7 +3,9 @@ services:
   app:
     build:
       context: ./app
-      dockerfile: Dockerfile.dev
+      args:
+        - DATABASE_URL=postgresql://patient-db:patient-db-password@host.docker.internal:5432/patient-db?schema=public
+        - MODEL_API_URL=http://host.docker.internal:8080
     container_name: app
     environment:
       - DATABASE_URL=postgresql://patient-db:patient-db-password@db:5432/patient-db?schema=public
