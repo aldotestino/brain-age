@@ -9,34 +9,35 @@ class Model:
     self._random_state = random_state
     self._model = tf_load_model(model_path)
 
-    train = pd.read_excel(train_path)
-    train = train[cols]
+    self._train = pd.read_excel(train_path)[cols]
 
-    self._scaler = self._load_scaler(train)
-    self._shap_explainer = self._load_shap_explainer(train)
+    self._scaler = self._load_scaler()
 
   
-  def _load_scaler(self, train):
-    sc = MinMaxScaler()
-    sc.fit(train)
-    return sc
-
-
-  def _load_shap_explainer(self, train):
-    if(self._model is None or self._scaler is None):
-      raise ValueError("Model or Scaler not loaded")
-    
-    scaled_train = self._scaler.transform(train)
-
-    masker = shap.maskers.Independent(scaled_train, max_samples=100) 
-    return shap.PermutationExplainer(self._model, masker=masker, feature_names=cols, seed=self._random_state)
-  
-
   def predict_and_explain(self, X, limit=9):
     X_scaled = self._scaler.transform(X)
     prediction = self._predict(X_scaled)
     waterfall_sv, brain_sv = self._explain(X_scaled, limit)
     return prediction, waterfall_sv, brain_sv
+
+  
+  def _load_scaler(self):
+    if(self._train is None):
+      raise ValueError("Model or Scaler not loaded")
+    
+    sc = MinMaxScaler()
+    sc.fit(self._train)
+    return sc
+
+
+  def _load_shap_explainer(self):
+    if(self._model is None or self._scaler is None or self._train is None):
+      raise ValueError("Model or Scaler not loaded")
+    
+    scaled_train = self._scaler.transform(self._train)
+
+    masker = shap.maskers.Independent(scaled_train, max_samples=100) 
+    return shap.PermutationExplainer(self._model, masker=masker, feature_names=cols, seed=self._random_state)
 
 
   def _predict(self, X):
@@ -44,7 +45,8 @@ class Model:
   
 
   def _explain(self, X, limit):
-    sv = self._shap_explainer(X, max_evals=953)
+    explainer = self._load_shap_explainer()
+    sv = explainer(X, max_evals=953)
 
     base_sv = sv.base_values.tolist()[0][0]
     formatted_sv = self._format_shap_values(sv)
