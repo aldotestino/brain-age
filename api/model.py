@@ -48,16 +48,30 @@ class Model:
     explainer = self._load_shap_explainer()
     sv = explainer(X, max_evals=953)
 
-    base_sv = sv.base_values.tolist()[0][0]
     formatted_sv = self._format_shap_values(sv)
-    waterfall_sv = self._shap_values_waterfall_format(formatted_sv, base_sv, limit)
+    tornado_sv = self._shap_values_tornado_format(formatted_sv, limit)
     brain_sv = self._shap_values_glass_brain_format(formatted_sv)
 
-    return waterfall_sv, brain_sv
+    return tornado_sv, brain_sv
   
 
   def _format_shap_values(self, sv):
     return [{'value': x, 'data': y, 'name': z} for x, y, z in zip(sv[0].values, sv[0].data, sv[0].feature_names)]
+  
+
+  def _shap_values_tornado_format(self, formatted_sv, limit=9):
+    ordered_values = sorted(formatted_sv, key=lambda x: abs(x['value']), reverse=True)
+    
+    remaining_values_sum = sum(x['value'] for x in ordered_values[limit:])
+    remaining_features_number = len(ordered_values) - limit
+
+    last_item = {
+      'value': remaining_values_sum,
+      'data': None,
+      'name': f"{remaining_features_number} other features"
+    }
+
+    return ordered_values[:limit] + [last_item]
   
 
   def _shap_values_waterfall_format(self, formatted_sv, base_sv, limit=9):

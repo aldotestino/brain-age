@@ -28,14 +28,14 @@ model Patient {
 }
 
 model Prediction {
-  id          Int      @id @default(autoincrement())
-  patientId   Int
-  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  prediction  Float
-  dataChange  Json?
-  waterfallSV Json
-  brainSV     Json
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  isBase      Boolean
+  id         Int      @id @default(autoincrement())
+  patientId  Int
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  prediction Float
+  dataChange Json?
+  tornadoSV  Json
+  brainSV    Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isBase     Boolean
 }

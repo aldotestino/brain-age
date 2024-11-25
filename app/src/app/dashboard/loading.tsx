@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react"
+import { Loader2 } from 'lucide-react';
 
 function LoadingDashbard() {
   return (
@@ -8,7 +8,7 @@ function LoadingDashbard() {
         <p className="font-semibold text-lg">Loading patients...</p>
       </div>
     </main>
-  )
+  );
 }
 
-export default LoadingDashbard
+export default LoadingDashbard;

@@ -33,10 +33,10 @@ class Api(FastAPI):
   def predict_and_explain(self, data: Patient):
     X = data.to_df()
 
-    prediction, waterfall_sv, brain_sv = self.model.predict_and_explain(X)
+    prediction, tornado_sv, brain_sv = self.model.predict_and_explain(X)
 
     return {
       "prediction": prediction,
-      "waterfall_sv": waterfall_sv,
+      "tornado_sv": tornado_sv,
       "brain_sv": brain_sv
     }

@@ -1,6 +1,4 @@
-import { Bar } from 'react-chartjs-2';
-import { Color, defaults } from 'chart.js';
-import { RdYlGn } from '@/lib/colorMaps.json';
+import { RdYlGn } from '@/lib/colorMaps';
 import { sampleColormap } from '@/lib/utils';
 
 export const features = ['surface_area', 'mean_curv', 'intrinsic_cur_index', 'GM_vol', 'gaussian_curv', 'average_thickness', 'thickness_stddev'] as const;
@@ -197,97 +195,6 @@ export const editableFeaturesItems = editableFeatures.map(f => ({
   value: f,
   label: featuresNames[f]
 }));
-
-
-export const graphColors = {
-  stroke: {
-    red: 'rgb(220, 38, 38)',
-    green: 'rgb(22, 163, 74)',
-  },
-  fill: {
-    red: 'rgba(220, 38, 38, 0.5)',
-    green: 'rgba(22, 163, 74, 0.5)',
-  }
-} as const;
-
-export const barOptions = {
-  indexAxis: 'y' as const,
-  elements: {
-    bar: {
-      borderWidth: 2,
-      borderRadius: 4
-    },
-  },
-  scales: {
-    y: {
-      border: {
-        display: false,
-        dash: [10, 5],
-      },
-      grid: {
-        drawTicks: false,
-      },
-      ticks: {
-        padding: 10
-      }
-    },
-    x: {
-      border: {
-        display: false,
-      },
-      grid: {
-        display: false,
-      },
-      ticks: {
-        count: 10 // probably solves the overlapping issue with the labels
-      },
-      bounds: 'data',
-      beginAtZero: false,
-      title: {
-        display: true,
-        text: 'Age',
-      }
-    }
-  },
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      onClick: () => null,
-      labels: {
-        generateLabels: () => {
-          return [
-            {
-              fontColor: defaults.color as Color,
-              text: 'Decrease Age',
-              strokeStyle: graphColors.stroke.green,
-              fillStyle: graphColors.fill.green,
-              borderRadius: 2
-            },
-            {
-              fontColor: defaults.color as Color,
-              text: 'Increase Age',
-              strokeStyle: graphColors.stroke.red,
-              fillStyle: graphColors.fill.red,
-              borderRadius: 2
-            }
-          ];
-        }
-      }
-    },
-    tooltip: {
-      callbacks: {
-        label: (ctx) => {
-          const values = ctx.dataset.data?.[ctx.dataIndex];
-          if (values && typeof (values) === 'object' && values.length === 2) {
-            const num = values[1] - values[0];
-            return `${num > 0 ? '+' : num < 0 ? '-' : ''}${(Math.abs(num)).toFixed(2)}`;
-          }
-        }
-      }
-    }
-  },
-} satisfies React.ComponentProps<typeof Bar>['options'];
 
 
 export const glassBrainShades = sampleColormap(RdYlGn.reverse(), 14);

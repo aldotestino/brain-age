@@ -17,11 +17,10 @@ export type DataChangeSchema = z.infer<typeof dataChangeSchema>;
 export type UpdatePatientSchema = z.infer<typeof updatePatientSchema>;
 export type AddPatientSchema = z.infer<typeof addPatientSchema>;
 
-type WaterfallSVItem = {
+type TornadoSVItem = {
   value: number;
   data: number | null;
   name: string;
-  range: [number, number];
 }
 
 export type BrainSVItem = {
@@ -38,6 +37,6 @@ export type BrainSV = {
 
 export type PredictionWithExplanation = {
   prediction: number;
-  waterfall_sv: WaterfallSVItem[];
+  tornado_sv: TornadoSVItem[];
   brain_sv: BrainSV
 }

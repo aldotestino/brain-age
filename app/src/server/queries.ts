@@ -119,7 +119,7 @@ async function getPrediction({ patientId, predictionId }: { patientId: string, p
       dataChange: true,
       prediction: true,
       brainSV: true,
-      waterfallSV: true,
+      tornadoSV: true,
     }
   });
 
@@ -130,6 +130,6 @@ async function getPrediction({ patientId, predictionId }: { patientId: string, p
     ...prediction,
     dataChange: prediction.dataChange as DataChangeSchema,
     brainSV: prediction.brainSV as PredictionWithExplanation['brain_sv'],
-    waterfallSV: prediction.waterfallSV as PredictionWithExplanation['waterfall_sv'],
+    tornadoSV: prediction.tornadoSV as PredictionWithExplanation['tornado_sv'],
   };
 }

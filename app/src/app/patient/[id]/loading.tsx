@@ -1,5 +1,5 @@
-import { Skeleton } from '@/components/ui/skeleton'
-import React from 'react'
+import { Skeleton } from '@/components/ui/skeleton';
+import React from 'react';
 
 function LoadingPatient() {
   return (
@@ -13,7 +13,7 @@ function LoadingPatient() {
       </div>
       <Skeleton className="h-full w-80" />
     </div>
-  )
+  );
 }
 
-export default LoadingPatient
+export default LoadingPatient;

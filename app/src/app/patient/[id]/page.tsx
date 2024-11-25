@@ -37,7 +37,7 @@ async function PatientPage({
           <ResultCard prediction={prediction.prediction} age={patient.age} />
         </div>
         
-        <ExplanationCard waterfallSV={prediction.waterfallSV} brainSV={prediction.brainSV} />
+        <ExplanationCard tornadoSV={prediction.tornadoSV} brainSV={prediction.brainSV} />
       </div>
       
       <div className='h-full w-80 bg-neutral-50 border-l grid grid-rows-[auto,1fr] overflow-y-hidden'>

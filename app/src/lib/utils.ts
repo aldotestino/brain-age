@@ -106,7 +106,10 @@ export function formatGlassBrainRegion(gbRegion: GlassBrainRegions) {
   return `${side === 'lh' ? 'Left' : 'Right'} ${regionsNamesAndDescription[region as Regions].name}`;
 }
 
-export function formatWaterfallLabel(mf: ModelFeatures) {
+export function formatChartLabel(mf: ModelFeatures) {
+
+  if (mf.includes('other features')) return mf;
+
   const [first, r] = mf.split('-');
   const region = r.charAt(0) + r.slice(1);
   const side = first.slice(-2) === 'lh' ? 'Left' : 'Right';

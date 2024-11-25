@@ -31,7 +31,7 @@ async function makePredictionAndExplanation({ baseData, dataChange, patientId, i
         isBase,
         prediction: data.prediction,
         brainSV: data.brain_sv,
-        waterfallSV: data.waterfall_sv
+        tornadoSV: data.tornado_sv
       }
     });
 
