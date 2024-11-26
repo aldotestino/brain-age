@@ -44,7 +44,7 @@ function TornadoPlot({ values }: {values: PredictionWithExplanation['tornado_sv'
             type="category"
             tickLine={false}
             axisLine={false}
-            width={200}
+            width={300}
             tickFormatter={formatChartLabel}
           />
           <XAxis 
