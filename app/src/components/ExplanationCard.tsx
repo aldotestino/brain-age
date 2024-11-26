@@ -36,7 +36,7 @@ function ExplanationCard({
               </WithTooltip>
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="waterfall" forceMount className='data-[state=inactive]:hidden mt-0'>
+          <TabsContent value="tornado" forceMount className='data-[state=inactive]:hidden mt-0'>
             <TornadoPlot values={tornadoSV} />
           </TabsContent>
           <TabsContent value="glassbrain" forceMount className='data-[state=inactive]:hidden mt-0'>

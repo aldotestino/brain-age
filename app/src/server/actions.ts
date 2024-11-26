@@ -128,7 +128,7 @@ export async function addPatient(values: AddPatientSchema) {
   } catch (e: any) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {
-        return 'Email already exists';
+        return 'Tax ID Code already exists';
       }
     }
     throw e; // otherwise redirect will not work
@@ -162,7 +162,7 @@ export async function updatePatient({
   } catch (e: any) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {
-        return 'Email already exists';
+        return 'Tax ID Code already exists';
       }
     }
   }
