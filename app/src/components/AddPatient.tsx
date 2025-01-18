@@ -160,6 +160,19 @@ function AddPatient() {
               </div>
               <FormField
                 control={form.control}
+                name="siteId"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Site ID</FormLabel>
+                    <FormControl>
+                      <Input {...field} type='number' min={1} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="data"
                 render={({ field, fieldState }) => (
                   <FormItem className="w-full">
